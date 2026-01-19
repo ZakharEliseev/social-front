@@ -1,5 +1,3 @@
-import cn from 'classnames';
-
 import cls from './index.module.scss';
 
 export const Logo = () => {

@@ -1,11 +1,11 @@
 import { RouteProps } from 'react-router';
 
-import { LoginPageAsync } from '@/components/App/pages/LoginPage/LoginPage.async';
-import { MainPageAsync } from '@/components/App/pages/MainPage/MainPage.async';
-import { ProfileEditPageAsync } from '@/components/App/pages/ProfileEditPage/ProfileEditPage.async';
-import { ProfilePageAsync } from '@/components/App/pages/ProfilePage/ProfilePage.async';
-import { RegisterPageAsync } from '@/components/App/pages/RegisterPage/RegisterPage.async';
-import { SearchPageAsync } from '@/components/App/pages/SearchPage/SearchPage.async';
+import { LoginPageAsync } from '@/app/Auth/ui/LoginPage/LoginPage.async';
+import { MainPageAsync } from '@/app/Main/ui/MainPage.async';
+import { ProfileEditPageAsync } from '@/app/Profile/ui/ProfileEditPage/ProfileEditPage.async';
+import { ProfilePageAsync } from '@/app/Profile/ui/ProfilePage/ProfilePage.async';
+import { RegisterPageAsync } from '@/app/Auth/ui/RegisterPage/RegisterPage.async';
+import { SearchPageAsync } from '@/app/Search/ui/SearchPage.async';
 
 export enum AppRoutes {
     MAIN = 'main',
