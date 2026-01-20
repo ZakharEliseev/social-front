@@ -1,11 +1,6 @@
-import { RouteProps } from 'react-router';
+import { lazy } from 'react';
 
-import { LoginPageAsync } from '@/app/Auth/ui/LoginPage/LoginPage.async';
-import { MainPageAsync } from '@/app/Main/ui/MainPage.async';
-import { ProfileEditPageAsync } from '@/app/Profile/ui/ProfileEditPage/ProfileEditPage.async';
-import { ProfilePageAsync } from '@/app/Profile/ui/ProfilePage/ProfilePage.async';
-import { RegisterPageAsync } from '@/app/Auth/ui/RegisterPage/RegisterPage.async';
-import { SearchPageAsync } from '@/app/Search/ui/SearchPage.async';
+import { RouteProps } from 'react-router';
 
 export enum AppRoutes {
     MAIN = 'main',
@@ -14,6 +9,7 @@ export enum AppRoutes {
     REGISTER = 'register',
     PROFILE = 'profile',
     PROFILE_EDIT = 'profile_edit',
+    NOT_FOUND = 'not_found',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -21,33 +17,38 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.LOGIN]: '/login',
     [AppRoutes.SEARCH]: '/search',
     [AppRoutes.REGISTER]: '/register',
-    [AppRoutes.PROFILE]: "/profile/:id'",
+    [AppRoutes.PROFILE]: '/profile/:id',
     [AppRoutes.PROFILE_EDIT]: '/profile/edit',
+    [AppRoutes.NOT_FOUND]: '*',
 };
 
 export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.MAIN]: {
         path: RoutePath.main,
-        element: <MainPageAsync />,
+        Component: lazy(() => import('@/app/Main/ui/index')),
     },
     [AppRoutes.LOGIN]: {
         path: RoutePath.login,
-        element: <LoginPageAsync />,
+        Component: lazy(() => import('@/app/Auth/pages/LoginPage/index')),
     },
     [AppRoutes.SEARCH]: {
         path: RoutePath.search,
-        element: <SearchPageAsync />,
+        Component: lazy(() => import('@/app/Search/ui/index')),
     },
     [AppRoutes.REGISTER]: {
         path: RoutePath.register,
-        element: <RegisterPageAsync />,
+        Component: lazy(() => import('@/app/Auth/pages/RegisterPage/index')),
     },
     [AppRoutes.PROFILE]: {
         path: RoutePath.profile,
-        element: <ProfilePageAsync />,
+        Component: lazy(() => import('@/app/Profile/ui/ProfilePage/index')),
     },
     [AppRoutes.PROFILE_EDIT]: {
         path: RoutePath.profile_edit,
-        element: <ProfileEditPageAsync />,
+        Component: lazy(() => import('@/app/Profile/ui/ProfileEditPage/index')),
+    },
+    [AppRoutes.NOT_FOUND]: {
+        path: RoutePath.not_found,
+        Component: lazy(() => import('@/app/NotFound/index')),
     },
 };
