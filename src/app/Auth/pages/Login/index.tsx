@@ -1,7 +1,6 @@
-import { Header } from 'antd/es/layout/layout';
-
 import cls from '../../styles/index.module.scss';
 import { LoginForm } from '../../ui/Form/Login';
+import { Header } from '../../ui/Header';
 
 
 const Login = () => {
