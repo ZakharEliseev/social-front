@@ -4,8 +4,7 @@ import { Button } from 'antd';
 import { Link } from 'react-router';
 
 import { useLoginForm } from '../../hooks/useLoginForm';
-
-import { InputField } from './InputField';
+import { Input } from '../Input';
 
 import cls from './index.module.scss';
 
@@ -14,28 +13,28 @@ export const LoginForm: FC = () => {
 
     return (
         <form className={cls.formAuth} onSubmit={onSubmit}>
-            <InputField
+            <Input
                 name="email"
                 control={control}
                 placeholder="Введите email"
                 label="Электронная почта"
                 errors={errors}
             />
-            <InputField
+            <Input
                 name="password"
                 control={control}
                 placeholder="Введите пароль"
                 label="Пароль"
                 errors={errors}
             />
-                <Button
-                    className={cls.btn}
-                    type="primary"
-                    htmlType="submit"
-                    color="default"
-                    variant="solid">
-                    Войти
-                </Button>
+            <Button
+                className={cls.btn}
+                type="primary"
+                htmlType="submit"
+                color="default"
+                variant="solid">
+                Войти
+            </Button>
             <p className={cls.register}>
                 Нет аккаунта?{' '}
                 <Link className={cls.link} to={'/register'}>

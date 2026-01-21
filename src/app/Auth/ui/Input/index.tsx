@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Input } from 'antd';
+import { Input as AntdInput} from 'antd';
 import { Controller } from 'react-hook-form';
 
 
@@ -14,7 +14,7 @@ interface Props {
     label: string;
     errors: any;
 }
-export const InputField: FC<Props> = ({ name, placeholder, control, errors, label }) => {
+export const Input: FC<Props> = ({ name, placeholder, control, errors, label }) => {
 
     return (
         <div className={cls.formField}>
@@ -25,10 +25,10 @@ export const InputField: FC<Props> = ({ name, placeholder, control, errors, labe
                 name={name}
                 control={control}
                 render={({ field }) => (
-                    <Input className={cls.inputField} {...field} placeholder={placeholder} />
+                    <AntdInput className={cls.inputField} {...field} placeholder={placeholder} />
                 )}
             />
-            {errors[name].message && <span className={cls.danger}>{errors}</span>}
+            {errors[name] && <span className={cls.danger}>{errors}</span>}
         </div>
     );
 };

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
 
-export type FieldType = {
+export type FormFields = {
     email?: string;
     username?: string;
     password?: string;
@@ -14,11 +14,11 @@ export const useLoginForm = () => {
           control,
           handleSubmit,
           formState: { errors },
-      } = useForm<FieldType>();
+      } = useForm<FormFields>();
 
       const navigate = useNavigate();
 
-      const onSubmit = handleSubmit(async (data: FieldType) => {
+      const onSubmit = handleSubmit(async (data: FormFields) => {
           try {
               const response = await axios.post('/api/v1/auth/login', data);
               const { accessToken } = response.data;
