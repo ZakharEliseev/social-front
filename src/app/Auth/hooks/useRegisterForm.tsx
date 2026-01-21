@@ -17,7 +17,7 @@ export const useRegisterForm = () => {
 
     const navigate = useNavigate();
 
-    const onSubmit = async (data: FieldType) => {
+    const onSubmit = handleSubmit(async (data: FieldType) => {
         try {
             const response = await axios.post('/api/v1/auth/register', data);
             console.warn('>>', response);
@@ -25,11 +25,10 @@ export const useRegisterForm = () => {
         } catch (err) {
             console.error('>>', err);
         }
-    };
+    });
 
     return {
         control,
-        handleSubmit,
         errors,
         onSubmit,
     };

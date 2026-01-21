@@ -1,8 +1,8 @@
-import { RegisterForm } from '../../ui/Form/RegisterForm';
+import cls from '../../styles/index.module.scss';
+import { RegisterForm } from '../../ui/Form/Register';
 
-import cls from './index.module.scss';
 
-export const RegisterPage = () => {
+export const Register = () => {
     return (
         <div className={cls.authPage}>
             <div>
@@ -16,4 +16,4 @@ export const RegisterPage = () => {
     );
 };
 
-export default RegisterPage;
+export default Register;

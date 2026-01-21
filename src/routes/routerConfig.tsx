@@ -29,7 +29,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     },
     [AppRoutes.LOGIN]: {
         path: RoutePath.login,
-        Component: lazy(() => import('@/app/Auth/pages/LoginPage/index')),
+        Component: lazy(() => import('@/app/Auth/pages/Login/index')),
     },
     [AppRoutes.SEARCH]: {
         path: RoutePath.search,
@@ -37,7 +37,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     },
     [AppRoutes.REGISTER]: {
         path: RoutePath.register,
-        Component: lazy(() => import('@/app/Auth/pages/RegisterPage/index')),
+        Component: lazy(() => import('@/app/Auth/pages/Register/index')),
     },
     [AppRoutes.PROFILE]: {
         path: RoutePath.profile,

@@ -10,44 +10,39 @@ import { InputField } from './InputField';
 import cls from './index.module.scss';
 
 export const RegisterForm: FC = () => {
-    const { control, handleSubmit, errors, onSubmit } = useRegisterForm();
+    const { control, errors, onSubmit } = useRegisterForm();
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className={cls.formAuth} onSubmit={onSubmit}>
             <InputField
                 name="username"
                 control={control}
-                rules={{ required: true }}
                 placeholder="Введите имя пользователя"
-                labelText="Имя пользователя"
+                label="Имя пользователя"
                 errors={errors}
             />
             <InputField
                 name="email"
                 control={control}
-                rules={{ required: true }}
                 placeholder="Введите email"
-                labelText="Email"
+                label="Email"
                 errors={errors}
             />
             <InputField
                 name="password"
                 control={control}
-                rules={{ required: true }}
                 placeholder="Введите пароль"
-                labelText="Введите пароль"
+                label="Введите пароль"
                 errors={errors}
             />
             {/* Только для валдиции, на сервер не отправляетя? */}
             <InputField
                 name="confirmPassword"
                 control={control}
-                rules={{ require: true }}
                 placeholder="Подтвердите пароль"
-                labelText="Подтвердите пароль"
+                label="Подтвердите пароль"
                 errors={errors}
             />
-            <div>
                 <Button
                     className={cls.btn}
                     type="primary"
@@ -56,11 +51,10 @@ export const RegisterForm: FC = () => {
                     variant="solid">
                     Зарегистрироваться
                 </Button>
-            </div>
             <p className={cls.register}>
                 Уже есть аккаунт?{' '}
-                <Link to={'/register'}>
-                    <span>Войти</span>
+                <Link className={cls.link} to={'/register'}>
+                    <span className={cls.boldLink}>Войти</span>
                 </Link>
             </p>
         </form>

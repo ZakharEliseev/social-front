@@ -36,7 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^8.41.0",
     "@typescript-eslint/parser": "^8.41.0",
     "@vitejs/plugin-react": "^5.0.1",
-    "babel-plugin-react-compiler": "^1.0.0",
+    "xbel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.34.0",
     "eslint-plugin-css-modules": "^2.12.0",
     "eslint-plugin-import": "^2.31.0",

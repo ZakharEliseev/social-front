@@ -22,31 +22,31 @@
 }
 
 
-span {
+.boldLink {
     font-weight: 600;
 }
 
-a {
+.link {
     text-decoration: none;
     cursor: pointer;
     color: black;
 }
 
-a:hover {
+.link:hover {
     text-decoration: underline;
 }
 
-label {
+.fieldName {
     font-weight: 600;
     font-size: 1rem;
 }
 
-form {
+.formAuth {
     display: flex;
     flex-direction: column;
     row-gap: 25px;
 }
 
-input {
+.inputField {
     height: 2.75rem;
 }

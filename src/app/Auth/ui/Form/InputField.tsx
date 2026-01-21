@@ -3,30 +3,32 @@ import { FC } from 'react';
 import { Input } from 'antd';
 import { Controller } from 'react-hook-form';
 
+
 import cls from './index.module.scss';
 
 
-interface InputFieldProps {
+interface Props {
     name: string;
     placeholder?: string;
     control: any;
-    labelText: string;
-    rules: any;
+    label: string;
     errors: any;
 }
-
-export const InputField: FC<InputFieldProps> = ({ name, placeholder, control, errors, labelText }) => {
+export const InputField: FC<Props> = ({ name, placeholder, control, errors, label }) => {
 
     return (
         <div className={cls.formField}>
-            <label htmlFor={name}>{labelText}</label>
+            <label className={cls.fieldName} htmlFor={name}>
+                {label}
+            </label>
             <Controller
                 name={name}
                 control={control}
-                rules={{ required: true }}
-                render={({ field }) => <Input {...field} placeholder={placeholder} />}
+                render={({ field }) => (
+                    <Input className={cls.inputField} {...field} placeholder={placeholder} />
+                )}
             />
-            {errors[name] && <span className={cls.danger}>Это поле обязательно</span>}
+            {errors[name].message && <span className={cls.danger}>{errors}</span>}
         </div>
     );
 };

@@ -1,8 +1,8 @@
-import { LoginForm } from '../../ui/Form/LoginForm';
+import cls from '../../styles/index.module.scss';
+import { LoginForm } from '../../ui/Form/Login';
 
-import cls from './index.module.scss';
 
-const LoginPage = () => {
+const Login = () => {
     
     return (
         <div className={cls.authPage}>
@@ -16,4 +16,4 @@ const LoginPage = () => {
         </div>
     );};
 
-export default LoginPage;
+export default Login;

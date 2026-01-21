@@ -10,28 +10,24 @@ import { InputField } from './InputField';
 import cls from './index.module.scss';
 
 export const LoginForm: FC = () => {
-
-    const { control, handleSubmit, errors, onSubmit } = useLoginForm();
+    const { control, errors, onSubmit } = useLoginForm();
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className={cls.formAuth} onSubmit={onSubmit}>
             <InputField
                 name="email"
                 control={control}
-                rules={{ required: true }}
                 placeholder="Введите email"
-                labelText="Электронная почта"
+                label="Электронная почта"
                 errors={errors}
             />
             <InputField
                 name="password"
                 control={control}
-                rules={{ required: true }}
                 placeholder="Введите пароль"
-                labelText="Пароль"
+                label="Пароль"
                 errors={errors}
             />
-            <div>
                 <Button
                     className={cls.btn}
                     type="primary"
@@ -40,11 +36,10 @@ export const LoginForm: FC = () => {
                     variant="solid">
                     Войти
                 </Button>
-            </div>
             <p className={cls.register}>
                 Нет аккаунта?{' '}
-                <Link to={'/register'}>
-                    <span>Зарегистрироваться</span>
+                <Link className={cls.link} to={'/register'}>
+                    <span className={cls.boldLink}>Зарегистрироваться</span>
                 </Link>
             </p>
         </form>
