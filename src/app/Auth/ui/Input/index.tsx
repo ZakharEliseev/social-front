@@ -18,6 +18,7 @@ export const Input: FC<Props> = ({ name, control, error, label }) => {
         name,
         control,
     });
+
     return (
         <div className={cls.inputWrapper}>
             <label className={cls.label} htmlFor={name}>
