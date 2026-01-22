@@ -11,6 +11,11 @@ export type LoginFormValues = {
     password: string;
 };
 
+const defaultValues = {
+            email: 'user@example.com',
+            password: 'SecurePass123!',
+        }
+        
 export const useLoginForm = () => {
     const {
         control,
@@ -18,10 +23,7 @@ export const useLoginForm = () => {
         formState: { errors },
         setError,
     } = useForm<LoginFormValues>({
-        defaultValues: {
-            email: 'user@example.com',
-            password: 'SecurePass123!',
-        },
+        defaultValues: defaultValues,
         resolver: yupResolver(loginSchema),
         mode: 'onBlur',
     });
