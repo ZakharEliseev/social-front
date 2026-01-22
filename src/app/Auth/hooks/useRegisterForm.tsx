@@ -27,14 +27,13 @@ export const useRegisterForm = () => {
 
     const navigate = useNavigate();
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onSubmit = handleSubmit(async ({ confirmPassword, ...data }: RegisterFormValues) => {
         try {
             const response = await register(data).unwrap();
             console.warn('>>', response);
-            response && navigate('/');
-        } catch (err) {
-            console.error('>>', err);
+            response && navigate('/login');
+        } catch (err: any) {
+            setError('root', { message: err.data.message });
         }
     });
 
@@ -44,3 +43,7 @@ export const useRegisterForm = () => {
         onSubmit,
     };
 };
+function setError(arg0: string, arg1: { message: any; }) {
+    throw new Error('Function not implemented.');
+}
+
