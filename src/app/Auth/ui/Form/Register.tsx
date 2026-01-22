@@ -18,28 +18,28 @@ export const RegisterForm: FC = () => {
                 control={control}
                 placeholder="Введите имя пользователя"
                 label="Имя пользователя"
-                errors={errors.username?.message}
+                error={errors.username?.message}
             />
             <Input
                 name="email"
                 control={control}
                 placeholder="Введите email"
                 label="Email"
-                errors={errors.email?.message}
+                error={errors.email?.message}
             />
             <Input
                 name="password"
                 control={control}
                 placeholder="Введите пароль"
                 label="Введите пароль"
-                errors={errors.password?.message}
+                error={errors.password?.message}
             />
             <Input
                 name="confirmPassword"
                 control={control}
                 placeholder="Подтвердите пароль"
                 label="Подтвердите пароль"
-                errors={errors.confirmPassword?.message}
+                error={errors.confirmPassword?.message}
             />
             <Button
                 className={cls.btn}

@@ -10,10 +10,10 @@ interface Props {
     placeholder?: string;
     control: any;
     label: string;
-    errors?: string;
+    error: string | undefined;
 }
 
-export const Input: FC<Props> = ({ name, control, errors, label }) => {
+export const Input: FC<Props> = ({ name, control, error, label }) => {
     const { field } = useController({
         name,
         control,
@@ -24,7 +24,7 @@ export const Input: FC<Props> = ({ name, control, errors, label }) => {
                 {label}
             </label>
             <AntdInput className={cls.input} {...field} />
-            {errors && <span className={cls.errorMessage}>{errors}</span>}
+            {error && <span className={cls.errorMessage}>{error}</span>}
         </div>
     );
 };

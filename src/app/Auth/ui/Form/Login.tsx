@@ -18,14 +18,14 @@ export const LoginForm: FC = () => {
                 control={control}
                 placeholder="Введите email"
                 label="Электронная почта"
-                errors={errors.root?.message}
+                error={errors.root?.message}
             />
             <Input
                 name="password"
                 control={control}
                 placeholder="Введите пароль"
                 label="Пароль"
-                errors={errors.root?.message}
+                error={errors.root?.message}
             />
             <Button
                 className={cls.btn}
