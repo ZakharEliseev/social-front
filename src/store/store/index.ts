@@ -1,15 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { setupListeners } from '@reduxjs/toolkit/query'
 
-import { socialApi } from '../shared/services/HttpService'
+import { socialApi } from '../../shared/services/HttpService'
+import tokenReducer  from '../authSlice'
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-
+    token: tokenReducer,
     [socialApi.reducerPath]: socialApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(socialApi.middleware),
 })
 
-setupListeners(store.dispatch)
+export {store};

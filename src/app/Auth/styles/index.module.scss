@@ -1,20 +1,11 @@
 @use '~/styles/variables.scss' as *;
 
 .authPage {
-  margin: 0 auto;
-  width: $auth-page-width;
-  height: $auth-page-height;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-evenly;
-}
-
-.auth {
-  width: $auth-card-width;
-  max-height: $auth-card-max-height;
-  background-color: $auth-bg-white;
-  padding: $auth-card-padding;
-  border: $auth-card-border;
-  border-radius: $auth-card-border-radius;
+  align-items: center;
+  width: $auth-page-width;
+  height: $auth-page-height;
+  margin: 0 auto;
 }

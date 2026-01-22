@@ -18,29 +18,28 @@ export const RegisterForm: FC = () => {
                 control={control}
                 placeholder="Введите имя пользователя"
                 label="Имя пользователя"
-                errors={errors}
+                errors={errors.username?.message}
             />
             <Input
                 name="email"
                 control={control}
                 placeholder="Введите email"
                 label="Email"
-                errors={errors}
+                errors={errors.email?.message}
             />
             <Input
                 name="password"
                 control={control}
                 placeholder="Введите пароль"
                 label="Введите пароль"
-                errors={errors}
+                errors={errors.password?.message}
             />
-            {/* Только для валдиции, на сервер не отправляетя? */}
             <Input
                 name="confirmPassword"
                 control={control}
                 placeholder="Подтвердите пароль"
                 label="Подтвердите пароль"
-                errors={errors}
+                errors={errors.confirmPassword?.message}
             />
             <Button
                 className={cls.btn}
@@ -52,7 +51,7 @@ export const RegisterForm: FC = () => {
             </Button>
             <p className={cls.register}>
                 Уже есть аккаунт?{' '}
-                <Link className={cls.link} to={'/register'}>
+                <Link className={cls.link} to={'/login'}>
                     <span className={cls.boldLink}>Войти</span>
                 </Link>
             </p>

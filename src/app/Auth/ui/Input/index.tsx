@@ -1,34 +1,33 @@
 import { FC } from 'react';
 
-import { Input as AntdInput} from 'antd';
-import { Controller } from 'react-hook-form';
+import { Input as AntdInput } from 'antd';
+import { useController } from 'react-hook-form';
 
+import { AllFormFields } from '../../models/schemas';
 
 import cls from './index.module.scss';
 
 
 interface Props {
-    name: string;
+    name: keyof AllFormFields;
     placeholder?: string;
     control: any;
     label: string;
-    errors: any;
+    errors?: string;
 }
-export const Input: FC<Props> = ({ name, placeholder, control, errors, label }) => {
 
+export const Input: FC<Props> = ({ name, control, errors, label }) => {
+    const { field } = useController({
+        name,
+        control,
+    });
     return (
-        <div className={cls.formField}>
-            <label className={cls.fieldName} htmlFor={name}>
+        <div className={cls.inputWrapper}>
+            <label className={cls.label} htmlFor={name}>
                 {label}
             </label>
-            <Controller
-                name={name}
-                control={control}
-                render={({ field }) => (
-                    <AntdInput className={cls.inputField} {...field} placeholder={placeholder} />
-                )}
-            />
-            {errors[name] && <span className={cls.danger}>{errors}</span>}
+            <AntdInput className={cls.input} {...field} />
+            {errors && <span className={cls.errorMessage}>{errors}</span>}
         </div>
     );
 };

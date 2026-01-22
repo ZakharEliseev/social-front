@@ -1,15 +1,15 @@
 @use '~/styles/variables.scss' as *;
 
 .header {
-  font-weight: $header-font-weight;
   font-size: $header-font-size;
+  font-weight: $header-font-weight;
   text-align: center;
 }
 
 .subheader {
-  color: $subheader-text-color;
   font-size: $subheader-font-size;
-  line-height: $subheader-line-height;
   font-weight: $subheader-font-weight;
+  line-height: $subheader-line-height;
   text-align: center;
+  color: $subheader-text-color;
 }

@@ -15,6 +15,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@reduxjs/toolkit": "^2.11.2",
     "@types/classnames": "^2.3.0",
     "antd": "^6.2.0",

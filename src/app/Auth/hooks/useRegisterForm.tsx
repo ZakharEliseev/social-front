@@ -1,11 +1,16 @@
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-type FieldType = {
+import { useRegisterMutation } from '@/shared/services/HttpService';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import { registerSchema } from '../validations/registerSchema';
+
+export type RegisterFormValues = {
     username: string;
     email: string;
     password: string;
+    confirmPassword: string;
 };
 
 export const useRegisterForm = () => {
@@ -13,15 +18,21 @@ export const useRegisterForm = () => {
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm<FieldType>();
+    } = useForm<RegisterFormValues>({
+        resolver: yupResolver(registerSchema),
+        mode: 'onBlur',
+    });
+
+    const [register] = useRegisterMutation();
 
     const navigate = useNavigate();
 
-    const onSubmit = handleSubmit(async (data: FieldType) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const onSubmit = handleSubmit(async ({ confirmPassword, ...data }: RegisterFormValues) => {
         try {
-            const response = await axios.post('/api/v1/auth/register', data);
+            const response = await register(data).unwrap();
             console.warn('>>', response);
-            navigate('/')
+            response && navigate('/');
         } catch (err) {
             console.error('>>', err);
         }

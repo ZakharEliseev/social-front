@@ -1,19 +1,19 @@
-.formField {
+.inputWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     row-gap: 10px;
 }
 
-.fieldName {
-    font-weight: 600;
+.label {
     font-size: 1rem;
+    font-weight: 600;
 }
 
-.inputField {
+.input {
     height: 2.75rem;
 }
 
-.danger {
+.errorMessage {
     color: red;
 }
