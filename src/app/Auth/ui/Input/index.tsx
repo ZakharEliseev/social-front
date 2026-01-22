@@ -3,12 +3,10 @@ import { FC } from 'react';
 import { Input as AntdInput } from 'antd';
 import { useController } from 'react-hook-form';
 
-import { AllFormFields } from '../../models/schemas';
-
 import cls from './index.module.scss';
 
 interface Props {
-    name: keyof AllFormFields;
+    name: string;
     placeholder?: string;
     control: any;
     label: string;
