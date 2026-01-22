@@ -33,6 +33,7 @@ export const useLoginForm = () => {
     const onSubmit = handleSubmit(async (data: LoginFormValues) => {
         try {
             const response = await login(data).unwrap();
+            localStorage.setItem('token', response.accessToken);
             response.accessToken && navigate('/');
         } catch (err: any) {
             setError('root', { message: err.data.message });

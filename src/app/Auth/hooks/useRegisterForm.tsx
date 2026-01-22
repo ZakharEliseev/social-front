@@ -18,6 +18,7 @@ export const useRegisterForm = () => {
         control,
         handleSubmit,
         formState: { errors },
+        setError,
     } = useForm<RegisterFormValues>({
         resolver: yupResolver(registerSchema),
         mode: 'onBlur',
@@ -27,6 +28,7 @@ export const useRegisterForm = () => {
 
     const navigate = useNavigate();
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onSubmit = handleSubmit(async ({ confirmPassword, ...data }: RegisterFormValues) => {
         try {
             const response = await register(data).unwrap();
@@ -43,7 +45,3 @@ export const useRegisterForm = () => {
         onSubmit,
     };
 };
-function setError(arg0: string, arg1: { message: any; }) {
-    throw new Error('Function not implemented.');
-}
-

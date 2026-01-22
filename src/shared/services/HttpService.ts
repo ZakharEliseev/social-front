@@ -23,9 +23,22 @@ interface RegisterRequest {
     password: string;
 }
 
-export const socialApi = createApi({
-  reducerPath: 'socialApi',
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.VITE_API_URL || 'http://localhost:5001/api/v1' }),
+const apiService = createApi({
+  reducerPath: 'apiService',
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.VITE_API_URL || 'http://localhost:5001/api/v1', 
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+
+      return headers;
+    },}),
+  endpoints: () => ({}),
+});
+
+export const socialApi = apiService.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (authData) => ({
