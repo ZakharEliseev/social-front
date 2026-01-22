@@ -7,7 +7,6 @@ import { AllFormFields } from '../../models/schemas';
 
 import cls from './index.module.scss';
 
-
 interface Props {
     name: keyof AllFormFields;
     placeholder?: string;

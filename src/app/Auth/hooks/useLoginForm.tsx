@@ -33,7 +33,7 @@ export const useLoginForm = () => {
     const onSubmit = handleSubmit(async (data: LoginFormValues) => {
         try {
             const response = await login(data).unwrap();
-            if (response.status === 200 && response.accessToken) navigate('/');
+             response.accessToken && navigate('/');
         } catch (err: any) {
             const serverError = err.data.message;
              if (serverError === 'invalid_email') {
