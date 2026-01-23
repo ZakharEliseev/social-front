@@ -25,7 +25,7 @@ export const RoutePath: Record<AppRoutes, string> = {
 export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.MAIN]: {
         path: RoutePath.main,
-        Component: lazy(() => import('@/app/Main/ui')),
+        Component: lazy(() => import('@/app/Main')),
     },
     [AppRoutes.LOGIN]: {
         path: RoutePath.login,

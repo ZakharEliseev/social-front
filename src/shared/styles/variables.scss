@@ -5,6 +5,9 @@ $primary-color: #007bff;
 $text-color: #000;
 $danger-color: red;
 
+// Рамка
+$border-color: 1px solid #80808036;
+
 // Размеры
 $btn-height: 40px;
 $input-height: 2.75rem;
@@ -27,7 +30,6 @@ $auth-card-width: 472px;
 $auth-card-max-height: 100%;
 $auth-card-padding: 2.5rem;
 $auth-card-border-radius: 0.5rem;
-$auth-card-border: 1px solid #80808036;
 
 // Цвета
 $auth-bg-white: rgb(255 255 255);
@@ -39,3 +41,4 @@ $subheader-font-size: 1.125rem;
 $subheader-line-height: 1.75rem;
 $header-font-weight: 400;
 $subheader-font-weight: 100;
+

@@ -1,0 +1,19 @@
+@use '~/styles/variables.scss' as *;
+
+.navbar {
+  margin: 0 auto;
+  width: 1200px;
+  padding: 0 24px 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 10px 10px 0 0;
+  border-bottom: $border-color;
+}
+
+.itemsWrapper {
+  display: flex;
+  gap: 0.5rem;
+}
