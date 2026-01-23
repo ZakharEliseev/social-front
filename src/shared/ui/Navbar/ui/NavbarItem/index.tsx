@@ -1,15 +1,25 @@
-import { Button } from 'antd';
+import classNames from 'classnames';
+
+import { NavLink } from 'react-router';
 
 import cls from './index.module.scss';
 
+
+import './index.module.scss';
+
 interface Props {
     children: string;
+    location: string;
+    icon: React.ReactNode;
 }
 
-export const NavbarItem = ({children}: Props) => {
-    
+export const NavbarItem = ({ children, location, icon }: Props) => {
     return (
-        <Button>
+        <NavLink
+            to={location}
+            className={({ isActive }) => classNames(cls.link, {[cls.active] : isActive})}>
+            {icon}
             {children}
-        </Button>
-    )};
+        </NavLink>
+    );
+};

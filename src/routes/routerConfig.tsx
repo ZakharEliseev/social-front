@@ -33,7 +33,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     },
     [AppRoutes.SEARCH]: {
         path: RoutePath.search,
-        Component: lazy(() => import('@/app/Search/ui')),
+        Component: lazy(() => import('@/app/Search')),
     },
     [AppRoutes.REGISTER]: {
         path: RoutePath.register,
