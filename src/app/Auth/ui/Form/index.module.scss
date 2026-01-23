@@ -12,12 +12,8 @@
     text-align: center;
 }
 
-.boldLink {
-    font-weight: 600;
-}
-
 .link {
-    text-decoration: none;
+    font-weight: 600;
     color: black;
     cursor: pointer;
     &:hover {
@@ -35,4 +31,9 @@
     border-radius: $auth-card-border-radius;
     background-color: $auth-bg-white;
     row-gap: 25px;
+}
+
+.errorMessage {
+    color: red;
+    text-align: center;
 }

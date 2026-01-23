@@ -17,7 +17,7 @@ export const useRegisterForm = () => {
     const {
         control,
         handleSubmit,
-        formState: { error },
+        formState: { errors },
         setError,
     } = useForm<RegisterFormValues>({
         resolver: yupResolver(registerSchema),
@@ -28,12 +28,10 @@ export const useRegisterForm = () => {
 
     const navigate = useNavigate();
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const onSubmit = handleSubmit(async ({ confirmPassword, ...data }: RegisterFormValues) => {
+    const onSubmit = handleSubmit(async ({ username, email, password }: RegisterFormValues) => {
         try {
-            const response = await register(data).unwrap();
-            console.warn('>>', response);
-            response && navigate('/login');
+            await register({username, email, password});
+            navigate('/login');
         } catch (err: any) {
             setError('root', { message: err.data.message });
         }

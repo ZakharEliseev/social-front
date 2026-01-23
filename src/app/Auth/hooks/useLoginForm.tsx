@@ -36,7 +36,7 @@ export const useLoginForm = () => {
         try {
             const response = await login(data).unwrap();
             localStorage.setItem('token', response.accessToken);
-            response.accessToken && navigate('/');
+            navigate('/');
         } catch (err: any) {
             setError('root', { message: err.data.message });
         }

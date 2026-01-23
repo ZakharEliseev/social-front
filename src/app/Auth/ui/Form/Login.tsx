@@ -13,19 +13,20 @@ export const LoginForm: FC = () => {
 
     return (
         <form className={cls.formAuth} onSubmit={onSubmit}>
+            <p className={cls.errorMessage}>{errors.root?.message}</p>
             <Input
                 name="email"
                 control={control}
                 placeholder="Введите email"
                 label="Электронная почта"
-                error={errors.root?.message}
+                error={errors.email?.message}
             />
             <Input
                 name="password"
                 control={control}
                 placeholder="Введите пароль"
                 label="Пароль"
-                error={errors.root?.message}
+                error={errors.password?.message}
             />
             <Button
                 className={cls.btn}
@@ -38,7 +39,7 @@ export const LoginForm: FC = () => {
             <p className={cls.register}>
                 Нет аккаунта?{' '}
                 <Link className={cls.link} to={'/register'}>
-                    <span className={cls.boldLink}>Зарегистрироваться</span>
+                    Зарегистрироваться
                 </Link>
             </p>
         </form>
