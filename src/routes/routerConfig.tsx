@@ -22,10 +22,10 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.NOT_FOUND]: '*',
 };
 
-export const routeConfig: Record<AppRoutes, RouteProps> = {
+export const publicRouteConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.MAIN]: {
         path: RoutePath.main,
-        Component: lazy(() => import('@/app/Main/ui')),
+        Component:  lazy(() => import('@/app/Main')),
     },
     [AppRoutes.LOGIN]: {
         path: RoutePath.login,
@@ -52,3 +52,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
         Component: lazy(() => import('@/app/NotFound')),
     },
 };
+
+// export const privateRouteConfig: Record<AppRoutes, RouteProps> = {
+
+// };

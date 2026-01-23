@@ -23,6 +23,19 @@ export interface RegisterRequest {
     password: string;
 }
 
+export interface ProfileResponse {
+  id: number;
+  username: string;
+  email: string;
+  bio: string | null;
+  avatar: string | null;
+  postsCount: number;
+  followersCount: number;
+  followingCount: number;
+  isFollowing: boolean;
+  isOwnProfile: boolean;
+  createdAt: string;
+}
 
 export const socialApi = apiService.injectEndpoints({
   endpoints: (builder) => ({
@@ -40,8 +53,13 @@ export const socialApi = apiService.injectEndpoints({
         body: userData,
       }),
     }),
+      getUserProfile: builder.query<ProfileResponse, void>({
+      query: () => ({
+        url: '/users/profile',
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation, useRegisterMutation } = socialApi;
-
+export const { useLoginMutation, useRegisterMutation, useGetUserProfileQuery } = socialApi;

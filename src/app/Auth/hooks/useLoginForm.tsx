@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-
 import { useLoginMutation } from '@/app/api';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -13,9 +12,9 @@ export type LoginFormValues = {
 };
 
 const defaultValues = {
-            email: 'user@example.com',
-            password: 'SecurePass123!',
-        }
+    email: 'user@example.com',
+    password: 'SecurePass123!',
+};
 
 export const useLoginForm = () => {
     const {
@@ -33,9 +32,9 @@ export const useLoginForm = () => {
 
     const navigate = useNavigate();
 
-    const onSubmit = handleSubmit(async (data: LoginFormValues) => {
+    const onSubmit = handleSubmit(async (authData: LoginFormValues) => {
         try {
-            const response = await login(data).unwrap();
+            const response = await login(authData).unwrap();
             localStorage.setItem('token', response.accessToken);
             navigate('/');
         } catch (err: any) {
