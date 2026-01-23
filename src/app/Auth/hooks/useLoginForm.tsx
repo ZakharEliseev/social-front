@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { useLoginMutation } from '@/shared/services/HttpService';
+
+import { useLoginMutation } from '@/app/api';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { loginSchema } from '../validations/loginSchema';

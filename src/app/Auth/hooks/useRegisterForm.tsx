@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { useRegisterMutation } from '@/shared/services/HttpService';
+
+import { useRegisterMutation } from '@/app/api';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { registerSchema } from '../validations/registerSchema';

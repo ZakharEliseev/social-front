@@ -1,23 +1,23 @@
 import { apiService } from "@/shared/services/HttpService";
 
-interface LoginResponse {
+export interface LoginResponse {
   accessToken: string;
   status?: number;
 }
 
-interface LoginRequest {
+export interface LoginRequest {
   email: string;
   password: string
 }
 
-interface RegisterResponse {
+export interface RegisterResponse {
   createdAt: string;
   email: string;
   id: string;
   username: string;
 }
 
-interface RegisterRequest {
+export interface RegisterRequest {
     username: string;
     email: string;
     password: string;
