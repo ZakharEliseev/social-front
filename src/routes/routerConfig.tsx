@@ -2,72 +2,48 @@ import { lazy } from 'react';
 
 import { RouteProps } from 'react-router';
 
-export enum AppRoutes {
-    MAIN = 'main',
-    LOGIN = 'login',
-    SEARCH = 'search',
-    REGISTER = 'register',
-    PROFILE = 'profile',
-    PROFILE_EDIT = 'profile_edit',
-    NOT_FOUND = 'not_found',
-}
-
-export const RoutePath: Record<AppRoutes, string> = {
-    [AppRoutes.MAIN]: '/',
-    [AppRoutes.LOGIN]: '/login',
-    [AppRoutes.SEARCH]: '/search',
-    [AppRoutes.REGISTER]: '/register',
-    [AppRoutes.PROFILE]: '/profile/:id',
-    [AppRoutes.PROFILE_EDIT]: '/profile/edit',
-    [AppRoutes.NOT_FOUND]: '*',
+export const RoutePath = {
+    root: () => '/',
+    feed: () => '/feed',
+    login: () => '/login',
+    search: () => '/search',
+    registration: () => '/registration',
+    profile: (id: string) => `/profile/${id}`,
+    editProfile: () => '/profile/edit',
+    notFound: () => '*',
 };
 
-type RouteConfig = RouteProps & {
-    isProtected?: boolean;
-};
 
-const MainPage = lazy(() => import('@/app/Main'));
-const LoginPage = lazy(() => import('@/app/Auth/pages/Login'));
-const SearchPage = lazy(() => import('@/app/Search/ui'));
-const RegisterPage = lazy(() => import('@/app/Auth/pages/Register'));
-const ProfilePage = lazy(() => import('@/app/Profile/ui/ProfilePage'));
-const ProfileEditPage = lazy(() => import('@/app/Profile/ui/ProfileEditPage'));
-const NotFound = lazy(() => import('@/app/NotFound'));
+export const privatePages: RouteProps[] = [
+    {
+        path: RoutePath.root(),
+        Component: lazy(() => import('@/app/Main')),
+    },
+    {
+        path: RoutePath.search(),
+        Component: lazy(() => import('@/app/Search/ui')),
+    },
+    {
+        path: RoutePath.profile(':id'),
+        Component: lazy(() => import('@/app/Profile/ui/ProfilePage')),
+    },
+    {
+        path: RoutePath.editProfile(),
+        Component: lazy(() => import('@/app/Profile/ui/ProfileEditPage')),
+    },
+];
 
-export const routeConfig: Record<AppRoutes, RouteConfig> = {
-    [AppRoutes.MAIN]: {
-        path: RoutePath.main,
-        element: <MainPage />,
-        isProtected: true,
+export const publicPages: RouteProps[] = [
+    {
+        path: RoutePath.login(),
+        Component: lazy(() => import('@/app/Auth/pages/Login')),
     },
-    [AppRoutes.LOGIN]: {
-        path: RoutePath.login,
-        element: <LoginPage />,
-        isProtected: false,
+    {
+        path: RoutePath.registration(),
+        Component: lazy(() => import('@/app/Auth/pages/Register')),
     },
-    [AppRoutes.SEARCH]: {
-        path: RoutePath.search,
-        element: <SearchPage />,
-        isProtected: true,
+    {
+        path: RoutePath.notFound(),
+        Component: lazy(() => import('@/app/NotFound')),
     },
-    [AppRoutes.REGISTER]: {
-        path: RoutePath.register,
-        element: <RegisterPage />,
-        isProtected: false,
-    },
-    [AppRoutes.PROFILE]: {
-        path: RoutePath.profile,
-        element: <ProfilePage />,
-        isProtected: true,
-    },
-    [AppRoutes.PROFILE_EDIT]: {
-        path: RoutePath.profile_edit,
-        element: <ProfileEditPage />,
-        isProtected: true,
-    },
-    [AppRoutes.NOT_FOUND]: {
-        path: RoutePath.not_found,
-        element: <NotFound />,
-        isProtected: false, 
-    },
-};
+];
