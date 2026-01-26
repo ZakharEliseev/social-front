@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 
 import { Route, Routes } from 'react-router';
 
-import { publicRouteConfig } from '@/routes/routerConfig';
+import { routeConfig } from '@/routes/routerConfig';
 
 import { ProtectedRoute } from './ProtectedRoute';
 
@@ -11,11 +11,14 @@ export const AppRouter = () => {
     return (
         <Suspense fallback={<div>Загрузка...</div>}>
             <Routes>
-                <ProtectedRoute>
-                    {Object.values(publicRouteConfig).map(({ Component, path }) => (
-                        <Route key={path} Component={Component} path={path} />
-                    ))}
-                </ProtectedRoute>
+                {Object.values(routeConfig).map(({ element, path, isProtected }) => {
+                    const renderedElement = isProtected ? (
+                        <ProtectedRoute>{element}</ProtectedRoute>
+                    ) : (
+                        element
+                    );
+                    return <Route key={path} path={path} element={renderedElement} />;
+                })}
             </Routes>
         </Suspense>
     );};

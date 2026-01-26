@@ -1,7 +1,7 @@
-// import { useGetProfile } from "../Auth/hooks/useGetProfile";
+import { useGetProfile } from "../Auth/hooks/useGetProfile";
 
     export const MainPage= () => {
-        // const { data } = useGetProfile();
+        const { data } = useGetProfile();
         return <div>Main</div>;
     };
 

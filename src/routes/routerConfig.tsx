@@ -22,37 +22,52 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.NOT_FOUND]: '*',
 };
 
-export const publicRouteConfig: Record<AppRoutes, RouteProps> = {
+type RouteConfig = RouteProps & {
+    isProtected?: boolean;
+};
+
+const MainPage = lazy(() => import('@/app/Main'));
+const LoginPage = lazy(() => import('@/app/Auth/pages/Login'));
+const SearchPage = lazy(() => import('@/app/Search/ui'));
+const RegisterPage = lazy(() => import('@/app/Auth/pages/Register'));
+const ProfilePage = lazy(() => import('@/app/Profile/ui/ProfilePage'));
+const ProfileEditPage = lazy(() => import('@/app/Profile/ui/ProfileEditPage'));
+const NotFound = lazy(() => import('@/app/NotFound'));
+
+export const routeConfig: Record<AppRoutes, RouteConfig> = {
     [AppRoutes.MAIN]: {
         path: RoutePath.main,
-        Component:  lazy(() => import('@/app/Main')),
+        element: <MainPage />,
+        isProtected: true,
     },
     [AppRoutes.LOGIN]: {
         path: RoutePath.login,
-        Component: lazy(() => import('@/app/Auth/pages/Login')),
+        element: <LoginPage />,
+        isProtected: false,
     },
     [AppRoutes.SEARCH]: {
         path: RoutePath.search,
-        Component: lazy(() => import('@/app/Search/ui')),
+        element: <SearchPage />,
+        isProtected: true,
     },
     [AppRoutes.REGISTER]: {
         path: RoutePath.register,
-        Component: lazy(() => import('@/app/Auth/pages/Register')),
+        element: <RegisterPage />,
+        isProtected: false,
     },
     [AppRoutes.PROFILE]: {
         path: RoutePath.profile,
-        Component: lazy(() => import('@/app/Profile/ui/ProfilePage')),
+        element: <ProfilePage />,
+        isProtected: true,
     },
     [AppRoutes.PROFILE_EDIT]: {
         path: RoutePath.profile_edit,
-        Component: lazy(() => import('@/app/Profile/ui/ProfileEditPage')),
+        element: <ProfileEditPage />,
+        isProtected: true,
     },
     [AppRoutes.NOT_FOUND]: {
         path: RoutePath.not_found,
-        Component: lazy(() => import('@/app/NotFound')),
+        element: <NotFound />,
+        isProtected: false, 
     },
 };
-
-// export const privateRouteConfig: Record<AppRoutes, RouteProps> = {
-
-// };
