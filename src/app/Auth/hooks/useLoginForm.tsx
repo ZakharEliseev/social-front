@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { useLoginMutation } from '@/app/api';
+import { socialApi } from '@/app/api';
+import { RoutePath } from '@/routes/config';
+import { useAppDispatch } from '@/store/hooks';
+import { setUserData } from '@/store/userSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { loginSchema } from '../validations/loginSchema';
@@ -12,8 +15,8 @@ export type LoginFormValues = {
 };
 
 const defaultValues = {
-    email: 'user@example.com',
-    password: 'SecurePass123!',
+    email: 'bob@example.com',
+    password: 'password123',
 };
 
 export const useLoginForm = () => {
@@ -28,7 +31,9 @@ export const useLoginForm = () => {
         mode: 'onBlur',
     });
 
-    const [login] = useLoginMutation();
+    const [login] = socialApi.useLoginMutation();
+    const [getUserProfile] = socialApi.useLazyGetUserProfileQuery();
+    const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
 
@@ -36,7 +41,15 @@ export const useLoginForm = () => {
         try {
             const response = await login(authData).unwrap();
             localStorage.setItem('token', response.accessToken);
-            navigate('/');
+
+            // Загружаем профиль после логина
+            const { data: profileData } = await getUserProfile();
+
+            if (profileData) {
+                dispatch(setUserData(profileData));
+            }
+
+            navigate(RoutePath.feed());
         } catch (err: any) {
             setError('root', { message: err.data.message });
         }

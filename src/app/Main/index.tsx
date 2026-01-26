@@ -1,10 +1,5 @@
-import { useGetProfile } from "../Auth/hooks/useGetProfile";
+const MainPage = () => {
+    return <div>Main</div>;
+};
 
-    export const MainPage= () => {
-        const { data } = useGetProfile();
-        return <div>Main</div>;
-    };
-
-    export default MainPage;
-
-
+export default MainPage;

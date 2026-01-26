@@ -1,6 +1,4 @@
-import { lazy } from 'react';
-
-import { RouteProps } from 'react-router';
+import { ComponentType, LazyExoticComponent, lazy } from 'react';
 
 export const RoutePath = {
     root: () => '/',
@@ -13,12 +11,12 @@ export const RoutePath = {
     notFound: () => '*',
 };
 
+type RouteConfig = {
+    path: string;
+    Component: LazyExoticComponent<ComponentType<any>>;
+};
 
-export const privatePages: RouteProps[] = [
-    {
-        path: RoutePath.root(),
-        Component: lazy(() => import('@/app/Main')),
-    },
+export const privatePages: RouteConfig[] = [
     {
         path: RoutePath.search(),
         Component: lazy(() => import('@/app/Search/ui')),
@@ -31,9 +29,13 @@ export const privatePages: RouteProps[] = [
         path: RoutePath.editProfile(),
         Component: lazy(() => import('@/app/Profile/ui/ProfileEditPage')),
     },
+    {
+        path: RoutePath.feed(),
+        Component: lazy(() => import('@/app/Main')),
+    },
 ];
 
-export const publicPages: RouteProps[] = [
+export const publicPages: RouteConfig[] = [
     {
         path: RoutePath.login(),
         Component: lazy(() => import('@/app/Auth/pages/Login')),
@@ -41,9 +43,5 @@ export const publicPages: RouteProps[] = [
     {
         path: RoutePath.registration(),
         Component: lazy(() => import('@/app/Auth/pages/Register')),
-    },
-    {
-        path: RoutePath.notFound(),
-        Component: lazy(() => import('@/app/NotFound')),
     },
 ];

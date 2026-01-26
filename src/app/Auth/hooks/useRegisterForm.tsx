@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-
-import { useRegisterMutation } from '@/app/api';
+import { socialApi } from '@/app/api';
+import { RoutePath } from '@/routes/config';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { registerSchema } from '../validations/registerSchema';
@@ -25,14 +25,14 @@ export const useRegisterForm = () => {
         mode: 'onBlur',
     });
 
-    const [register] = useRegisterMutation();
+    const [register] = socialApi.useRegisterMutation();
 
     const navigate = useNavigate();
 
     const onSubmit = handleSubmit(async ({ username, email, password }: RegisterFormValues) => {
         try {
-            await register({username, email, password});
-            navigate('/login');
+            await register({ username, email, password });
+            navigate(RoutePath.login());
         } catch (err: any) {
             setError('root', { message: err.data.message });
         }
