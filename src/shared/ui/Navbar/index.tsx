@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router';
+
 import { Logo } from '@/shared/ui/';
 import { HomeOutlined, LogoutOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 
@@ -6,6 +8,13 @@ import { NavbarItem } from './ui/NavbarItem';
 import cls from './index.module.scss';
 
 export const Navbar = () => {
+    const navigate = useNavigate();
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    }
+
     return (
         <div className={cls.navbar}>
             <Logo />
@@ -19,9 +28,10 @@ export const Navbar = () => {
                 <NavbarItem location={'/profile:id'} icon={<UserOutlined />}>
                     Профиль
                 </NavbarItem>
-                <NavbarItem location={'/logout'} icon={<LogoutOutlined />}>
+                <button className={cls.logout} onClick={logout}>
+                    <LogoutOutlined />
                     Выйти
-                </NavbarItem>
+                </button>
             </div>
         </div>
     );
