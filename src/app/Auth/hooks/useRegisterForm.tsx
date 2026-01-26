@@ -17,7 +17,7 @@ export const useRegisterForm = () => {
     const {
         control,
         handleSubmit,
-        formState: { error },
+        formState: { errors },
         setError,
     } = useForm<RegisterFormValues>({
         resolver: yupResolver(registerSchema),
