@@ -1,5 +1,10 @@
+import { Navbar } from "@/shared/ui";
+
 const MainPage = () => {
-    return <div>Main</div>;
+    return (<div>
+        <Navbar/>
+        Main
+        </div>);
 
 };
 

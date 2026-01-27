@@ -8,7 +8,7 @@ import cls from './index.module.scss';
 import './index.module.scss';
 
 interface Props {
-    children: string;
+    children: React.ReactNode;
     location: string;
     icon: React.ReactNode;
 }

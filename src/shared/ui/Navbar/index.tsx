@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router';
 
 import { Logo } from '@/shared/ui/';
+import { useAppSelector } from '@/store/hooks';
 import { HomeOutlined, LogoutOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 
 import { NavbarItem } from './ui/NavbarItem';
@@ -9,6 +10,7 @@ import cls from './index.module.scss';
 
 export const Navbar = () => {
     const navigate = useNavigate();
+    const currentUser = useAppSelector((state) => state.profile.profile);
 
     const logout = () => {
         localStorage.removeItem('token');
@@ -19,14 +21,14 @@ export const Navbar = () => {
         <div className={cls.navbar}>
             <Logo />
             <div className={cls.itemsWrapper}>
-                <NavbarItem location={'/'} icon={<HomeOutlined />}>
+                <NavbarItem location={'/feed'} icon={<HomeOutlined />}>
                     Лента
                 </NavbarItem>
                 <NavbarItem location={'/search'} icon={<SearchOutlined />}>
                     Поиск
                 </NavbarItem>
-                <NavbarItem location={'/profile:id'} icon={<UserOutlined />}>
-                    Профиль
+                <NavbarItem location={`/users/profile`} icon={<UserOutlined />}>
+                    {currentUser?.username}
                 </NavbarItem>
                 <button className={cls.logout} onClick={logout}>
                     <LogoutOutlined />
