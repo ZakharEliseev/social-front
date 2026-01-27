@@ -91,7 +91,7 @@ export const socialApi = apiService.injectEndpoints({
                 url: '/posts',
                 method: 'POST',
                 body: userData,
-                // invalidatesTags: ['Post'],   
+                invalidatesTags: ['Post'],   
             }),
         }),
         getMyPosts: builder.query<GetPostsResponse, GetPostsRequest>({
@@ -102,7 +102,7 @@ export const socialApi = apiService.injectEndpoints({
                     offset: params.offset ?? 0,
                     limit: params.limit ?? 10
                 },
-                // providesTags: ['Post'],
+                providesTags: ['Post'],
             }),
         }),
     }),
