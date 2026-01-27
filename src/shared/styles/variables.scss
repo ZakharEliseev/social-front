@@ -1,9 +1,13 @@
 //Forms
 
 // Цвета
+$gray-color: rgb(82 82 82);
+$light-gray-color: rgba(82 82 82 / 0.2);
 $primary-color: #007bff;
 $text-color: #000;
 $danger-color: red;
+$bg-white: rgb(255 255 255);
+$bg-gray: rgb(245, 245, 245);
 
 // Рамка
 $border-color: 1px solid #80808036;
@@ -31,9 +35,6 @@ $auth-card-max-height: 100%;
 $auth-card-padding: 2.5rem;
 $auth-card-border-radius: 0.5rem;
 
-// Цвета
-$auth-bg-white: rgb(255 255 255);
-$subheader-text-color: rgb(82 82 82);
 
 // Шрифты
 $header-font-size: 3rem;

@@ -1,3 +1,5 @@
+@use '~/styles/variables.scss' as *;
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -13,5 +15,5 @@ input:-webkit-autofill:active {
 }
 
 body {
-  background-color: #f5f5f5;
+  background-color: $bg-gray
 }

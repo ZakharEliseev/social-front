@@ -42,7 +42,6 @@ export const useLoginForm = () => {
             const response = await login(authData).unwrap();
             localStorage.setItem('token', response.accessToken);
 
-            // Загружаем профиль после логина
             const { data: profileData } = await getUserProfile();
 
             if (profileData) {

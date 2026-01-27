@@ -37,6 +37,33 @@ export interface ProfileResponse {
     createdAt: string;
 }
 
+export interface AddNewPostResponse {
+  id: number;
+  title: string;
+  text: string;
+  createdAt: string,
+  author: {
+    id: string;
+    username: string;
+  },
+  likesCount: number;
+  isLiked: boolean;
+  commentsCount: number;
+  comments?: [];
+}
+
+export interface AddNewPostRequest {
+    title?: string;
+    text: string;
+}
+
+export interface GetPostsRequest {
+  offset?: number; 
+  limit?: number;
+}
+
+export type GetPostsResponse = AddNewPostResponse[];
+
 export const socialApi = apiService.injectEndpoints({
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
@@ -57,6 +84,25 @@ export const socialApi = apiService.injectEndpoints({
             query: () => ({
                 url: '/users/profile',
                 method: 'GET',
+            }),
+        }),
+        addNewPost: builder.mutation<AddNewPostResponse, AddNewPostRequest>({
+            query: (userData) => ({
+                url: '/posts',
+                method: 'POST',
+                body: userData,
+                // invalidatesTags: ['Post'],   
+            }),
+        }),
+        getMyPosts: builder.query<GetPostsResponse, GetPostsRequest>({
+            query: (params) => ({
+                url: '/posts',
+                method: 'GET',
+                params: {
+                    offset: params.offset ?? 0,
+                    limit: params.limit ?? 10
+                },
+                // providesTags: ['Post'],
             }),
         }),
     }),
