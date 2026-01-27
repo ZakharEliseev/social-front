@@ -1,6 +1,6 @@
 import { useController, useForm } from 'react-hook-form';
 
-import { socialApi } from '@/app/api';
+import { postApi } from '@/app/api/posts';
 
 export type PostFormValues = {
     title: string;
@@ -8,23 +8,18 @@ export type PostFormValues = {
 };
 
 export const useAddPost = () => {
-    const {
-        control,
-        handleSubmit,
-        reset,
-    } = useForm<PostFormValues>({
-        defaultValues: { text: '', title: ' ', },
+    const { control, handleSubmit, reset } = useForm<PostFormValues>({
+        defaultValues: { text: '' },
         mode: 'onSubmit',
     });
 
-    
     const { field, fieldState } = useController({
         name: 'text',
         control,
         rules: { required: 'Поле не может быть пустым' },
     });
 
-    const [addNewPost] = socialApi.useAddNewPostMutation();
+    const [addNewPost] = postApi.useAddNewPostMutation();
 
     const onSubmit = handleSubmit(async (formData: PostFormValues) => {
         try {
@@ -40,6 +35,5 @@ export const useAddPost = () => {
         field,
         fieldState,
         onSubmit,
-
     };
 };

@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { socialApi } from '@/app/api';
+import { authApi } from '@/app/api/auth';
 import { RoutePath } from '@/routes/config';
 import { useAppDispatch } from '@/store/hooks';
 import { setUserData } from '@/store/userSlice';
@@ -31,8 +31,8 @@ export const useLoginForm = () => {
         mode: 'onBlur',
     });
 
-    const [login] = socialApi.useLoginMutation();
-    const [getUserProfile] = socialApi.useLazyGetUserProfileQuery();
+    const [login] = authApi.useLoginMutation();
+    const [getUserProfile] = authApi.useLazyGetUserProfileQuery();
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();

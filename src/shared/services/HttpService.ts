@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const apiService = createApi({
   reducerPath: 'apiService',
-  tagTypes: ['Post', 'User'],
+  tagTypes: ['Posts', 'User'],
   baseQuery: fetchBaseQuery({ baseUrl: '/api/v1', 
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');

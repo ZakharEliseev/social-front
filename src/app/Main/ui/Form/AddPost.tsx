@@ -1,6 +1,6 @@
 import { Button, Input } from 'antd';
 
-import { ProfileResponse } from '@/app/api';
+import { ProfileResponse } from '@/app/api/auth';
 
 import { useAddPost } from '../../hooks/useAddPost';
 

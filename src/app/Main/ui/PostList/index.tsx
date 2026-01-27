@@ -1,9 +1,9 @@
-import { useGetMyPosts } from '../../hooks/useGetMyPosts';
+import { useGetAllPosts } from '../../hooks/useGetAllPosts';
 
 import cls from './index.module.scss';
 
 export const PostsList = () => {
-    const { data: posts, isLoading } = useGetMyPosts();
+    const { data: posts, isLoading } = useGetAllPosts();
 
     if (isLoading) return <div className={cls.loadPosts}>Загрузка постов</div>
     return (

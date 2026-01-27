@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { socialApi } from '@/app/api';
+import { authApi } from '@/app/api/auth';
 import { RoutePath } from '@/routes/config';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -25,7 +25,7 @@ export const useRegisterForm = () => {
         mode: 'onBlur',
     });
 
-    const [register] = socialApi.useRegisterMutation();
+    const [register] = authApi.useRegisterMutation();
 
     const navigate = useNavigate();
 

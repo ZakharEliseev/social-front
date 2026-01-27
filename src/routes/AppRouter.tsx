@@ -3,7 +3,7 @@ import { Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate, Outlet, Route, Routes } from 'react-router';
 
-import { socialApi } from '@/app/api';
+import { authApi } from '@/app/api/auth';
 import NotFound from '@/app/NotFound';
 import { useAppSelector } from '@/store/hooks';
 import { setUserData } from '@/store/userSlice';
@@ -27,7 +27,7 @@ export const NavigationGuard = ({ isPublic = false }: { isPublic?: boolean }) =>
 
 export const AppRouter = () => {
     const dispatch = useDispatch();
-    const { data, isFetching, isSuccess, isError } = socialApi.useGetUserProfileQuery();
+    const { data, isFetching, isSuccess, isError } = authApi.useGetUserProfileQuery();
 
     useEffect(() => {
         if (isSuccess) {
