@@ -15,12 +15,7 @@ export type RegisterFormValues = {
 };
 
 export const useRegisterForm = () => {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-        setError,
-    } = useForm<RegisterFormValues>({
+    const methods = useForm<RegisterFormValues>({
         resolver: yupResolver(registerSchema),
         mode: 'onBlur',
     });
@@ -29,18 +24,19 @@ export const useRegisterForm = () => {
 
     const navigate = useNavigate();
 
-    const onSubmit = handleSubmit(async ({ username, email, password }: RegisterFormValues) => {
-        try {
-            await register({ username, email, password });
-            navigate(RoutePath.login());
-        } catch (err: any) {
-            setError('root', { message: err.data.message });
-        }
-    });
+    const onSubmit = methods.handleSubmit(
+        async ({ username, email, password }: RegisterFormValues) => {
+            try {
+                await register({ username, email, password });
+                navigate(RoutePath.login());
+            } catch (err: any) {
+                methods.setError('root', { message: err.data.message });
+            }
+        },
+    );
 
     return {
-        control,
-        errors,
+        methods,
         onSubmit,
     };
 };

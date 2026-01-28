@@ -1,4 +1,4 @@
-import { useController, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { postApi } from '@/app/api/posts';
 
@@ -8,32 +8,25 @@ export type PostFormValues = {
 };
 
 export const useAddPost = () => {
-    const { control, handleSubmit, reset } = useForm<PostFormValues>({
+    const methods = useForm<PostFormValues>({
         defaultValues: { text: '' },
         mode: 'onSubmit',
     });
 
-    const { field, fieldState } = useController({
-        name: 'text',
-        control,
-        rules: { required: 'Поле не может быть пустым' },
-    });
-
     const [addNewPost] = postApi.useAddNewPostMutation();
 
-    const onSubmit = handleSubmit(async (formData: PostFormValues) => {
+    const onSubmit = methods.handleSubmit(async (formData: PostFormValues) => {
         try {
             const response = await addNewPost(formData).unwrap();
             console.warn('>>', response);
-            reset();
+            methods.reset();
         } catch (err: any) {
             console.error('>>', err);
         }
     });
 
     return {
-        field,
-        fieldState,
+        methods,
         onSubmit,
     };
 };

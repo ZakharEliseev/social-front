@@ -1,20 +1,20 @@
 import { FC } from 'react';
 
 import { Input as AntdInput } from 'antd';
-import { useController } from 'react-hook-form';
+import { useController, useFormContext } from 'react-hook-form';
 
 import cls from './index.module.scss';
 
 interface Props {
     name: string;
     placeholder?: string;
-    control: any;
     label: string;
-    error: string | undefined;
 }
 
-export const Input: FC<Props> = ({ name, control, error, label }) => {
-    const { field } = useController({
+export const Input: FC<Props> = ({ name, label }) => {
+
+    const { control } = useFormContext();
+    const { field, fieldState: {error} } = useController({
         name,
         control,
     });
@@ -25,7 +25,7 @@ export const Input: FC<Props> = ({ name, control, error, label }) => {
                 {label}
             </label>
             <AntdInput className={cls.input} {...field} />
-            {error && <span className={cls.errorMessage}>{error}</span>}
+            {error && <span className={cls.errorMessage}>{error?.message}</span>}
         </div>
     );
 };

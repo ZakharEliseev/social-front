@@ -14,7 +14,7 @@ const MainPage = () => {
             <Navbar />
             <div className={cls.content}>
                 <AddPostForm currentUser={currentUser} />
-                <PostsList />
+                <PostsList currentUser={currentUser} />
             </div>
         </>
     );

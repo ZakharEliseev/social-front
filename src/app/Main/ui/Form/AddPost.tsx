@@ -1,6 +1,9 @@
-import { Button, Input } from 'antd';
+import { Button} from 'antd';
+import { FormProvider } from 'react-hook-form';
 
-import { ProfileResponse } from '@/app/api/auth';
+import { ProfileResponse } from '@/app/api/types/models';
+import { Avatar } from '@/shared/ui';
+import { Controlled } from '@/shared/ui/Controlled';
 
 import { useAddPost } from '../../hooks/useAddPost';
 
@@ -11,34 +14,29 @@ interface Props {
 }
 
 export const AddPostForm = ({ currentUser }: Props) => {
-    const { TextArea } = Input;
-    const username = currentUser?.username.charAt(0).toUpperCase();
-    const { field, fieldState, onSubmit } = useAddPost();
+    const { methods, onSubmit } = useAddPost();
 
     return (
-        <form className={cls.addPostForm} onSubmit={onSubmit}>
-            <div className={cls.inputWrap}>
-                <div className={cls.avatar}>{username}</div>
-                <TextArea
-                    className={cls.input}
-                    status={`${fieldState.error ? 'error' : ''}`}
-                    placeholder="Что у вас нового?"
-                    autoSize={{ minRows: 4, maxRows: 8 }}
-                    variant="outlined"
-                    {...field}
-                />
-                {fieldState.error && (
-                    <span className={cls.errorMessage}>{fieldState.error.message}</span>
-                )}
-            </div>
-            <Button
-                className={cls.btn}
-                type="primary"
-                htmlType="submit"
-                color="default"
-                variant="solid">
-                Опубликовать
-            </Button>
-        </form>
+        <FormProvider {...methods}>
+            <form className={cls.addPostForm} onSubmit={onSubmit}>
+                <div className={cls.inputWrap}>
+                    <Avatar username={currentUser?.username} />
+                    <Controlled.TextArea
+                        name="text"
+                        placeholder="Что у вас нового?"
+                        autoSize={{ minRows: 4, maxRows: 8 }}
+                        variant="outlined"
+                    />
+                </div>
+                <Button
+                    className={cls.btn}
+                    type="primary"
+                    htmlType="submit"
+                    color="default"
+                    variant="solid">
+                    Опубликовать
+                </Button>
+            </form>
+        </FormProvider>
     );
 };

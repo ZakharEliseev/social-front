@@ -9,8 +9,8 @@ export const postApi = apiService.injectEndpoints({
                 url: '/posts',
                 method: 'POST',
                 body: payload,
-                invalidatesTags: ['Posts'],
             }),
+            invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
         }),
         getAllPosts: builder.query<GetPostsResponse, GetPostsRequest>({
             query: (params) => ({
@@ -20,8 +20,8 @@ export const postApi = apiService.injectEndpoints({
                     offset: params.offset ?? 0,
                     limit: params.limit ?? 100
                 },
-                providesTags: ['Posts'],
             }),
+            providesTags: [{ type: 'Posts', id: 'LIST' }],
         }),
     }),
 });
