@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
 
 import { postApi } from '@/app/api/posts';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import { addPostSchema } from '../validations/addPostSchema';
 
 export type PostFormValues = {
-    title: string;
     text: string;
 };
 
@@ -11,6 +13,7 @@ export const useAddPost = () => {
     const methods = useForm<PostFormValues>({
         defaultValues: { text: '' },
         mode: 'onSubmit',
+        resolver: yupResolver(addPostSchema),
     });
 
     const [addNewPost] = postApi.useAddNewPostMutation();

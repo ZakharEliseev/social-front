@@ -20,7 +20,7 @@ export const PostsList = ({ currentUser }: Props) => {
     return (
         <>
             {posts?.map((post) => (
-                <div className={cls.postList}>
+                <div key={post.id} className={cls.postList}>
                     <div className={cls.postItemHeader}>
                         <div className={cls.userInfo}>
                             <Avatar username={currentUser?.username} />
