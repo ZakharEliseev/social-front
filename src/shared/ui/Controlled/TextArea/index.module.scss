@@ -1,0 +1,20 @@
+@use '~/styles/variables.scss' as *;
+
+.errorMessage {
+    color: $danger-color;
+    display: flex;
+    justify-content: center;
+}
+
+.input {
+    &:focus {
+        border-color: $gray-color;
+    }
+    &:hover {
+        border-color: $gray-color;
+    }
+}
+
+.input {
+    width: 100%;
+}

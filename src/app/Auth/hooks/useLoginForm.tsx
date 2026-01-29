@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { socialApi } from '@/app/api';
+import { authApi } from '@/app/api/auth';
 import { RoutePath } from '@/routes/config';
 import { useAppDispatch } from '@/store/hooks';
 import { setUserData } from '@/store/userSlice';
@@ -20,29 +20,23 @@ const defaultValues = {
 };
 
 export const useLoginForm = () => {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-        setError,
-    } = useForm<LoginFormValues>({
+    const methods = useForm<LoginFormValues>({
         defaultValues: defaultValues,
         resolver: yupResolver(loginSchema),
         mode: 'onBlur',
     });
 
-    const [login] = socialApi.useLoginMutation();
-    const [getUserProfile] = socialApi.useLazyGetUserProfileQuery();
+    const [login] = authApi.useLoginMutation();
+    const [getUserProfile] = authApi.useLazyGetUserProfileQuery();
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
 
-    const onSubmit = handleSubmit(async (authData: LoginFormValues) => {
+    const onSubmit = methods.handleSubmit(async (authData: LoginFormValues) => {
         try {
             const response = await login(authData).unwrap();
             localStorage.setItem('token', response.accessToken);
 
-            // Загружаем профиль после логина
             const { data: profileData } = await getUserProfile();
 
             if (profileData) {
@@ -51,13 +45,12 @@ export const useLoginForm = () => {
 
             navigate(RoutePath.feed());
         } catch (err: any) {
-            setError('root', { message: err.data.message });
+            methods.setError('root', { message: err.data.message });
         }
     });
 
     return {
-        control,
-        errors,
+        methods,
         onSubmit,
     };
 };

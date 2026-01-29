@@ -4,7 +4,7 @@ import { Logo } from '@/shared/ui/';
 import { useAppSelector } from '@/store/hooks';
 import { HomeOutlined, LogoutOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 
-import { NavbarItem } from './ui/NavbarItem';
+import { NavbarItem } from './ui/Item';
 
 import cls from './index.module.scss';
 

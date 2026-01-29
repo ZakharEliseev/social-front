@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { socialApi } from '@/app/api';
+import { authApi } from '@/app/api/auth';
 import { RoutePath } from '@/routes/config';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -15,32 +15,28 @@ export type RegisterFormValues = {
 };
 
 export const useRegisterForm = () => {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-        setError,
-    } = useForm<RegisterFormValues>({
+    const methods = useForm<RegisterFormValues>({
         resolver: yupResolver(registerSchema),
         mode: 'onBlur',
     });
 
-    const [register] = socialApi.useRegisterMutation();
+    const [register] = authApi.useRegisterMutation();
 
     const navigate = useNavigate();
 
-    const onSubmit = handleSubmit(async ({ username, email, password }: RegisterFormValues) => {
-        try {
-            await register({ username, email, password });
-            navigate(RoutePath.login());
-        } catch (err: any) {
-            setError('root', { message: err.data.message });
-        }
-    });
+    const onSubmit = methods.handleSubmit(
+        async ({ username, email, password }: RegisterFormValues) => {
+            try {
+                await register({ username, email, password });
+                navigate(RoutePath.login());
+            } catch (err: any) {
+                methods.setError('root', { message: err.data.message });
+            }
+        },
+    );
 
     return {
-        control,
-        errors,
+        methods,
         onSubmit,
     };
 };
