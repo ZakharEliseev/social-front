@@ -3,14 +3,22 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ru';
 
-
 dayjs.extend(relativeTime);
 dayjs.locale('ru');
 
 class DateService {
-  public static formatRelative(isoString: string | undefined): string {
-    return dayjs(isoString).fromNow();
-  }
+    private static instance: DateService;
+
+    public static getInstance(): DateService {
+        if (!DateService.instance) {
+            DateService.instance = new DateService();
+        }
+        return DateService.instance;
+    }
+
+    public formatRelative(isoString: string | undefined): string {
+        return dayjs(isoString).fromNow();
+    }
 }
 
-export default DateService;
+export const dateService = DateService.getInstance();

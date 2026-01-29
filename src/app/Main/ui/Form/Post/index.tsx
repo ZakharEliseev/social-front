@@ -18,7 +18,7 @@ export const AddPostForm = ({ currentUser }: Props) => {
     return (
         <FormProvider {...methods}>
             <form className={cls.addPostForm} onSubmit={onSubmit}>
-                <div className={cls.contentWrap}>
+                <div className={cls.content}>
                     <Avatar username={currentUser?.username} />
                     <Controlled.TextArea
                         name="text"

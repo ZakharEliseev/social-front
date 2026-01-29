@@ -3,13 +3,19 @@ import { useState } from 'react';
 import { Divider } from 'antd';
 
 import { ProfileResponse } from '@/app/Auth/api/types/models';
-import DateService from '@/shared/services/DateService';
+import { dateService } from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
-import { DeleteOutlined, HeartFilled, HeartOutlined, MessageFilled, MessageOutlined } from '@ant-design/icons';
+import {
+    DeleteOutlined,
+    HeartFilled,
+    HeartOutlined,
+    MessageFilled,
+    MessageOutlined,
+} from '@ant-design/icons';
 
+import { postApi } from '../../api/posts';
 import { useAddLikePost } from '../../hooks/useAddLikePost';
 import { useDeletePost } from '../../hooks/useDeletePost';
-import { useGetAllPosts } from '../../hooks/useGetAllPosts';
 import { CommentList } from '../Form/CommentList';
 
 import cls from './index.module.scss';
@@ -19,7 +25,10 @@ interface Props {
 }
 
 export const PostsList = ({ currentUser }: Props) => {
-    const { data: posts, isLoading } = useGetAllPosts();
+    const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
+        offset: 0,
+        limit: 100,
+    });
     const { handleDelete } = useDeletePost();
     const { handleLike } = useAddLikePost();
     const [isVisible, setIsVisible] = useState<Boolean>(false);
@@ -35,7 +44,7 @@ export const PostsList = ({ currentUser }: Props) => {
                             <div className={cls.author}>
                                 <p className={cls.username}>{currentUser?.username}</p>
                                 <p className={cls.createdAt}>
-                                    {DateService.formatRelative(currentUser?.createdAt)}
+                                    {dateService.formatRelative(currentUser?.createdAt)}
                                 </p>
                             </div>
                         </div>

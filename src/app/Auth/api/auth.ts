@@ -1,6 +1,12 @@
 import { apiService } from '@/shared/services/HttpService';
 
-import { LoginRequest, LoginResponse, ProfileResponse, RegisterRequest, RegisterResponse } from './types/models';
+import {
+    LoginRequest,
+    LoginResponse,
+    ProfileResponse,
+    RegisterRequest,
+    RegisterResponse,
+} from './types/models';
 
 export const authApi = apiService.injectEndpoints({
     endpoints: (builder) => ({

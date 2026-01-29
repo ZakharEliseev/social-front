@@ -7,7 +7,6 @@ import { Link } from 'react-router';
 import Input from '@/shared/ui/Controlled/Input';
 import { LockOutlined } from '@ant-design/icons';
 
-
 import { useRegisterForm } from '../../hooks/useRegisterForm';
 
 import cls from './index.module.scss';

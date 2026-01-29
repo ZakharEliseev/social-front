@@ -1,15 +1,15 @@
 @use '~/styles/variables.scss' as *;
 
 .navbar {
-    margin: 0 auto;
-    width: 1200px;
-    padding: 0 24px 0 24px;
-    height: 64px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    background-color: #fff;
+    align-items: center;
+    width: 1200px;
+    height: 64px;
+    margin: 0 auto;
+    padding: 0 24px;
     border-radius: 10px 10px 0 0;
+    background-color: #fff;
     border-bottom: $border-color;
 }
 
@@ -19,18 +19,19 @@
 }
 
 .logout {
-    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    width: 100%;
+    padding: 0 $btn-padding-horizontal;
     border: none;
     border-radius: 0.375rem;
-    width: 100%;
-    color: $danger-color;
     background-color: inherit;
-    padding: 0 $btn-padding-horizontal 0 $btn-padding-horizontal;
+    color: $danger-color;
+    cursor: pointer;
+    gap: 0.5rem;
+
     &:hover {
-        color: rgb(134, 1, 1);
-        background: rgba(255, 0, 0, 0.1);
+        background: rgb(255 0 0 / 10%);
+        color: rgb(134 1 1);
     }
 }

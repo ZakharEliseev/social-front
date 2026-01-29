@@ -1,17 +1,19 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const apiService = createApi({
-  reducerPath: 'apiService',
-  tagTypes: ['Posts', 'Comments', 'Likes'],
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/v1', 
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem('token');
+    reducerPath: 'apiService',
+    tagTypes: ['Posts', 'Comments', 'Likes'],
+    baseQuery: fetchBaseQuery({
+        baseUrl: '/api/v1',
+        prepareHeaders: (headers) => {
+            const token = localStorage.getItem('token');
 
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
+            if (token) {
+                headers.set('Authorization', `Bearer ${token}`);
+            }
 
-      return headers;
-    },}),
-  endpoints: () => ({}),
+            return headers;
+        },
+    }),
+    endpoints: () => ({}),
 });

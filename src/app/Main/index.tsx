@@ -6,7 +6,6 @@ import { PostsList } from './ui/PostList';
 
 import cls from './index.module.scss';
 
-
 const MainPage = () => {
     const currentUser = useAppSelector((state) => state.profile.profile);
 

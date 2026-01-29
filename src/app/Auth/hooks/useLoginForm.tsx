@@ -9,7 +9,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { authApi } from '../api/auth';
 import { loginSchema } from '../models/constants';
 
-
 export type LoginFormValues = {
     email: string;
     password: string;

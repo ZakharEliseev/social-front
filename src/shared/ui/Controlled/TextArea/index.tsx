@@ -3,15 +3,15 @@ import { useController, useFormContext } from 'react-hook-form';
 
 import cls from './index.module.scss';
 
-export interface TextAreaProps {
+interface TextAreaProps {
     name: string;
     placeholder?: string;
     autoSize?: { minRows: number; maxRows: number };
-    variant?: "outlined" | "borderless" | "filled" | "underlined" | undefined;
+    variant?: 'outlined' | 'borderless' | 'filled' | 'underlined' | undefined;
     className?: string;
 }
 
-const TextArea = ({ name, placeholder, autoSize, variant }: TextAreaProps) => {
+export const TextArea = ({ name, placeholder, autoSize, variant }: TextAreaProps) => {
     const { control } = useFormContext();
 
     const {
@@ -36,6 +36,3 @@ const TextArea = ({ name, placeholder, autoSize, variant }: TextAreaProps) => {
         </div>
     );
 };
-
-
-export default TextArea;

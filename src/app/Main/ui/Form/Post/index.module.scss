@@ -1,11 +1,17 @@
 @use '~/styles/variables.scss' as *;
 @use '~/styles/mixins.scss' as *;
 
+.content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
 .addPostForm {
     padding: $content-padding;
-    background-color: $bg-white;
     border: $border-color;
     border-radius: $auth-card-border-radius;
+    background-color: $bg-white;
 }
 
 .btn {
@@ -13,13 +19,7 @@
     width: 146px;
     height: 40px;
     margin: 0 auto;
-    padding: 8px 24px;
-    margin-right: 0;
     margin-top: 10px;
-}
-
-.contentWrap {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
+    margin-right: 0;
+    padding: 8px 24px;
 }

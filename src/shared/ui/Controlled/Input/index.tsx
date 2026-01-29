@@ -13,10 +13,12 @@ export interface Props {
     suffix?: React.ReactNode;
 }
 
-const Input: FC<Props> = ({ name, label, suffix, type }) => {
-
+export const Input: FC<Props> = ({ name, label, suffix, type }) => {
     const { control } = useFormContext();
-    const { field, fieldState: {error} } = useController({
+    const {
+        field,
+        fieldState: { error },
+    } = useController({
         name,
         control,
     });
@@ -33,5 +35,3 @@ const Input: FC<Props> = ({ name, label, suffix, type }) => {
         </div>
     );
 };
-
-export default Input;

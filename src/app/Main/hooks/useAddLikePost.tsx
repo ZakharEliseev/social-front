@@ -1,7 +1,7 @@
-import { likeApi } from '../api/like';
+import { postApi } from '../api/posts';
 
 export const useAddLikePost = () => {
-    const [toggleLike] = likeApi.useToggleLikeMutation();
+    const [toggleLike] = postApi.useToggleLikeMutation();
 
     const handleLike = async (id: number) => {
         try {
@@ -10,5 +10,5 @@ export const useAddLikePost = () => {
             return; // как правильно обработать? нужно ли спускать ошибку в компонент? конкретно в этом случае есть смысл?
         }
     };
-    return{handleLike};
+    return { handleLike };
 };

@@ -1,4 +1,3 @@
-
 export interface LoginResponse {
     accessToken: string;
     status?: number;
@@ -21,21 +20,6 @@ export interface RegisterRequest {
     email: string;
     password: string;
 }
-
-export interface ProfileResponse {
-    id: number;
-    username: string;
-    email: string;
-    bio: string | null;
-    avatar: string | null;
-    postsCount: number;
-    followersCount: number;
-    followingCount: number;
-    isFollowing: boolean;
-    isOwnProfile: boolean;
-    createdAt: string;
-}
-
 
 export interface ProfileResponse {
     id: number;

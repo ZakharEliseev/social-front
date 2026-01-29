@@ -1,11 +1,11 @@
-import { commentApi } from '@/app/Main/api/comment';
+import { postApi } from '../api/posts';
 
 interface Props {
     postId: number;
 }
 
 export const useGetComments = ({ postId }: Props) => {
-    const { data, isLoading, refetch } = commentApi.useGetAllCommentsQuery({
+    const { data, isLoading, refetch } = postApi.useGetAllCommentsQuery({
         id: postId,
         params: {
             offset: 0,

@@ -8,9 +8,9 @@
 .postList {
     display: flex;
     flex-direction: column;
-    background-color: $bg-white;
     margin-top: 20px;
     padding: $content-padding;
+    background-color: $bg-white;
 }
 
 .postItemHeader {
@@ -30,8 +30,8 @@
 }
 
 .createdAt {
-    color: $gray-color;
     font-weight: 200;
+    color: $gray-color;
 }
 
 .userInfo {
@@ -42,40 +42,41 @@
 .icons {
     display: flex;
     gap: 1rem;
+
     > *:hover {
-        background: rgba(202, 204, 207, 0.6);
+        background: rgb(202 204 207 / 60%);
     }
 }
 
 .like {
-    cursor: pointer;
+    border-radius: 0.375rem;
     font-size: $icon-font-size;
     color: $danger-color;
-    border-radius: 0.375rem;
+    cursor: pointer;
 }
 
 .notLike {
-    cursor: pointer;
+    border-radius: 0.375rem;
     font-size: $icon-font-size;
     color: $danger-color;
-    border-radius: 0.375rem;
+    cursor: pointer;
 }
 
 .comment {
-    cursor: pointer;
     font-size: $icon-font-size;
+    cursor: pointer;
 }
 
 .trash {
-    cursor: pointer;
     font-size: $icon-font-size;
+    cursor: pointer;
 }
 
 .iconWrap {
-    user-select: none;
-    border-radius: 0.375rem;
-    padding: 0.75rem;
     display: flex;
     align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    user-select: none;
     gap: 10px;
 }

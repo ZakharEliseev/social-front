@@ -24,7 +24,7 @@ export const useAddPost = () => {
             console.warn('>>', response);
             methods.reset();
         } catch {
-            return // тот же вопрос
+            return; // тот же вопрос
         }
     });
 

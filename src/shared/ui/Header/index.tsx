@@ -15,7 +15,7 @@ export const Navbar = () => {
     const logout = () => {
         localStorage.removeItem('token');
         navigate('/login');
-    }
+    };
 
     return (
         <div className={cls.navbar}>

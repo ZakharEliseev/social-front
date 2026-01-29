@@ -4,13 +4,12 @@ import { Button } from 'antd';
 import { FormProvider } from 'react-hook-form';
 import { Link } from 'react-router';
 
-import Input from '@/shared/ui/Controlled/Input';
+import { Input } from '@/shared/ui/Controlled/Input';
 import { LockOutlined } from '@ant-design/icons';
 
 import { useLoginForm } from '../../hooks/useLoginForm';
 
 import cls from './index.module.scss';
-
 
 export const LoginForm: FC = () => {
     const { methods, onSubmit } = useLoginForm();

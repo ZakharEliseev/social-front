@@ -29,22 +29,20 @@ export const CommentList = ({ postId, commentList, isVisible }: Props) => {
                 </div>
             ))}
             <FormProvider {...methods}>
-                <form onSubmit={onSubmit}>
-                    <div className={cls.inputWrap}>
-                        <Controlled.TextArea
-                            name="text"
-                            autoSize={{ minRows: 3, maxRows: 3 }}
-                            placeholder="Написать комментарий"
-                            variant="outlined"></Controlled.TextArea>
-                        <Button
-                            className={cls.btn}
-                            type="primary"
-                            htmlType="submit"
-                            color="default"
-                            variant="solid">
-                            Отправить
-                        </Button>
-                    </div>
+                <form onSubmit={onSubmit} className={cls.form}>
+                    <Controlled.TextArea
+                        name="text"
+                        autoSize={{ minRows: 3, maxRows: 3 }}
+                        placeholder="Написать комментарий"
+                        variant="outlined"></Controlled.TextArea>
+                    <Button
+                        className={cls.btn}
+                        type="primary"
+                        htmlType="submit"
+                        color="default"
+                        variant="solid">
+                        Отправить
+                    </Button>
                 </form>
             </FormProvider>
         </>
