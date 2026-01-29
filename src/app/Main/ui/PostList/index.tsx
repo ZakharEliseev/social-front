@@ -6,6 +6,7 @@ import { Avatar } from '@/shared/ui';
 import { HeartOutlined, LikeOutlined, MoreOutlined } from '@ant-design/icons';
 
 import { useGetAllPosts } from '../../hooks/useGetAllPosts';
+import { AddComment } from '../Form/Comment';
 
 import cls from './index.module.scss';
 
@@ -38,6 +39,7 @@ export const PostsList = ({ currentUser }: Props) => {
                         <LikeOutlined className={cls.like} />
                     </div>
                     <Divider />
+                    <AddComment />
                 </div>
             ))}
         </>

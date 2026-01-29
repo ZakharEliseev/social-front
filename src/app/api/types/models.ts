@@ -59,12 +59,14 @@ export interface AddNewPostResponse {
   author: {
     id: string;
     username: string;
-  },
-  likesCount: number;
-  isLiked: boolean;
-  commentsCount: number;
-  comments?: [];
+},
+likesCount: number;
+isLiked: boolean;
+commentsCount: number;
+comments?: [];
 }
+
+export type GetPostsResponse = AddNewPostResponse[];
 
 export interface AddNewPostRequest {
     title?: string;
@@ -76,4 +78,27 @@ export interface GetPostsRequest {
   limit?: number;
 }
 
-export type GetPostsResponse = AddNewPostResponse[];
+export interface GetCommentsRequest {
+  id: number;
+  params: {
+    offset?: number; 
+    limit?: number;
+  }
+}
+
+export interface AddNewCommentResponse {
+  id: number;
+  text: string;
+  createdAt: string;
+  author: {
+    id: string;
+    username: string;
+    }
+}
+
+export interface AddNewCommentRequest {
+  id: number;
+  text: string;
+}
+
+export type GetCommentResponse = AddNewCommentResponse[];

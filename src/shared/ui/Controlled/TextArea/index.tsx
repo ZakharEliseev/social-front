@@ -23,7 +23,7 @@ const TextArea = ({ name, placeholder, autoSize, variant }: TextAreaProps) => {
         rules: { required: 'Поле не может быть пустым' },
     });
     return (
-        <div className={cls.inputWrap}>
+        <div className={cls.input}>
             <Input.TextArea
                 {...field}
                 placeholder={placeholder}

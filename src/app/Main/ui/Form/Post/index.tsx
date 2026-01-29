@@ -2,10 +2,9 @@ import { Button} from 'antd';
 import { FormProvider } from 'react-hook-form';
 
 import { ProfileResponse } from '@/app/api/types/models';
+import { useAddPost } from '@/app/Main/hooks/useAddPost';
 import { Avatar } from '@/shared/ui';
 import { Controlled } from '@/shared/ui/Controlled';
-
-import { useAddPost } from '../../hooks/useAddPost';
 
 import cls from './index.module.scss';
 
