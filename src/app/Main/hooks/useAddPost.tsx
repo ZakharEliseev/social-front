@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
 
-import { postApi } from '@/app/api/posts';
+import { postApi } from '@/app/Main/api/posts';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { addPostSchema } from '../validations/addPostSchema';
+import { addPostSchema } from '../models/constants';
 
 export type PostFormValues = {
     text: string;
@@ -23,8 +23,8 @@ export const useAddPost = () => {
             const response = await addNewPost(formData).unwrap();
             console.warn('>>', response);
             methods.reset();
-        } catch (err: any) {
-            console.error('>>', err);
+        } catch {
+            return // тот же вопрос
         }
     });
 

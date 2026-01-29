@@ -2,6 +2,7 @@ import { apiService } from '@/shared/services/HttpService';
 
 import { AddNewCommentRequest, AddNewCommentResponse, GetCommentResponse, GetCommentsRequest } from './types/models';
 
+
 export const commentApi = apiService.injectEndpoints({
     endpoints: (builder) => ({
         addNewComment: builder.mutation<AddNewCommentResponse, AddNewCommentRequest>({
@@ -10,7 +11,10 @@ export const commentApi = apiService.injectEndpoints({
                 method: 'POST',
                 body: {text},
             }),
-            invalidatesTags: [{ type: 'Comments', id: 'LIST' }],
+             invalidatesTags: [
+                { type: 'Comments', id: 'LIST' },
+                { type: 'Posts', id: 'LIST' }
+            ],
         }),
         getAllComments: builder.query<GetCommentResponse, GetCommentsRequest>({
             query: ({id, params}) => ({

@@ -1,12 +1,16 @@
+import { useState } from 'react';
+
 import { Divider } from 'antd';
 
-import { ProfileResponse } from '@/app/api/types/models';
+import { ProfileResponse } from '@/app/Auth/api/types/models';
 import DateService from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
-import { HeartOutlined, LikeOutlined, MoreOutlined } from '@ant-design/icons';
+import { DeleteOutlined, HeartFilled, HeartOutlined, MessageFilled, MessageOutlined } from '@ant-design/icons';
 
+import { useAddLikePost } from '../../hooks/useAddLikePost';
+import { useDeletePost } from '../../hooks/useDeletePost';
 import { useGetAllPosts } from '../../hooks/useGetAllPosts';
-import { AddComment } from '../Form/Comment';
+import { CommentList } from '../Form/CommentList';
 
 import cls from './index.module.scss';
 
@@ -16,6 +20,9 @@ interface Props {
 
 export const PostsList = ({ currentUser }: Props) => {
     const { data: posts, isLoading } = useGetAllPosts();
+    const { handleDelete } = useDeletePost();
+    const { handleLike } = useAddLikePost();
+    const [isVisible, setIsVisible] = useState<Boolean>(false);
 
     if (isLoading) return <div>Загрузка постов</div>;
     return (
@@ -26,20 +33,46 @@ export const PostsList = ({ currentUser }: Props) => {
                         <div className={cls.userInfo}>
                             <Avatar username={currentUser?.username} />
                             <div className={cls.author}>
-                                <p>{currentUser?.username}</p>
-                                <p>{DateService.formatRelative(currentUser?.createdAt)}</p>
+                                <p className={cls.username}>{currentUser?.username}</p>
+                                <p className={cls.createdAt}>
+                                    {DateService.formatRelative(currentUser?.createdAt)}
+                                </p>
                             </div>
                         </div>
-                        <MoreOutlined />
+                        <DeleteOutlined onClick={() => handleDelete(post.id)} />
                     </div>
                     <p className={cls.text}>{post.text}</p>
                     <Divider />
                     <div className={cls.icons}>
-                        <HeartOutlined className={cls.heart} />
-                        <LikeOutlined className={cls.like} />
+                        <div className={cls.iconWrap}>
+                            {post.isLiked ? (
+                                <HeartFilled
+                                    className={cls.like}
+                                    onClick={() => handleLike(post.id)}
+                                />
+                            ) : (
+                                <HeartOutlined
+                                    onClick={() => handleLike(post.id)}
+                                    className={cls.notLike}
+                                />
+                            )}
+                            {post.likesCount}
+                        </div>
+                        <div className={cls.iconWrap} onClick={() => setIsVisible(!isVisible)}>
+                            {post.comments?.length ? (
+                                <MessageFilled className={cls.comment} />
+                            ) : (
+                                <MessageOutlined className={cls.comment} />
+                            )}
+                            {post.comments?.length}
+                        </div>
                     </div>
                     <Divider />
-                    <AddComment />
+                    <CommentList
+                        postId={post.id}
+                        commentList={post.comments}
+                        isVisible={isVisible}
+                    />
                 </div>
             ))}
         </>

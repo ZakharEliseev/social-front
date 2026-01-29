@@ -3,7 +3,7 @@ import { Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate, Outlet, Route, Routes } from 'react-router';
 
-import { authApi } from '@/app/api/auth';
+import { authApi } from '@/app/Auth/api/auth';
 import NotFound from '@/app/NotFound';
 import { useAppSelector } from '@/store/hooks';
 import { setUserData } from '@/store/userSlice';

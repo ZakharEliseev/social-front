@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { authApi } from '@/app/api/auth';
 import { RoutePath } from '@/routes/config';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { registerSchema } from '../validations/registerSchema';
+import { authApi } from '../api/auth';
+import { registerSchema } from '../models/constants';
 
 export type RegisterFormValues = {
     username: string;

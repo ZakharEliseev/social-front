@@ -1,6 +1,7 @@
 import { apiService } from '@/shared/services/HttpService';
 
-import { AddNewPostRequest, AddNewPostResponse, GetPostsRequest, GetPostsResponse } from './types/models';
+import { AddNewPostRequest, AddNewPostResponse, DeletePostRequest, GetPostsRequest, GetPostsResponse } from './types/models';
+
 
 export const postApi = apiService.injectEndpoints({
     endpoints: (builder) => ({
@@ -9,6 +10,13 @@ export const postApi = apiService.injectEndpoints({
                 url: '/posts',
                 method: 'POST',
                 body: payload,
+            }),
+            invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
+        }),
+        deletePost: builder.mutation<void, DeletePostRequest>({
+            query: ({id}) => ({
+                url: `/posts/${id}`,
+                method: 'DELETE',
             }),
             invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
         }),

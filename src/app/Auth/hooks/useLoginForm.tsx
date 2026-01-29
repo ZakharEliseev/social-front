@@ -1,13 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { authApi } from '@/app/api/auth';
 import { RoutePath } from '@/routes/config';
 import { useAppDispatch } from '@/store/hooks';
 import { setUserData } from '@/store/userSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { loginSchema } from '../validations/loginSchema';
+import { authApi } from '../api/auth';
+import { loginSchema } from '../models/constants';
+
 
 export type LoginFormValues = {
     email: string;

@@ -1,4 +1,5 @@
-import { authApi } from '@/app/api/auth';
+
+import { authApi } from '@/app/Auth/api/auth';
 import { configureStore } from '@reduxjs/toolkit'
 
 import userSlice from './userSlice';

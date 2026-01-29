@@ -1,4 +1,4 @@
-import { postApi } from '@/app/api/posts';
+import { postApi } from '@/app/Main/api/posts';
 
 export const useGetAllPosts = () => {
     const { data, isLoading, refetch } = postApi.useGetAllPostsQuery({

@@ -1,28 +1,33 @@
 import { useForm } from 'react-hook-form';
 
-import { commentApi } from '@/app/api/comment';
+import { commentApi } from '@/app/Main/api/comment';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { addCommentSchema } from '../validations/addCommentSchema';
+import { addCommentSchema } from '../models/constants';
 
 interface CommentFormValues {
     text: string;
 }
-export const useAddComments = () => {
+
+export const useAddComments = (postId: number) => {
     const methods = useForm<CommentFormValues>({
         mode: 'onSubmit',
-        resolver: yupResolver(addCommentSchema)
+        resolver: yupResolver(addCommentSchema),
     });
 
     const [addNewComment] = commentApi.useAddNewCommentMutation();
 
-    const onSubmit = methods.handleSubmit(async (formData : CommentFormValues) => {
+    const onSubmit = methods.handleSubmit(async (formData: CommentFormValues) => {
         try {
-            const response = await addNewComment(formData, id).unwrap()
+            await addNewComment({
+                id: postId,
+                text: formData.text,
+            }).unwrap();
+            methods.reset();
         } catch {
-
+            return // тот же вопрос
         }
-    })
+    });
 
     return {
         methods,
