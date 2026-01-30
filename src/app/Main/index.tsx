@@ -1,7 +1,7 @@
 import { Navbar } from '@/shared/ui';
 import { useAppSelector } from '@/store/hooks';
 
-import { AddPostForm } from './ui/Form/Post';
+import { AddPostForm } from './ui/Form/AddPost';
 import { PostsList } from './ui/PostList';
 
 import cls from './index.module.scss';

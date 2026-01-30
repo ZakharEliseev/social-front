@@ -1,4 +1,3 @@
-
 import { ProfileResponse } from '@/app/Auth/models/types/constants';
 import { createSlice } from '@reduxjs/toolkit';
 

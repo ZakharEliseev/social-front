@@ -16,7 +16,7 @@ class DateService {
         return DateService.instance;
     }
 
-    public formatRelative(isoString: string | undefined): string {
+    public getRelative(isoString: string | undefined): string {
         return dayjs(isoString).fromNow();
     }
 }
