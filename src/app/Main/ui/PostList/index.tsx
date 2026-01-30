@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Divider } from 'antd';
 
-import { ProfileResponse } from '@/app/Auth/api/types/models';
+import { ProfileResponse } from '@/app/Auth/models/types/constants';
 import { dateService } from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
 import {

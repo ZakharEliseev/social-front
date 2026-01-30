@@ -6,7 +6,7 @@ import {
     ProfileResponse,
     RegisterRequest,
     RegisterResponse,
-} from './types/models';
+} from '../models/types/constants';
 
 export const authApi = apiService.injectEndpoints({
     endpoints: (builder) => ({

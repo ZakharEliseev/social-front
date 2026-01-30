@@ -1,10 +1,10 @@
 import { Button } from 'antd';
 import { FormProvider } from 'react-hook-form';
 
-import { ProfileResponse } from '@/app/Auth/api/types/models';
+import { ProfileResponse } from '@/app/Auth/models/types/constants';
 import { useAddPost } from '@/app/Main/hooks/useAddPost';
 import { Avatar } from '@/shared/ui';
-import { Controlled } from '@/shared/ui/Controlled';
+import { Controlled } from '@/shared/ui/';
 
 import cls from './index.module.scss';
 

@@ -1,4 +1,5 @@
-import { ProfileResponse } from '@/app/api/auth';
+
+import { ProfileResponse } from '@/app/Auth/models/types/constants';
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface ProfileState {

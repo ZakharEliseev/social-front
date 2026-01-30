@@ -1,9 +1,9 @@
 import { Button } from 'antd';
 import { FormProvider } from 'react-hook-form';
 
-import { AddNewCommentResponse } from '@/app/Main/api/types/models';
+import { AddNewCommentResponse } from '@/app/Main/models/types/constants';
 import { Avatar } from '@/shared/ui';
-import { Controlled } from '@/shared/ui/Controlled';
+import { Controlled } from '@/shared/ui/';
 
 import { useAddComments } from '../../../hooks/useAddComments';
 
