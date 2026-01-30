@@ -1,6 +1,6 @@
 import { Navbar } from '@/shared/ui';
 
-export const SearchPage = () => {
+const SearchPage = () => {
     return (
         <div>
             <Navbar />
@@ -9,3 +9,4 @@ export const SearchPage = () => {
     );
 };
 
+export default SearchPage;

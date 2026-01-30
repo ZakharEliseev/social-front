@@ -3,7 +3,7 @@ import { useController, useFormContext } from 'react-hook-form';
 
 import cls from './index.module.scss';
 
-interface TextAreaProps {
+export interface TextAreaProps {
     name: string;
     placeholder?: string;
     autoSize?: { minRows: number; maxRows: number };
