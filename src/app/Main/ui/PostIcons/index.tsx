@@ -19,9 +19,12 @@ export const PostIcons = ({ post, setIsVisible }: Props) => {
         <div className={cls.icons}>
             <div className={cls.content}>
                 {post.isLiked ? (
-                    <HeartFilled className={cls.like} onClick={() => toggleLike({id: post.id})} />
+                    <HeartFilled className={cls.like} onClick={() => toggleLike({ id: post.id })} />
                 ) : (
-                    <HeartOutlined onClick={() => toggleLike({id: post.id})} className={cls.like} />
+                    <HeartOutlined
+                        onClick={() => toggleLike({ id: post.id })}
+                        className={cls.like}
+                    />
                 )}
                 {post.likesCount}
             </div>
