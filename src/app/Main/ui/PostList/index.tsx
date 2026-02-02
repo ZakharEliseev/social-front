@@ -19,16 +19,15 @@ interface Props {
 }
 
 export const PostsList = ({ currentUser }: Props) => {
-    const [deletePost] = postApi.useDeletePostMutation();
-    const [isVisibleComments, setIsVisibleComments] = useState<Record<number, boolean>>({});
-
     const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
         offset: 0,
         limit: 5,
     });
+    const [deletePost] = postApi.useDeletePostMutation();
+
+    const [isVisibleComments, setIsVisibleComments] = useState<Record<number, boolean>>({});
 
     const parentRef = useRef<HTMLDivElement>(null);
-
     const rowVirtualizer = useVirtualizer({
         count: posts?.length!,
         getScrollElement: () => parentRef.current,
@@ -36,6 +35,7 @@ export const PostsList = ({ currentUser }: Props) => {
     });
 
     if (isLoading) return <div>Загрузка постов</div>;
+
 
     return (
         <>
