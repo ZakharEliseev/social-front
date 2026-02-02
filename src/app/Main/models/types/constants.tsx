@@ -57,6 +57,3 @@ export interface DeletePostRequest {
 export interface AddLikeRequest {
     id: number;
 }
-
-export const INITIAL_COMMENTS_LIMIT = 4;
-export const INITIAL_POSTS_LIMIT = 2;
