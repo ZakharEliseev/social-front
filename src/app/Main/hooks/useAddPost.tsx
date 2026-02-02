@@ -20,11 +20,10 @@ export const useAddPost = () => {
 
     const onSubmit = methods.handleSubmit(async (formData: PostFormValues) => {
         try {
-            const response = await addNewPost(formData).unwrap();
-            console.warn('>>', response);
+            await addNewPost(formData).unwrap();
             methods.reset();
         } catch {
-            return; // тот же вопрос
+            return;
         }
     });
 

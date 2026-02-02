@@ -9,10 +9,10 @@ import cls from './index.module.scss';
 
 interface Props {
     post: AddNewPostResponse;
-    setIsVisible: Dispatch<SetStateAction<boolean>>;
+    setIsVisibleComments: Dispatch<SetStateAction<{ [postId: number]: boolean }>>;
 }
 
-export const PostIcons = ({ post, setIsVisible }: Props) => {
+export const PostIcons = ({ post, setIsVisibleComments }: Props) => {
     const [toggleLike] = postApi.useToggleLikeMutation();
 
     return (
@@ -28,13 +28,20 @@ export const PostIcons = ({ post, setIsVisible }: Props) => {
                 )}
                 {post.likesCount}
             </div>
-            <div className={cls.content} onClick={() => setIsVisible((isVisible) => !isVisible)}>
-                {post.comments?.length ? (
+            <div
+                className={cls.content}
+                onClick={() =>
+                    setIsVisibleComments((prev) => ({
+                        ...prev,
+                        [post.id]: !prev[post.id],
+                    }))
+                }>
+                {post?.commentsCount ? (
                     <MessageFilled className={cls.comment} />
                 ) : (
                     <MessageOutlined className={cls.comment} />
                 )}
-                {post.comments?.length || 0}
+                {post?.commentsCount || 0}
             </div>
         </div>
     );

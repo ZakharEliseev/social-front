@@ -3,3 +3,12 @@
     max-width: 44rem;
     padding: 1.5rem;
 }
+
+@mixin hideContent {
+    display: flex;
+    justify-content: center;
+    font-weight: 300;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 10px;
+}

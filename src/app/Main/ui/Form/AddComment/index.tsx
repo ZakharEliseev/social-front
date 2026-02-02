@@ -8,9 +8,10 @@ import cls from './index.module.scss';
 
 interface Props {
     postId: number;
+    ref: any;
 }
 
-export const AddComment = ({ postId }: Props) => {
+export const AddComment = ({ postId, ref }: Props) => {
     const { methods, onSubmit } = useAddComments(postId);
     return (
         <FormProvider {...methods}>
@@ -21,6 +22,7 @@ export const AddComment = ({ postId }: Props) => {
                     placeholder="Написать комментарий"
                     variant="outlined"></Controlled.TextArea>
                 <Button
+                    ref={ref}
                     className={cls.btn}
                     type="primary"
                     htmlType="submit"

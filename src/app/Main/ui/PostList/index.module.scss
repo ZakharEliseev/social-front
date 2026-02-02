@@ -3,6 +3,7 @@
 
 .text {
     margin: 0 auto;
+    overflow-wrap: anywhere;
 }
 
 .postList {
@@ -37,4 +38,8 @@
 .userInfo {
     display: flex;
     gap: 0.75rem;
+}
+
+.hidePosts {
+    @include hideContent;
 }
