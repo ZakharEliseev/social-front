@@ -39,7 +39,3 @@
     display: flex;
     gap: 0.75rem;
 }
-
-.hidePosts {
-    @include hideContent;
-}

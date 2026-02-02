@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { AddNewCommentResponse, INITIAL_COMMENTS_LIMIT } from '@/app/Main/models/types/constants';
 import { Avatar } from '@/shared/ui';
 
-import { useCommentList } from '../../hooks/useCommentList';
+import { postApi } from '../../api/posts';
 import { AddComment } from '../Form/AddComment';
 
 import cls from './index.module.scss';
@@ -15,12 +15,14 @@ interface Props {
     setIsVisibleComments: Dispatch<SetStateAction<{ [postId: number]: boolean }>>;
 }
 
-export const CommentList = ({ postId, isVisibleComments, setIsVisibleComments }: Props) => {
-    const { commentList, hideComments, ref } = useCommentList({
-        postId,
-        setIsVisibleComments,
-        isVisibleComments,
-    });
+export const CommentList = ({ postId, isVisibleComments }: Props) => {
+   const { data: commentList } = postApi.useGetAllCommentsQuery(
+           {
+               id: postId,
+               params: { offset: 0, limit: 5 },
+           },
+           { skip: !isVisibleComments },
+       );
 
     return (
         <>
@@ -36,11 +38,11 @@ export const CommentList = ({ postId, isVisibleComments, setIsVisibleComments }:
                 </div>
             ))}
             {isVisibleComments && commentList && commentList?.length >= INITIAL_COMMENTS_LIMIT ? (
-                <p className={cls.hideComment} onClick={hideComments}>
+                <p className={cls.hideComment} >
                     Скрыть комментарии
                 </p>
             ) : null}
-            <AddComment postId={postId} ref={ref} />
+            <AddComment postId={postId}/>
         </>
     );
 };

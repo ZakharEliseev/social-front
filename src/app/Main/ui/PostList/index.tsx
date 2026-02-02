@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Divider } from 'antd';
 
 import { ProfileResponse } from '@/app/Auth/models/types/constants';
@@ -5,7 +7,7 @@ import { dateService } from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
 import { DeleteOutlined } from '@ant-design/icons';
 
-import { usePostList } from '../../hooks/usePostList';
+import { postApi } from '../../api/posts';
 import { CommentList } from '../CommentList';
 import { PostIcons } from '../PostIcons';
 
@@ -16,15 +18,13 @@ interface Props {
 }
 
 export const PostsList = ({ currentUser }: Props) => {
-    const {
-        posts,
-        deletePost,
-        setIsVisibleComments,
-        isVisibleComments,
-        hidePosts,
-        ref,
-        isLoading,
-    } = usePostList();
+    const [deletePost] = postApi.useDeletePostMutation();
+    const [isVisibleComments, setIsVisibleComments] = useState<Record<number, boolean>>({});
+
+    const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
+        offset: 0,
+        limit: 5,
+    });
 
     if (isLoading) return <div>Загрузка постов</div>;
 
@@ -54,12 +54,8 @@ export const PostsList = ({ currentUser }: Props) => {
                         commentList={post.comments}
                         isVisibleComments={isVisibleComments[post.id]}
                     />
-                    <div ref={ref}></div>
                 </div>
             ))}
-            <p className={cls.hidePosts} onClick={hidePosts}>
-                Подняться наверх
-            </p>
         </>
     );
 };
