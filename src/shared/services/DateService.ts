@@ -1,0 +1,24 @@
+/* eslint-disable no-restricted-imports */
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ru';
+
+dayjs.extend(relativeTime);
+dayjs.locale('ru');
+
+class DateService {
+    private static instance: DateService;
+
+    public static getInstance(): DateService {
+        if (!DateService.instance) {
+            DateService.instance = new DateService();
+        }
+        return DateService.instance;
+    }
+
+    public getRelative(isoString: string | undefined): string {
+        return dayjs(isoString).fromNow();
+    }
+}
+
+export const dateService = DateService.getInstance();

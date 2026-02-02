@@ -7,6 +7,7 @@ export const RoutePath = {
     search: () => '/search',
     registration: () => '/registration',
     profile: () => `/users/profile/`,
+    user: (id: string) => `/users/${id}`,
     editProfile: () => '/profile/edit',
     notFound: () => '*',
 };

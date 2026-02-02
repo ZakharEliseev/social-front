@@ -1,0 +1,19 @@
+@use '~/styles/variables.scss' as *;
+
+.input {
+    width: 100%;
+
+    &:focus {
+        border-color: $gray-color;
+    }
+
+    &:hover {
+        border-color: $gray-color;
+    }
+}
+
+.errorMessage {
+    display: flex;
+    justify-content: center;
+    color: $danger-color;
+}
