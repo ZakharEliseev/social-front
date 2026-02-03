@@ -16,13 +16,13 @@ interface Props {
 }
 
 export const CommentList = ({ postId, isVisibleComments }: Props) => {
-   const { data: commentList } = postApi.useGetAllCommentsQuery(
-           {
-               id: postId,
-               params: { offset: 0, limit: 5 },
-           },
-           { skip: !isVisibleComments },
-       );
+    const { data: commentList } = postApi.useGetAllCommentsQuery(
+        {
+            id: postId,
+            params: { offset: 0, limit: 5 },
+        },
+        { skip: !isVisibleComments },
+    );
 
     return (
         <>
@@ -38,11 +38,9 @@ export const CommentList = ({ postId, isVisibleComments }: Props) => {
                 </div>
             ))}
             {isVisibleComments && commentList && commentList?.length >= 5 ? (
-                <p className={cls.hideComment} >
-                    Скрыть комментарии
-                </p>
+                <p className={cls.hideComment}>Скрыть комментарии</p>
             ) : null}
-            <AddComment postId={postId}/>
+            <AddComment postId={postId} />
         </>
     );
 };

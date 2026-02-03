@@ -4,7 +4,6 @@ import { useInView } from 'react-intersection-observer';
 
 import { postApi } from '../api/posts';
 
-
 interface Props {
     postId: number;
     setIsVisibleComments: any;

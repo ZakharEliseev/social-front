@@ -19,7 +19,7 @@ interface Props {
     currentUser?: ProfileResponse | null;
     page: number;
     setPage: React.Dispatch<React.SetStateAction<number>>;
-    allPosts: GetPostsResponse; 
+    allPosts: GetPostsResponse;
     setAllPosts: React.Dispatch<React.SetStateAction<GetPostsResponse>>;
 }
 
