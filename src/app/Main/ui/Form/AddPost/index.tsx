@@ -10,10 +10,11 @@ import cls from './index.module.scss';
 
 interface Props {
     currentUser?: ProfileResponse | null;
+    onPostAdded?: () => void;
 }
 
-export const AddPostForm = ({ currentUser }: Props) => {
-    const { methods, onSubmit } = useAddPost();
+export const AddPostForm = ({ currentUser, onPostAdded }: Props) => {
+    const { methods, onSubmit } = useAddPost(onPostAdded);
 
     return (
         <FormProvider {...methods}>

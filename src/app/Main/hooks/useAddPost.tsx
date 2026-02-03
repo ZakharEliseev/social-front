@@ -9,7 +9,7 @@ export type PostFormValues = {
     text: string;
 };
 
-export const useAddPost = () => {
+export const useAddPost = (onPostAdded?: () => void) => {
     const methods = useForm<PostFormValues>({
         defaultValues: { text: '' },
         mode: 'onSubmit',
@@ -22,6 +22,7 @@ export const useAddPost = () => {
         try {
             await addNewPost(formData).unwrap();
             methods.reset();
+            onPostAdded?.();
         } catch {
             return;
         }

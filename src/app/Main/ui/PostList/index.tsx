@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Divider } from 'antd';
 
@@ -9,6 +9,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { postApi } from '../../api/posts';
+import { GetPostsResponse } from '../../models/types/constants';
 import { CommentList } from '../CommentList';
 import { PostIcons } from '../PostIcons';
 
@@ -16,33 +17,54 @@ import cls from './index.module.scss';
 
 interface Props {
     currentUser?: ProfileResponse | null;
+    page: number;
+    setPage: React.Dispatch<React.SetStateAction<number>>;
+    allPosts: GetPostsResponse; 
+    setAllPosts: React.Dispatch<React.SetStateAction<GetPostsResponse>>;
 }
 
-export const PostsList = ({ currentUser }: Props) => {
+export const PostsList = ({ currentUser, page, setPage, allPosts, setAllPosts }: Props) => {
+    //
+    const PAGE_SIZE = 10;
+
     const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
-        offset: 0,
-        limit: 5,
+        offset: page * PAGE_SIZE,
+        limit: PAGE_SIZE,
     });
+    const parentRef = useRef<HTMLDivElement>(null);
+    const rowVirtualizer = useVirtualizer({
+        count: allPosts?.length,
+        getScrollElement: () => parentRef.current,
+        estimateSize: () => 350, //
+    });
+    const visibleVirtualItems = rowVirtualizer.getVirtualItems();
+    const lastVisibleVirtualItem = visibleVirtualItems[visibleVirtualItems.length - 1]?.index;
+
+    useEffect(() => {
+        if (posts) {
+            setAllPosts((prev) => [...prev, ...posts]);
+        }
+    }, [posts]);
+
+    useEffect(() => {
+        if (!posts || posts?.length === 0) return;
+        if (lastVisibleVirtualItem >= allPosts?.length - 2) {
+            setPage((prev) => prev + 1);
+        }
+    }, [rowVirtualizer.range?.endIndex]);
+    //
     const [deletePost] = postApi.useDeletePostMutation();
 
     const [isVisibleComments, setIsVisibleComments] = useState<Record<number, boolean>>({});
 
-    const parentRef = useRef<HTMLDivElement>(null);
-    const rowVirtualizer = useVirtualizer({
-        count: posts?.length!,
-        getScrollElement: () => parentRef.current,
-        estimateSize: () => 350, //
-    });
-
     if (isLoading) return <div>Загрузка постов</div>;
-
 
     return (
         <>
             <div
                 ref={parentRef}
                 style={{
-                    height: `800PX`,
+                    height: `100vh`,
                     overflow: 'auto',
                 }}>
                 <div
@@ -52,7 +74,7 @@ export const PostsList = ({ currentUser }: Props) => {
                         position: 'relative',
                     }}>
                     {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-                        const post = posts?.[virtualRow.index];
+                        const post = allPosts?.[virtualRow.index];
                         if (!post) return;
                         return (
                             <div

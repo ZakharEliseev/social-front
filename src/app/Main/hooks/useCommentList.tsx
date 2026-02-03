@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { postApi } from '../api/posts';
-import { INITIAL_COMMENTS_LIMIT } from '../models/types/constants';
+
 
 interface Props {
     postId: number;
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const useCommentList = ({ postId, setIsVisibleComments, isVisibleComments }: Props) => {
-    const [limit, setLimit] = useState(INITIAL_COMMENTS_LIMIT);
+    const [limit, setLimit] = useState(10);
 
     const { data: commentList, isFetching } = postApi.useGetAllCommentsQuery(
         {

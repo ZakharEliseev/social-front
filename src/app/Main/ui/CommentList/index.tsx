@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { AddNewCommentResponse, INITIAL_COMMENTS_LIMIT } from '@/app/Main/models/types/constants';
+import { AddNewCommentResponse } from '@/app/Main/models/types/constants';
 import { Avatar } from '@/shared/ui';
 
 import { postApi } from '../../api/posts';
@@ -37,7 +37,7 @@ export const CommentList = ({ postId, isVisibleComments }: Props) => {
                     </div>
                 </div>
             ))}
-            {isVisibleComments && commentList && commentList?.length >= INITIAL_COMMENTS_LIMIT ? (
+            {isVisibleComments && commentList && commentList?.length >= 5 ? (
                 <p className={cls.hideComment} >
                     Скрыть комментарии
                 </p>
