@@ -20,12 +20,15 @@ const MainPage = () => {
             <div className={cls.content}>
                 <AddPostForm
                     onPostAdded={() => {
-                        setPage(0);
                         setAllPosts([]);
                     }}
                     currentUser={currentUser}
                 />
                 <PostsList
+                    onCommentAdded={() => {
+                        setPage(0);
+                        setAllPosts([]);
+                    }}
                     page={page}
                     setPage={setPage}
                     allPosts={allPosts}

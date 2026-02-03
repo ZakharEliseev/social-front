@@ -9,6 +9,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { postApi } from '../../api/posts';
+import { POST_COMMENT_COUNT } from '../../models/constants';
 import { GetPostsResponse } from '../../models/types/constants';
 import { CommentList } from '../CommentList';
 import { PostIcons } from '../PostIcons';
@@ -21,21 +22,28 @@ interface Props {
     setPage: React.Dispatch<React.SetStateAction<number>>;
     allPosts: GetPostsResponse;
     setAllPosts: React.Dispatch<React.SetStateAction<GetPostsResponse>>;
+    onCommentAdded?: () => void;
 }
 
-export const PostsList = ({ currentUser, page, setPage, allPosts, setAllPosts }: Props) => {
-    //
-    const PAGE_SIZE = 10;
-
+export const PostsList = ({
+    currentUser,
+    page,
+    setPage,
+    allPosts,
+    setAllPosts,
+    onCommentAdded,
+}: Props) => {
     const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
-        offset: page * PAGE_SIZE,
-        limit: PAGE_SIZE,
+        offset: page * POST_COMMENT_COUNT,
+        limit: POST_COMMENT_COUNT,
     });
+
     const parentRef = useRef<HTMLDivElement>(null);
     const rowVirtualizer = useVirtualizer({
         count: allPosts?.length,
         getScrollElement: () => parentRef.current,
-        estimateSize: () => 350, //
+        estimateSize: () => 350,
+        gap: 20,
     });
     const visibleVirtualItems = rowVirtualizer.getVirtualItems();
     const lastVisibleVirtualItem = visibleVirtualItems[visibleVirtualItems.length - 1]?.index;
@@ -52,79 +60,78 @@ export const PostsList = ({ currentUser, page, setPage, allPosts, setAllPosts }:
             setPage((prev) => prev + 1);
         }
     }, [rowVirtualizer.range?.endIndex]);
-    //
+
     const [deletePost] = postApi.useDeletePostMutation();
+    const handleDelete = (postId: number) => {
+        setAllPosts((prev) => prev.filter((p) => p.id !== postId));
+        deletePost({ id: postId });
+    };
 
     const [isVisibleComments, setIsVisibleComments] = useState<Record<number, boolean>>({});
 
     if (isLoading) return <div>Загрузка постов</div>;
 
     return (
-        <>
+        <div
+            ref={parentRef}
+            style={{
+                height: `100vh`,
+                overflow: 'auto',
+                marginTop: '20px',
+            }}>
             <div
-                ref={parentRef}
                 style={{
-                    height: `100vh`,
-                    overflow: 'auto',
+                    height: `${rowVirtualizer.getTotalSize()}px`,
+                    width: '100%',
+                    position: 'relative',
                 }}>
-                <div
-                    style={{
-                        height: `${rowVirtualizer.getTotalSize()}px`,
-                        width: '100%',
-                        position: 'relative',
-                    }}>
-                    {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-                        const post = allPosts?.[virtualRow.index];
-                        if (!post) return;
-                        return (
-                            <div
-                                key={virtualRow.key}
-                                style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    width: '100%',
-                                    height: `${virtualRow.size}px`,
-                                    transform: `translateY(${virtualRow.start}px)`,
-                                }}>
-                                <div className={cls.postList}>
-                                    <div className={cls.postItemHeader}>
-                                        <div className={cls.userInfo}>
-                                            <Avatar username={currentUser?.username} />
-                                            <div className={cls.author}>
-                                                <p className={cls.username}>
-                                                    {currentUser?.username}
-                                                </p>
-                                                <p className={cls.createdAt}>
-                                                    {dateService.getRelative(
-                                                        currentUser?.createdAt,
-                                                    )}
-                                                </p>
-                                            </div>
+                {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                    const post = allPosts?.[virtualRow.index];
+                    if (!post) return;
+                    return (
+                        <div
+                            key={virtualRow.key}
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: `${virtualRow.size}px`,
+                                transform: `translateY(${virtualRow.start}px)`,
+                            }}>
+                            <div className={cls.postList}>
+                                <div className={cls.postItemHeader}>
+                                    <div className={cls.userInfo}>
+                                        <Avatar username={currentUser?.username} />
+                                        <div className={cls.author}>
+                                            <p className={cls.username}>{currentUser?.username}</p>
+                                            <p className={cls.createdAt}>
+                                                {dateService.getRelative(currentUser?.createdAt)}
+                                            </p>
                                         </div>
-                                        <DeleteOutlined
-                                            onClick={() => deletePost({ id: post.id })}
-                                        />
                                     </div>
-                                    <p className={cls.text}>{post.text}</p>
-                                    <Divider />
-                                    <PostIcons
-                                        post={post}
-                                        setIsVisibleComments={setIsVisibleComments}
-                                    />
-                                    <Divider />
-                                    <CommentList
-                                        setIsVisibleComments={setIsVisibleComments}
-                                        postId={post?.id}
-                                        commentList={post?.comments}
-                                        isVisibleComments={isVisibleComments[post.id]}
-                                    />
+                                    <DeleteOutlined onClick={() => handleDelete(post.id)} />
                                 </div>
+                                <p className={cls.text}>{post.text}</p>
+                                <Divider />
+                                <PostIcons
+                                    setAllPosts={setAllPosts}
+                                    post={post}
+                                    setIsVisibleComments={setIsVisibleComments}
+                                />
+                                <Divider />
+                                <CommentList
+                                    onCommentAdded={onCommentAdded}
+                                    setIsVisibleComments={setIsVisibleComments}
+                                    postId={post?.id}
+                                    commentList={post?.comments}
+                                    isVisibleComments={isVisibleComments[post.id]}
+                                />
                             </div>
-                        );
-                    })}
-                </div>
+                        </div>
+                    );
+                })}
             </div>
-        </>
+        </div>
     );
 };

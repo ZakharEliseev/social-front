@@ -17,3 +17,5 @@ export const addCommentSchema = yup.object({
         .required('Поле обязательно')
         .trim(),
 });
+
+export const POST_COMMENT_COUNT = 10;
