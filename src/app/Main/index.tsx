@@ -19,13 +19,13 @@ const MainPage = () => {
             <Navbar />
             <div className={cls.content}>
                 <AddPostForm
-                    onPostAdded={() => {
+                    onSuccess={() => {
                         setAllPosts([]);
                     }}
                     currentUser={currentUser}
                 />
                 <PostsList
-                    onCommentAdded={() => {
+                    onSuccess={() => {
                         setPage(0);
                         setAllPosts([]);
                     }}

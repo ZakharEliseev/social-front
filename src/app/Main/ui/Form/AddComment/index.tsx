@@ -8,11 +8,11 @@ import cls from './index.module.scss';
 
 interface Props {
     postId: number;
-    onCommentAdded?: () => void;
+    onSuccess?: () => void;
 }
 
-export const AddComment = ({ postId, onCommentAdded }: Props) => {
-    const { methods, onSubmit } = useAddComments(postId, onCommentAdded);
+export const AddComment = ({ postId, onSuccess }: Props) => {
+    const { methods, onSubmit } = useAddComments(postId, onSuccess);
     return (
         <FormProvider {...methods}>
             <form onSubmit={onSubmit} className={cls.form}>

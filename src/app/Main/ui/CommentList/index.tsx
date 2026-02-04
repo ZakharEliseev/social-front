@@ -15,10 +15,10 @@ interface Props {
     commentList?: AddNewCommentResponse[];
     isVisibleComments: boolean;
     setIsVisibleComments: Dispatch<SetStateAction<{ [postId: number]: boolean }>>;
-    onCommentAdded?: () => void;
+    onSuccess?: () => void;
 }
 
-export const CommentList = ({ postId, isVisibleComments, onCommentAdded }: Props) => {
+export const CommentList = ({ postId, isVisibleComments, onSuccess }: Props) => {
     const [allComments, setAllComments] = useState<GetCommentResponse>([]);
     const [commentsCount, setCommentsCount] = useState<number>(0);
 
@@ -96,7 +96,7 @@ export const CommentList = ({ postId, isVisibleComments, onCommentAdded }: Props
                         );
                     })}
                 </div>
-                <AddComment onCommentAdded={onCommentAdded} postId={postId} />
+                <AddComment onSuccess={onSuccess} postId={postId} />
             </div>
         </>
     );

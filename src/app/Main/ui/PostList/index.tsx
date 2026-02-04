@@ -22,7 +22,7 @@ interface Props {
     setPage: React.Dispatch<React.SetStateAction<number>>;
     allPosts: GetPostsResponse;
     setAllPosts: React.Dispatch<React.SetStateAction<GetPostsResponse>>;
-    onCommentAdded?: () => void;
+    onSuccess?: () => void;
 }
 
 export const PostsList = ({
@@ -31,7 +31,7 @@ export const PostsList = ({
     setPage,
     allPosts,
     setAllPosts,
-    onCommentAdded,
+    onSuccess,
 }: Props) => {
     const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
         offset: page * POST_COMMENT_COUNT,
@@ -121,7 +121,7 @@ export const PostsList = ({
                                 />
                                 <Divider />
                                 <CommentList
-                                    onCommentAdded={onCommentAdded}
+                                    onSuccess={onSuccess}
                                     setIsVisibleComments={setIsVisibleComments}
                                     postId={post?.id}
                                     commentList={post?.comments}
