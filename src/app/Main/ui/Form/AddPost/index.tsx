@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import { FormProvider } from 'react-hook-form';
 
-import { ProfileResponse } from '@/app/Auth/models/types/constants';
+import { ProfileResponse } from '@/app/Auth/models/types';
 import { useAddPost } from '@/app/Main/hooks/useAddPost';
 import { Avatar } from '@/shared/ui';
 import { Controlled } from '@/shared/ui/';

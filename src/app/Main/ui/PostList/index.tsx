@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Divider } from 'antd';
 
-import { ProfileResponse } from '@/app/Auth/models/types/constants';
+import { ProfileResponse } from '@/app/Auth/models/types';
 import { dateService } from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -10,7 +10,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { postApi } from '../../api/posts';
 import { POST_COMMENT_COUNT } from '../../models/constants';
-import { GetPostsResponse } from '../../models/types/types';
+import { GetPostsResponse } from '../../models/types';
 import { CommentList } from '../CommentList';
 import { PostIcons } from '../PostIcons';
 

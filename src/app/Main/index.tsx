@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Navbar } from '@/shared/ui';
 import { useAppSelector } from '@/store/hooks';
 
-import { GetPostsResponse } from './models/types/types';
+import { GetPostsResponse } from './models/types';
 import { AddPostForm } from './ui/Form/AddPost';
 import { PostsList } from './ui/PostList';
 

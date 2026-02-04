@@ -3,7 +3,7 @@ import React from 'react';
 import { HeartFilled, HeartOutlined, MessageFilled, MessageOutlined } from '@ant-design/icons';
 
 import { postApi } from '../../api/posts';
-import { AddNewPostResponse, GetPostsResponse } from '../../models/types/types';
+import { AddNewPostResponse, GetPostsResponse } from '../../models/types';
 
 import cls from './index.module.scss';
 
