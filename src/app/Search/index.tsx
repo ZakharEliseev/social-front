@@ -1,11 +1,13 @@
 import { Navbar } from '@/shared/ui';
 
+import cls from './index.module.scss';
+
 const SearchPage = () => {
     return (
-        <div>
+        <>
             <Navbar />
-            Поиск
-        </div>
+            <div className={cls.content}>Поиск</div>
+        </>
     );
 };
 
