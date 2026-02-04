@@ -41,6 +41,8 @@
                             minHeight: '200px',
                             height: `auto`,
                             overflow: 'hidden',
+                            display: 'flex',
+                            flexDirection: 'column'
                         },
                         overlay: {
                             background: 'rgba(0,0,0,0.3)',
