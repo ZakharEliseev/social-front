@@ -18,16 +18,12 @@ export const useAddComments = (postId: number, onPostAdded?: () => void) => {
     const [addNewComment] = postApi.useAddNewCommentMutation();
 
     const onSubmit = methods.handleSubmit(async (formData: CommentFormValues) => {
-        try {
-            await addNewComment({
-                id: postId,
-                text: formData.text,
-            }).unwrap();
-            methods.reset();
-            onPostAdded?.();
-        } catch {
-            return; // тот же вопрос
-        }
+        await addNewComment({
+            id: postId,
+            text: formData.text,
+        }).unwrap();
+        methods.reset();
+        onPostAdded?.();
     });
 
     return {
