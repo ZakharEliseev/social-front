@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Navbar } from '@/shared/ui';
 import { useAppSelector } from '@/store/hooks';
 
-import { GetPostsResponse } from './models/types/constants';
+import { GetPostsResponse } from './models/types/types';
 import { AddPostForm } from './ui/Form/AddPost';
 import { PostsList } from './ui/PostList';
 
@@ -25,10 +25,6 @@ const MainPage = () => {
                     currentUser={currentUser}
                 />
                 <PostsList
-                    onSuccess={() => {
-                        setPage(0);
-                        setAllPosts([]);
-                    }}
                     page={page}
                     setPage={setPage}
                     allPosts={allPosts}

@@ -1,19 +1,20 @@
-import { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 
 import { HeartFilled, HeartOutlined, MessageFilled, MessageOutlined } from '@ant-design/icons';
 
 import { postApi } from '../../api/posts';
-import { AddNewPostResponse, GetPostsResponse } from '../../models/types/constants';
+import { AddNewPostResponse, GetPostsResponse } from '../../models/types/types';
 
 import cls from './index.module.scss';
 
 interface Props {
     post: AddNewPostResponse;
-    setIsVisibleComments: Dispatch<SetStateAction<{ [postId: number]: boolean }>>;
     setAllPosts: React.Dispatch<React.SetStateAction<GetPostsResponse>>;
+    setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setCurrentPost: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-export const PostIcons = ({ post, setIsVisibleComments, setAllPosts }: Props) => {
+export const PostIcons = ({ post, setAllPosts, setModalIsOpen, setCurrentPost }: Props) => {
     const [toggleLike] = postApi.useToggleLikeMutation();
 
     const handleLike = () => {
@@ -31,6 +32,11 @@ export const PostIcons = ({ post, setIsVisibleComments, setAllPosts }: Props) =>
         toggleLike({ id: post.id });
     };
 
+    const openModal = () => {
+        setModalIsOpen((prev) => !prev);
+        setCurrentPost(post.id);
+    };
+
     return (
         <div className={cls.icons}>
             <div className={cls.content}>
@@ -41,14 +47,7 @@ export const PostIcons = ({ post, setIsVisibleComments, setAllPosts }: Props) =>
                 )}
                 {post.likesCount}
             </div>
-            <div
-                className={cls.content}
-                onClick={() =>
-                    setIsVisibleComments((prev) => ({
-                        ...prev,
-                        [post.id]: !prev[post.id],
-                    }))
-                }>
+            <div className={cls.content} onClick={openModal}>
                 {post?.commentsCount ? (
                     <MessageFilled className={cls.comment} />
                 ) : (

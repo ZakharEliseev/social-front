@@ -1,103 +1,68 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+    import { SetStateAction } from 'react';
 
-import { AddNewCommentResponse, GetCommentResponse } from '@/app/Main/models/types/constants';
-import { Avatar } from '@/shared/ui';
-import { useVirtualizer } from '@tanstack/react-virtual';
+    import ReactModal from 'react-modal';
 
-import { postApi } from '../../api/posts';
-import { POST_COMMENT_COUNT } from '../../models/constants';
-import { AddComment } from '../Form/AddComment';
+    import { Avatar } from '@/shared/ui';
 
-import cls from './index.module.scss';
+    import { postApi } from '../../api/posts';
+    import { POST_COMMENT_COUNT } from '../../models/constants';
+    import { AddComment } from '../Form/AddComment';
 
-interface Props {
-    postId: number;
-    commentList?: AddNewCommentResponse[];
-    isVisibleComments: boolean;
-    setIsVisibleComments: Dispatch<SetStateAction<{ [postId: number]: boolean }>>;
-    onSuccess?: () => void;
-}
+    import cls from './index.module.scss';
 
-export const CommentList = ({ postId, isVisibleComments, onSuccess }: Props) => {
-    const [allComments, setAllComments] = useState<GetCommentResponse>([]);
-    const [commentsCount, setCommentsCount] = useState<number>(0);
+    interface Props {
+        postId: number;
+        modalIsOpen: boolean;
+        setModalIsOpen: React.Dispatch<SetStateAction<boolean>>;
+    }
 
-    const { data: commentList } = postApi.useGetAllCommentsQuery(
-        {
+    export const CommentList = ({ postId, modalIsOpen, setModalIsOpen }: Props) => {
+        const { data: commentList, isLoading } = postApi.useGetAllCommentsQuery({
             id: postId,
-            params: { offset: commentsCount * POST_COMMENT_COUNT, limit: POST_COMMENT_COUNT },
-        },
-        { skip: !isVisibleComments },
-    );
+            params: { offset: 0, limit: POST_COMMENT_COUNT },
+        });
 
-    const parentRef = useRef<HTMLDivElement>(null);
-    const rowVirtualizer = useVirtualizer({
-        count: allComments?.length || 0,
-        getScrollElement: () => parentRef.current,
-        estimateSize: () => 50,
-        gap: 10,
-    });
-    const visibleVirtualItems = rowVirtualizer.getVirtualItems();
-    const lastVisibleVirtualItem = visibleVirtualItems[visibleVirtualItems.length - 1]?.index;
-
-    useEffect(() => {
-        if (commentList) {
-            setAllComments((prev) => [...prev, ...commentList]);
-        }
-    }, [commentList]);
-
-    useEffect(() => {
-        if (!commentList || commentList?.length === 0) return;
-        if (lastVisibleVirtualItem >= allComments?.length - 2) {
-            setCommentsCount((prev) => prev + 1);
-        }
-    }, [rowVirtualizer.range?.endIndex]);
-
-    return (
-        <>
-            <div
-                ref={parentRef}
-                style={{
-                    maxHeight: isVisibleComments ? '100px' : '',
-                    overflow: 'auto',
-                    transition: 'max-height 0.2s',
-                }}>
-                <div
+        return (
+            <>
+                <ReactModal
+                    isOpen={modalIsOpen}
+                    onRequestClose={() => setModalIsOpen(false)}
                     style={{
-                        minHeight: isVisibleComments ? `${rowVirtualizer.getTotalSize()}px` : 0,
-                        width: '100%',
-                        position: 'relative',
-                    }}>
-                    {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-                        const comment = allComments?.[virtualRow.index];
-                        if (!comment) return;
+                        content: {
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            right: 'auto',
+                            bottom: 'auto',
+                            transform: 'translate(-50%, -50%)',
 
-                        return (
-                            <div
-                                key={virtualRow.key}
-                                style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    width: '100%',
-                                    height: `auto`,
-                                    transform: `translateY(${virtualRow.start}px)`,
-                                }}>
-                                <div
-                                    className={isVisibleComments ? cls.content : cls.hiddenContent}
-                                    key={comment.id}>
+                            width: '50%',
+                            maxHeight: '80vh',
+                            minHeight: '200px',
+                            height: `auto`,
+                            overflow: 'hidden',
+                        },
+                        overlay: {
+                            background: 'rgba(0,0,0,0.3)',
+                        },
+                    }}>
+                    <div className={cls.comments}>
+                        {isLoading ? (
+                            <div>Загрузка комментариев</div>
+                        ) : (
+                            commentList?.map((comment) => (
+                                <div className={cls.content} key={comment.id}>
                                     {<Avatar username={comment.author.username} />}
                                     <div className={cls.commentContent}>
                                         <p className={cls.username}>{comment.author.username}</p>
                                         <p className={cls.userText}>{comment.text}</p>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })}
-                </div>
-                <AddComment onSuccess={onSuccess} postId={postId} />
-            </div>
-        </>
-    );
-};
+                            ))
+                        )}
+                    </div>
+                    <AddComment postId={postId} />
+                </ReactModal>
+            </>
+        );
+    };
