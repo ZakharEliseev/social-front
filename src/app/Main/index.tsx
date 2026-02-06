@@ -21,6 +21,7 @@ const MainPage = () => {
                 <AddPostForm
                     onSuccess={() => {
                         setAllPosts([]);
+                        setPage(0);
                     }}
                     currentUser={currentUser}
                 />

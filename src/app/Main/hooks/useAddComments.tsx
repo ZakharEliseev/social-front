@@ -9,7 +9,7 @@ interface CommentFormValues {
     text: string;
 }
 
-export const useAddComments = (postId: number, onPostAdded?: () => void) => {
+export const useAddComments = (postId: number, onSuccess?: () => void) => {
     const methods = useForm<CommentFormValues>({
         mode: 'onSubmit',
         resolver: yupResolver(addCommentSchema),
@@ -23,7 +23,7 @@ export const useAddComments = (postId: number, onPostAdded?: () => void) => {
             text: formData.text,
         }).unwrap();
         methods.reset();
-        onPostAdded?.();
+        onSuccess?.();
     });
 
     return {

@@ -30,28 +30,26 @@ export const PostsList = ({ currentUser, page, setPage, allPosts, setAllPosts }:
         limit: POST_COMMENT_COUNT,
     });
 
+        useEffect(() => {
+            if (posts) {
+                setAllPosts((prev) => [...prev, ...posts]);
+            }
+        }, [posts, page]);
+
     const parentRef = useRef<HTMLDivElement>(null);
     const rowVirtualizer = useVirtualizer({
         count: allPosts?.length,
         getScrollElement: () => parentRef.current,
+        onChange(instance) {
+            const items = instance.getVirtualItems();
+            const lastItem = items[items.length - 1].index;
+
+            if (!posts || posts?.length === 0) return;
+            if (lastItem >= allPosts.length - 3) setPage((prev) => prev + 1)
+        },
         estimateSize: () => 260,
         gap: 20,
     });
-    const visibleVirtualItems = rowVirtualizer.getVirtualItems();
-    const lastVisibleVirtualItem = visibleVirtualItems[visibleVirtualItems.length - 1]?.index;
-
-    useEffect(() => {
-        if (posts) {
-            setAllPosts((prev) => [...prev, ...posts]);
-        }
-    }, [posts]);
-
-    useEffect(() => {
-        if (!posts || posts?.length === 0) return;
-        if (lastVisibleVirtualItem >= allPosts?.length - 2) {
-            setPage((prev) => prev + 1);
-        }
-    }, [rowVirtualizer.range?.endIndex]);
 
     const [deletePost] = postApi.useDeletePostMutation();
     const handleDelete = (postId: number) => {
@@ -127,6 +125,7 @@ export const PostsList = ({ currentUser, page, setPage, allPosts, setAllPosts }:
             </div>
             {currentPost && (
                 <CommentList
+                    setAllPosts={setAllPosts}
                     setModalIsOpen={setModalIsOpen}
                     modalIsOpen={modalIsOpen}
                     postId={currentPost}

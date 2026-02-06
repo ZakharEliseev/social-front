@@ -1,70 +1,106 @@
-    import { SetStateAction } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 
-    import ReactModal from 'react-modal';
+import ReactModal from 'react-modal';
 
-    import { Avatar } from '@/shared/ui';
+import { Avatar } from '@/shared/ui';
 
-    import { postApi } from '../../api/posts';
-    import { POST_COMMENT_COUNT } from '../../models/constants';
-    import { AddComment } from '../Form/AddComment';
+import { postApi } from '../../api/posts';
+import { POST_COMMENT_COUNT } from '../../models/constants';
+import { AddComment } from '../Form/AddComment';
 
-    import cls from './index.module.scss';
+import cls from './index.module.scss';
+import { GetCommentResponse, GetPostsResponse } from '../../models/types';
 
-    interface Props {
-        postId: number;
-        modalIsOpen: boolean;
-        setModalIsOpen: React.Dispatch<SetStateAction<boolean>>;
-    }
+interface Props {
+    postId: number;
+    modalIsOpen: boolean;
+    setModalIsOpen: React.Dispatch<SetStateAction<boolean>>;
+    setAllPosts: React.Dispatch<SetStateAction<GetPostsResponse>>;
+}
 
-    export const CommentList = ({ postId, modalIsOpen, setModalIsOpen }: Props) => {
-        const { data: commentList, isLoading } = postApi.useGetAllCommentsQuery({
-            id: postId,
-            params: { offset: 0, limit: POST_COMMENT_COUNT },
-        });
+export const CommentList = ({ postId, modalIsOpen, setModalIsOpen, setAllPosts }: Props) => {
+    const [allComments, setAllComments] = useState<GetCommentResponse>([]);
+    const [page, setPage] = useState<number>(0);
 
-        return (
-            <>
-                <ReactModal
-                    isOpen={modalIsOpen}
-                    onRequestClose={() => setModalIsOpen(false)}
-                    style={{
-                        content: {
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            right: 'auto',
-                            bottom: 'auto',
-                            transform: 'translate(-50%, -50%)',
+    useEffect(() => {
+        setAllComments([]);
+        setPage(0);
+    }, [postId]);
 
-                            width: '50%',
-                            maxHeight: '80vh',
-                            minHeight: '200px',
-                            height: `auto`,
-                            overflow: 'hidden',
-                            display: 'flex',
-                            flexDirection: 'column'
-                        },
-                        overlay: {
-                            background: 'rgba(0,0,0,0.3)',
-                        },
-                    }}>
-                    <div className={cls.comments}>
-                        {isLoading ? (
-                            <div>Загрузка комментариев</div>
-                        ) : (
-                            commentList?.map((comment) => (
-                                <div className={cls.content} key={comment.id}>
-                                    {<Avatar username={comment.author.username} />}
-                                    <div className={cls.commentContent}>
-                                        <p className={cls.username}>{comment.author.username}</p>
-                                        <p className={cls.userText}>{comment.text}</p>
-                                    </div>
+    const { data: commentList, isLoading } = postApi.useGetAllCommentsQuery({
+        id: postId,
+        params: { offset: page * POST_COMMENT_COUNT, limit: POST_COMMENT_COUNT },
+    });
+
+    useEffect(() => {
+        if (commentList) {
+            setAllComments((prev) => [...prev, ...commentList]);
+        }
+    }, [commentList, page]);
+
+    return (
+        <>
+            <ReactModal
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+                style={{
+                    content: {
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        transform: 'translate(-50%, -50%)',
+
+                        width: '50%',
+                        maxHeight: '80vh',
+                        minHeight: '200px',
+                        height: `auto`,
+                        overflow: 'hidden',
+                        display: 'flex',
+                        flexDirection: 'column',
+                    },
+                    overlay: {
+                        background: 'rgba(0,0,0,0.3)',
+                    },
+                }}>
+                <div className={cls.comments}>
+                    {isLoading ? (
+                        <div>Загрузка комментариев</div>
+                    ) : (
+                        allComments?.map((comment) => (
+                            <div className={cls.content} key={comment.id}>
+                                {<Avatar username={comment.author.username} />}
+                                <div className={cls.commentContent}>
+                                    <p className={cls.username}>{comment.author.username}</p>
+                                    <p className={cls.userText}>{comment.text}</p>
                                 </div>
-                            ))
-                        )}
-                    </div>
-                    <AddComment postId={postId} />
-                </ReactModal>
-            </>
-        );
-    };
+                            </div>
+                        ))
+                    )}
+                </div>
+                <div>
+                    {commentList && commentList.length > allComments.length ? (
+                        <p className={cls.loadComments}>Загрузить еще комментариев</p>
+                    ) : (
+                        ''
+                    )}
+                    <AddComment
+                        onSuccess={() => {
+                            setAllComments([]);
+                            setPage(0);
+                            setAllPosts((prev) =>
+                                prev.map((post) => (
+                                    post.id === postId
+                                        ? { ...post, commentsCount: post.commentsCount + 1 }
+                                        : post
+                                )),
+                            );
+                        }}
+                        postId={postId}
+                    />
+                </div>
+            </ReactModal>
+        </>
+    );
+};
