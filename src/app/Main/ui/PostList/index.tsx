@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Divider } from 'antd';
 
-import { ProfileResponse } from '@/app/Auth/models/types';
 import { dateService } from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -15,16 +14,17 @@ import { CommentList } from '../CommentList';
 import { PostIcons } from '../PostIcons';
 
 import cls from './index.module.scss';
+import { useAppSelector } from '@/store/hooks';
 
 interface Props {
-    currentUser?: ProfileResponse | null;
     page: number;
     setPage: React.Dispatch<React.SetStateAction<number>>;
     allPosts: GetPostsResponse;
     setAllPosts: React.Dispatch<React.SetStateAction<GetPostsResponse>>;
 }
 
-export const PostsList = ({ currentUser, page, setPage, allPosts, setAllPosts }: Props) => {
+export const PostsList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
+    const currentUser = useAppSelector((state) => state.profile.profile);
     const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
         offset: page * POST_COMMENT_COUNT,
         limit: POST_COMMENT_COUNT,
@@ -42,10 +42,11 @@ export const PostsList = ({ currentUser, page, setPage, allPosts, setAllPosts }:
         getScrollElement: () => parentRef.current,
         onChange(instance) {
             const items = instance.getVirtualItems();
-            const lastItem = items[items.length - 1].index;
+            const lastItem = items.at(-1);
 
-            if (!posts || posts?.length === 0) return;
-            if (lastItem >= allPosts.length - 3) setPage((prev) => prev + 1)
+            if (lastItem && lastItem.index >= allPosts.length - 3) {
+                setPage((prev) => prev + 1);
+            }
         },
         estimateSize: () => 260,
         gap: 20,

@@ -1,19 +1,18 @@
 import { Button } from 'antd';
 import { FormProvider } from 'react-hook-form';
-
-import { ProfileResponse } from '@/app/Auth/models/types';
 import { useAddPost } from '@/app/Main/hooks/useAddPost';
 import { Avatar } from '@/shared/ui';
 import { Controlled } from '@/shared/ui/';
 
 import cls from './index.module.scss';
+import { useAppSelector } from '@/store/hooks';
 
 interface Props {
-    currentUser?: ProfileResponse | null;
     onSuccess?: () => void;
 }
 
-export const AddPostForm = ({ currentUser, onSuccess }: Props) => {
+export const AddPostForm = ( {onSuccess} : Props) => {
+    const currentUser = useAppSelector((state) => state.profile.profile);
     const { methods, onSubmit } = useAddPost(onSuccess);
 
     return (
