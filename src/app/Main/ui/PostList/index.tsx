@@ -4,6 +4,7 @@ import { Divider } from 'antd';
 
 import { dateService } from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
+import { useAppSelector } from '@/store/hooks';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useVirtualizer } from '@tanstack/react-virtual';
 
@@ -14,7 +15,6 @@ import { CommentList } from '../CommentList';
 import { PostIcons } from '../PostIcons';
 
 import cls from './index.module.scss';
-import { useAppSelector } from '@/store/hooks';
 
 interface Props {
     page: number;
@@ -30,17 +30,23 @@ export const PostsList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
         limit: POST_COMMENT_COUNT,
     });
 
-        useEffect(() => {
-            if (posts) {
-                setAllPosts((prev) => [...prev, ...posts]);
-            }
-        }, [posts, page]);
+    useEffect(() => {
+        if (posts) {
+            setAllPosts((prev) => {
+                const uniquePostId = new Set(prev.map((post) => post.id));
+                const newPosts = posts.filter((post) => !uniquePostId.has(post.id));
+                return [...prev, ...newPosts];
+            });
+        }
+    }, [posts, page]);
 
     const parentRef = useRef<HTMLDivElement>(null);
     const rowVirtualizer = useVirtualizer({
         count: allPosts?.length,
         getScrollElement: () => parentRef.current,
         onChange(instance) {
+            if (posts && posts?.length === 0) return;
+            // setPage((prev) => prev + 1);
             const items = instance.getVirtualItems();
             const lastItem = items.at(-1);
 
