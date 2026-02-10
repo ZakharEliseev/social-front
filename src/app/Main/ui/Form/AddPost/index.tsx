@@ -11,7 +11,7 @@ interface Props {
     onSuccess?: () => void;
 }
 
-export const AddPostForm = ( {onSuccess} : Props) => {
+export const AddPostForm = ({ onSuccess }: Props) => {
     const currentUser = useAppSelector((state) => state.profile.profile);
     const { methods, onSubmit } = useAddPost(onSuccess);
 

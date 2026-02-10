@@ -90,11 +90,11 @@ export const CommentList = ({ postId, modalIsOpen, setModalIsOpen, setAllPosts }
                             setAllComments([]);
                             setPage(0);
                             setAllPosts((prev) =>
-                                prev.map((post) => (
+                                prev.map((post) =>
                                     post.id === postId
                                         ? { ...post, commentsCount: post.commentsCount + 1 }
-                                        : post
-                                )),
+                                        : post,
+                                ),
                             );
                         }}
                         postId={postId}
