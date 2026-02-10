@@ -46,7 +46,6 @@ export const PostsList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
         getScrollElement: () => parentRef.current,
         onChange(instance) {
             if (posts && posts?.length === 0) return;
-            // setPage((prev) => prev + 1);
             const items = instance.getVirtualItems();
             const lastItem = items.at(-1);
 
@@ -74,7 +73,7 @@ export const PostsList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
             <div
                 ref={parentRef}
                 style={{
-                    height: `100vh`,
+                    height: `60vh`,
                     overflow: 'auto',
                     marginTop: '20px',
                 }}>

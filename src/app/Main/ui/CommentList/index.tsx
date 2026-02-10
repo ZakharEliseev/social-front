@@ -6,10 +6,10 @@ import { Avatar } from '@/shared/ui';
 
 import { postApi } from '../../api/posts';
 import { POST_COMMENT_COUNT } from '../../models/constants';
+import { GetCommentResponse, GetPostsResponse } from '../../models/types';
 import { AddComment } from '../Form/AddComment';
 
 import cls from './index.module.scss';
-import { GetCommentResponse, GetPostsResponse } from '../../models/types';
 
 interface Props {
     postId: number;
