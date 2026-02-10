@@ -49,37 +49,48 @@ export const PostVirtualizer = ({ page, setPage, allPosts, setAllPosts }: Props)
         gap: 20,
     });
 
+    const goTop = () => {
+        rowVirtualizer.scrollToIndex(0, {behavior: 'smooth', align: 'start'});
+    };
+
     return (
-        <div className={cls.scrollable} ref={parentRef}>
-            <div
-                style={{
-                    height: `${rowVirtualizer.getTotalSize()}px`,
-                    width: '100%',
-                    position: 'relative',
-                }}>
-                {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-                    const post = allPosts?.[virtualRow.index];
-                    if (!post) return;
-                    return (
-                        <div
-                            key={virtualRow.key}
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '100%',
-                                height: `${virtualRow.size}px`,
-                                transform: `translateY(${virtualRow.start}px)`,
-                            }}>
-                            <PostsList
-                                post={post}
-                                isLoading={isLoading}
-                                setAllPosts={setAllPosts}
-                            />
-                        </div>
-                    );
-                })}
+        <>
+            <div className={cls.scrollable} ref={parentRef}>
+                <div
+                    style={{
+                        height: `${rowVirtualizer.getTotalSize()}px`,
+                        width: '100%',
+                        position: 'relative',
+                    }}>
+                    {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                        const post = allPosts?.[virtualRow.index];
+                        if (!post) return;
+                        return (
+                            <div
+                                key={virtualRow.key}
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: `${virtualRow.size}px`,
+                                    transform: `translateY(${virtualRow.start}px)`,
+                                }}>
+                                <PostsList
+                                    post={post}
+                                    isLoading={isLoading}
+                                    setAllPosts={setAllPosts}
+                                />
+                            </div>
+                        );
+                    })}
+                </div>
+                {
+                    <p onClick={goTop} className={cls.toTop}>
+                        Все посты прочитаны. <br /> Подняться наверх.
+                    </p>
+                }
             </div>
-        </div>
+        </>
     );
 };
