@@ -12,7 +12,6 @@ interface Props {
 
 export const UsersList = ({ user }: Props) => {
     return (
-        <>
             <div key={user.id} className={cls.content}>
                 <div>
                     <Avatar username={user.username} />
@@ -26,6 +25,5 @@ export const UsersList = ({ user }: Props) => {
                     Подписаться
                 </Button>
             </div>
-        </>
     );
 };
