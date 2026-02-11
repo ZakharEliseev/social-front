@@ -4,7 +4,8 @@ import { Button } from 'antd';
 import { FormProvider } from 'react-hook-form';
 import { Link } from 'react-router';
 
-import Input from '@/shared/ui/Controlled/Input';
+
+import { Controlled } from '@/shared/ui';
 import { LockOutlined } from '@ant-design/icons';
 
 import { useRegisterForm } from '../../hooks/useRegisterForm';
@@ -17,21 +18,21 @@ export const RegisterForm: FC = () => {
     return (
         <FormProvider {...methods}>
             <form className={cls.formAuth} onSubmit={onSubmit}>
-                <Input
+                <Controlled.Input
                     name="username"
                     placeholder="Введите имя пользователя"
                     label="Имя пользователя"
                     type="text"
                 />
-                <Input name="email" placeholder="Введите email" label="Email" type="email" />
-                <Input
+                <Controlled.Input name="email" placeholder="Введите email" label="Email" type="email" />
+                <Controlled.Input
                     name="password"
                     placeholder="Введите пароль"
                     label="Введите пароль"
                     type="password"
                     suffix={<LockOutlined />}
                 />
-                <Input
+                <Controlled.Input
                     name="confirmPassword"
                     placeholder="Подтвердите пароль"
                     label="Подтвердите пароль"
