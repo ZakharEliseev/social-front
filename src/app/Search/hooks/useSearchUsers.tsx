@@ -18,10 +18,11 @@ export const useSearchUsers = () => {
 
     const [trigger, { data: users }] = userApi.useLazySearchUsersQuery();
 
-    const onChange = methods.handleSubmit(async (formData: SearchFormValues) => {
+    const onSubmit = methods.handleSubmit(async (formData: SearchFormValues) => {
+        event?.preventDefault();
         await trigger({ username: formData.text });
     });
 
 
-    return { methods, onChange, users };
+    return { methods, onSubmit, users };
 };

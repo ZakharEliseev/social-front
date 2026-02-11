@@ -1,17 +1,17 @@
 import { FormProvider } from 'react-hook-form';
 
-import { Input } from '@/shared/ui/Controlled';
+import { Controlled } from '@/shared/ui/';
 
 import { useSearchUsers } from '../../hooks/useSearchUsers';
 
 
 
 export const SearchForm = () => {
-    const { methods, onChange } = useSearchUsers();
+    const { methods, onSubmit } = useSearchUsers();
     return (
         <FormProvider {...methods}>
-            <form onChange={onChange}>
-                <Input name="text" label='' type="text" />
+            <form onSubmit={onSubmit}>
+                <Controlled.Input name="text" label="" type="text" placeholder='Введите имя пользователя и нажмите Enter'/>
             </form>
         </FormProvider>
     );
