@@ -16,7 +16,7 @@ interface Props {
     setAllPosts: React.Dispatch<React.SetStateAction<GetPostsResponse>>;
 }
 
-export const PostList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
+export const PostsList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
     const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
         offset: page * POST_COMMENT_COUNT,
         limit: POST_COMMENT_COUNT,
