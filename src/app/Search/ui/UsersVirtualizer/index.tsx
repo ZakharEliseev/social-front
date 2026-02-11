@@ -3,12 +3,12 @@ import React from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { GetUsersResponseList } from '../../models/constants';
-import { UsersList } from '../UsersList';
+import { User } from '../User';
 
 interface Props {
     foundUsers: GetUsersResponseList;
 }
-export const UsersVirtualizer = ({foundUsers} : Props) => {
+export const UsersList = ({foundUsers} : Props) => {
     const parentRef = React.useRef(null);
     const rowVirtualizer = useVirtualizer({
         count: foundUsers.length,
@@ -45,7 +45,7 @@ export const UsersVirtualizer = ({foundUsers} : Props) => {
                               height: `${virtualRow.size}px`,
                               transform: `translateY(${virtualRow.start}px)`,
                           }}>
-                          <UsersList user={user} />
+                          <User user={user} />
                       </div>
                   );
                 })}

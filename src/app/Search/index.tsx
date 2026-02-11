@@ -4,7 +4,7 @@ import { Navbar } from '@/shared/ui';
 
 import { GetUsersResponseList } from './models/constants';
 import { SearchForm } from './ui/Form/SearchForm';
-import { UsersVirtualizer } from './ui/UsersVirtualizer';
+import { UsersList } from './ui/UsersVirtualizer';
 
 import cls from './index.module.scss';
 
@@ -17,7 +17,7 @@ const SearchPage = () => {
             <div className={cls.content}>
                 <h3 className={cls.header}>Поиск пользователей</h3>
                 <SearchForm setFoundUsers={setFoundUsers} onSuccess={() => setFoundUsers([])} />
-                <UsersVirtualizer foundUsers={foundUsers} />
+                <UsersList foundUsers={foundUsers} />
             </div>
         </>
     );

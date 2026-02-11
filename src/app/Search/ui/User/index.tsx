@@ -10,7 +10,7 @@ interface Props {
     user: GetUsersResponse;
 }
 
-export const UsersList = ({ user }: Props) => {
+export const User = ({ user }: Props) => {
     return (
             <div key={user.id} className={cls.content}>
                 <div>

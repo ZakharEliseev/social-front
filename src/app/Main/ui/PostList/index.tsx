@@ -16,7 +16,7 @@ interface Props {
     setAllPosts: React.Dispatch<React.SetStateAction<GetPostsResponse>>;
 }
 
-export const PostsList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
+export const PostList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
     const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
         offset: page * POST_COMMENT_COUNT,
         limit: POST_COMMENT_COUNT,
@@ -50,16 +50,17 @@ export const PostsList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
     });
 
     const goTop = () => {
-        rowVirtualizer.scrollToIndex(0, { behavior: 'smooth', align: 'start' });
+        rowVirtualizer.scrollToIndex(0, {behavior: 'smooth', align: 'start'});
     };
 
     return (
         <>
             <div className={cls.scrollable} ref={parentRef}>
                 <div
-                    className={cls.itemsContainer}
+                className={cls.itemsContainer}
                     style={{
                         height: `${rowVirtualizer.getTotalSize()}px`,
+                        
                     }}>
                     {rowVirtualizer.getVirtualItems().map((virtualRow) => {
                         const post = allPosts?.[virtualRow.index];
