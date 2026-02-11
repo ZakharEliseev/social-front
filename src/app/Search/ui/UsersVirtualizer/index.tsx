@@ -24,8 +24,6 @@ export const UsersVirtualizer = ({foundUsers} : Props) => {
                 height: `65vh`,
                 overflow: 'auto',
                 marginTop: '20px',
-                display: 'flex',
-                gap: '10px'
             }}>
             <div
                 style={{
