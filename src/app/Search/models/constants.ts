@@ -19,3 +19,5 @@ export interface GetUsersResponse {
     avatar: null;
     isFollowing: boolean;
 }
+
+export type GetUsersResponseList = GetUsersResponse[];

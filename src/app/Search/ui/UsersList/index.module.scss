@@ -1,0 +1,30 @@
+@use '~/styles/variables.scss' as *;
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: $content-padding;
+  border: $border-color;
+  border-radius: 0.5rem;
+  background-color: $bg-white;
+}
+
+.username {
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.bio {
+  font-weight: 300;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}
+
+.followers {
+  font-weight: 100;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}

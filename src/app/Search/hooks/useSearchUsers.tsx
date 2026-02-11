@@ -3,13 +3,17 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { userApi } from '../api/users';
-import { searchUsersSchema } from '../models/constants';
+import { GetUsersResponseList, searchUsersSchema } from '../models/constants';
 
 interface SearchFormValues {
     text: string;
 }
 
-export const useSearchUsers = () => {
+interface Props {
+    setFoundUsers: React.Dispatch<React.SetStateAction<GetUsersResponseList>>;
+}
+
+export const useSearchUsers = ({ setFoundUsers }: Props) => {
     const methods = useForm<SearchFormValues>({
         defaultValues: { text: '' },
         mode: 'onSubmit',
@@ -20,9 +24,9 @@ export const useSearchUsers = () => {
 
     const onSubmit = methods.handleSubmit(async (formData: SearchFormValues) => {
         event?.preventDefault();
-        await trigger({ username: formData.text });
+        const response = await trigger({ username: formData.text }).unwrap();
+        setFoundUsers((prev) => [...prev, ...response]);
     });
-
 
     return { methods, onSubmit, users };
 };
