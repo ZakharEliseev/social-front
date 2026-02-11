@@ -19,3 +19,24 @@ export const addCommentSchema = yup.object({
 });
 
 export const POST_COMMENT_COUNT = 10;
+
+export const modalStyles: ReactModal.Styles = {
+  content: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    width: '50%',
+    maxHeight: '80vh',
+    minHeight: '200px',
+    height: `auto`,
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  overlay: {
+    background: 'rgba(0,0,0,0.3)',
+  },
+};

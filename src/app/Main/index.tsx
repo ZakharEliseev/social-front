@@ -4,7 +4,7 @@ import { Navbar } from '@/shared/ui';
 
 import { GetPostsResponse } from './models/types';
 import { AddPostForm } from './ui/Form/AddPost';
-import { PostVirtualizer } from './ui/PostVirtualizer';
+import { PostsList } from './ui/PostList';
 
 import cls from './index.module.scss';
 
@@ -22,7 +22,7 @@ const MainPage = () => {
                         setPage(0);
                     }}
                 />
-                <PostVirtualizer
+                <PostsList
                     allPosts={allPosts}
                     page={page}
                     setPage={setPage}
