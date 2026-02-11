@@ -11,9 +11,10 @@ interface SearchFormValues {
 
 interface Props {
     setFoundUsers: React.Dispatch<React.SetStateAction<GetUsersResponseList>>;
+    onSuccess?: () => void;
 }
 
-export const useSearchUsers = ({ setFoundUsers }: Props) => {
+export const useSearchUsers = ({ setFoundUsers, onSuccess }: Props) => {
     const methods = useForm<SearchFormValues>({
         defaultValues: { text: '' },
         mode: 'onSubmit',
@@ -25,6 +26,7 @@ export const useSearchUsers = ({ setFoundUsers }: Props) => {
     const onSubmit = methods.handleSubmit(async (formData: SearchFormValues) => {
         event?.preventDefault();
         const response = await trigger({ username: formData.text }).unwrap();
+        onSuccess?.();
         setFoundUsers((prev) => [...prev, ...response]);
     });
 

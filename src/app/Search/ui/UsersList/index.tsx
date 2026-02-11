@@ -2,33 +2,30 @@ import { Button } from 'antd';
 
 import { Avatar } from '@/shared/ui/MiniAvatar';
 
-import { GetUsersResponseList } from '../../models/constants';
+import { GetUsersResponse } from '../../models/constants';
 
 import cls from './index.module.scss';
 
 interface Props {
-    foundUsers?: GetUsersResponseList;
+    user: GetUsersResponse;
 }
 
-export const UsersList = ({ foundUsers }: Props) => {
+export const UsersList = ({ user }: Props) => {
     return (
         <>
-            {foundUsers &&
-                foundUsers.map((user) => (
-                    <div key={user.id} className={cls.content}>
-                        <div>
-                            <Avatar username={user.username} />
-                        </div>
-                        <div>
-                            <a className={cls.username}>{user.username}</a>
-                            <p className={cls.bio}>BIO</p>
-                            <p className={cls.followers}>FOLLOWERS_COUNT</p>
-                        </div>
-                        <Button type="primary" htmlType="submit" color="default" variant="solid">
-                            Подписаться
-                        </Button>
-                    </div>
-                ))}
+            <div key={user.id} className={cls.content}>
+                <div>
+                    <Avatar username={user.username} />
+                </div>
+                <div>
+                    <a className={cls.username}>{user.username}</a>
+                    <p className={cls.bio}>BIO</p>
+                    <p className={cls.followers}>FOLLOWERS_COUNT</p>
+                </div>
+                <Button type="primary" htmlType="submit" color="default" variant="solid">
+                    Подписаться
+                </Button>
+            </div>
         </>
     );
 };

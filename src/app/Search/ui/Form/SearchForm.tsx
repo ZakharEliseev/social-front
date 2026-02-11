@@ -7,10 +7,11 @@ import { GetUsersResponseList } from '../../models/constants';
 
 interface Props {
     setFoundUsers: React.Dispatch<React.SetStateAction<GetUsersResponseList>>;
+    onSuccess?: () => void;
 }
 
-export const SearchForm = ({ setFoundUsers }: Props) => {
-    const { methods, onSubmit } = useSearchUsers({setFoundUsers});
+export const SearchForm = ({ setFoundUsers, onSuccess }: Props) => {
+    const { methods, onSubmit } = useSearchUsers({ setFoundUsers, onSuccess });
     return (
         <FormProvider {...methods}>
             <form onSubmit={onSubmit}>
