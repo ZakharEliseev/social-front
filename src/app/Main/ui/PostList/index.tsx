@@ -1,65 +1,88 @@
-import { Divider } from 'antd';
+import { useEffect, useRef } from 'react';
 
-import { ProfileResponse } from '@/app/Auth/models/types/constants';
-import { dateService } from '@/shared/services/DateService';
-import { Avatar } from '@/shared/ui';
-import { DeleteOutlined } from '@ant-design/icons';
+import { useVirtualizer } from '@tanstack/react-virtual';
 
-import { usePostList } from '../../hooks/usePostList';
-import { CommentList } from '../CommentList';
-import { PostIcons } from '../PostIcons';
+import { postApi } from '../../api/posts';
+import { POST_COMMENT_COUNT } from '../../models/constants';
+import { GetPostsResponse } from '../../models/types';
+import { Post } from '../Post';
 
 import cls from './index.module.scss';
 
 interface Props {
-    currentUser?: ProfileResponse | null;
+    page: number;
+    setPage: React.Dispatch<React.SetStateAction<number>>;
+    allPosts: GetPostsResponse;
+    setAllPosts: React.Dispatch<React.SetStateAction<GetPostsResponse>>;
 }
 
-export const PostsList = ({ currentUser }: Props) => {
-    const {
-        posts,
-        deletePost,
-        setIsVisibleComments,
-        isVisibleComments,
-        hidePosts,
-        ref,
-        isLoading,
-    } = usePostList();
+export const PostsList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
+    const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
+        offset: page * POST_COMMENT_COUNT,
+        limit: POST_COMMENT_COUNT,
+    });
 
-    if (isLoading) return <div>Загрузка постов</div>;
+    useEffect(() => {
+        if (posts) {
+            setAllPosts((prev) => {
+                const uniquePostId = new Set(prev.map((post) => post.id));
+                const newPosts = posts.filter((post) => !uniquePostId.has(post.id));
+                return [...prev, ...newPosts];
+            });
+        }
+    }, [posts, page]);
+
+    const parentRef = useRef<HTMLDivElement>(null);
+    const rowVirtualizer = useVirtualizer({
+        count: allPosts?.length,
+        getScrollElement: () => parentRef.current,
+        onChange(instance) {
+            if (posts && posts?.length === 0) return;
+            const items = instance.getVirtualItems();
+            const lastItem = items.at(-1);
+
+            if (lastItem && lastItem.index >= allPosts.length - 3) {
+                setPage((prev) => prev + 1);
+            }
+        },
+        estimateSize: () => 260,
+        gap: 20,
+    });
+
+    const goTop = () => {
+        rowVirtualizer.scrollToIndex(0, { behavior: 'smooth', align: 'start' });
+    };
 
     return (
         <>
-            {posts?.map((post) => (
-                <div key={post.id} className={cls.postList}>
-                    <div className={cls.postItemHeader}>
-                        <div className={cls.userInfo}>
-                            <Avatar username={currentUser?.username} />
-                            <div className={cls.author}>
-                                <p className={cls.username}>{currentUser?.username}</p>
-                                <p className={cls.createdAt}>
-                                    {dateService.getRelative(currentUser?.createdAt)}
-                                </p>
+            <div className={cls.scrollable} ref={parentRef}>
+                <div
+                    className={cls.itemsContainer}
+                    style={{
+                        height: `${rowVirtualizer.getTotalSize()}px`,
+                    }}>
+                    {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                        const post = allPosts?.[virtualRow.index];
+                        if (!post) return;
+                        return (
+                            <div
+                                className={cls.item}
+                                key={virtualRow.key}
+                                style={{
+                                    height: `${virtualRow.size}px`,
+                                    transform: `translateY(${virtualRow.start}px)`,
+                                }}>
+                                <Post post={post} isLoading={isLoading} setAllPosts={setAllPosts} />
                             </div>
-                        </div>
-                        <DeleteOutlined onClick={() => deletePost({ id: post.id })} />
-                    </div>
-                    <p className={cls.text}>{post.text}</p>
-                    <Divider />
-                    <PostIcons post={post} setIsVisibleComments={setIsVisibleComments} />
-                    <Divider />
-                    <CommentList
-                        setIsVisibleComments={setIsVisibleComments}
-                        postId={post.id}
-                        commentList={post.comments}
-                        isVisibleComments={isVisibleComments[post.id]}
-                    />
-                    <div ref={ref}></div>
+                        );
+                    })}
                 </div>
-            ))}
-            <p className={cls.hidePosts} onClick={hidePosts}>
-                Подняться наверх
-            </p>
+                {
+                    <p onClick={goTop} className={cls.toTop}>
+                        Все посты прочитаны. <br /> Подняться наверх.
+                    </p>
+                }
+            </div>
         </>
     );
 };

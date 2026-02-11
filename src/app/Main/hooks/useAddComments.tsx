@@ -9,7 +9,7 @@ interface CommentFormValues {
     text: string;
 }
 
-export const useAddComments = (postId: number) => {
+export const useAddComments = (postId: number, onSuccess?: () => void) => {
     const methods = useForm<CommentFormValues>({
         mode: 'onSubmit',
         resolver: yupResolver(addCommentSchema),
@@ -18,15 +18,12 @@ export const useAddComments = (postId: number) => {
     const [addNewComment] = postApi.useAddNewCommentMutation();
 
     const onSubmit = methods.handleSubmit(async (formData: CommentFormValues) => {
-        try {
-            await addNewComment({
-                id: postId,
-                text: formData.text,
-            }).unwrap();
-            methods.reset();
-        } catch {
-            return; // тот же вопрос
-        }
+        await addNewComment({
+            id: postId,
+            text: formData.text,
+        }).unwrap();
+        methods.reset();
+        onSuccess?.();
     });
 
     return {

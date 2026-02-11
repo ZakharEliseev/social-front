@@ -1,41 +1,53 @@
-import { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 
 import { HeartFilled, HeartOutlined, MessageFilled, MessageOutlined } from '@ant-design/icons';
 
 import { postApi } from '../../api/posts';
-import { AddNewPostResponse } from '../../models/types/constants';
+import { AddNewPostResponse, GetPostsResponse } from '../../models/types';
 
 import cls from './index.module.scss';
 
 interface Props {
     post: AddNewPostResponse;
-    setIsVisibleComments: Dispatch<SetStateAction<{ [postId: number]: boolean }>>;
+    setAllPosts: React.Dispatch<React.SetStateAction<GetPostsResponse>>;
+    setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setCurrentPost: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-export const PostIcons = ({ post, setIsVisibleComments }: Props) => {
+export const PostIcons = ({ post, setAllPosts, setModalIsOpen, setCurrentPost }: Props) => {
     const [toggleLike] = postApi.useToggleLikeMutation();
+
+    const handleLike = () => {
+        setAllPosts((prev) =>
+            prev.map((p) =>
+                p.id === post.id
+                    ? {
+                          ...p,
+                          isLiked: !post.isLiked,
+                          likesCount: post.isLiked ? post.likesCount - 1 : post.likesCount + 1,
+                      }
+                    : p,
+            ),
+        );
+        toggleLike({ id: post.id });
+    };
+
+    const openModal = () => {
+        setModalIsOpen((prev) => !prev);
+        setCurrentPost(post.id);
+    };
 
     return (
         <div className={cls.icons}>
             <div className={cls.content}>
                 {post.isLiked ? (
-                    <HeartFilled className={cls.like} onClick={() => toggleLike({ id: post.id })} />
+                    <HeartFilled className={cls.like} onClick={handleLike} />
                 ) : (
-                    <HeartOutlined
-                        onClick={() => toggleLike({ id: post.id })}
-                        className={cls.like}
-                    />
+                    <HeartOutlined className={cls.like} onClick={handleLike} />
                 )}
                 {post.likesCount}
             </div>
-            <div
-                className={cls.content}
-                onClick={() =>
-                    setIsVisibleComments((prev) => ({
-                        ...prev,
-                        [post.id]: !prev[post.id],
-                    }))
-                }>
+            <div className={cls.content} onClick={openModal}>
                 {post?.commentsCount ? (
                     <MessageFilled className={cls.comment} />
                 ) : (

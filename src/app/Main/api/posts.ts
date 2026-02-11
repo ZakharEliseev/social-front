@@ -11,7 +11,7 @@ import {
     GetCommentsRequest,
     GetPostsRequest,
     GetPostsResponse,
-} from '../models/types/constants';
+} from '../models/types';
 
 export const postApi = apiService.injectEndpoints({
     endpoints: (builder) => ({

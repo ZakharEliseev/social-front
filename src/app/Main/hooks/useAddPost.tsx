@@ -9,7 +9,7 @@ export type PostFormValues = {
     text: string;
 };
 
-export const useAddPost = () => {
+export const useAddPost = (onSuccess?: () => void) => {
     const methods = useForm<PostFormValues>({
         defaultValues: { text: '' },
         mode: 'onSubmit',
@@ -19,12 +19,9 @@ export const useAddPost = () => {
     const [addNewPost] = postApi.useAddNewPostMutation();
 
     const onSubmit = methods.handleSubmit(async (formData: PostFormValues) => {
-        try {
-            await addNewPost(formData).unwrap();
-            methods.reset();
-        } catch {
-            return;
-        }
+        await addNewPost(formData).unwrap();
+        methods.reset();
+        onSuccess?.();
     });
 
     return {

@@ -36,3 +36,13 @@
 .hideComment {
     @include hideContent;
 }
+
+.comments {
+    overflow-y: auto;
+}
+
+.loadComments {
+    font-weight: 100;
+    cursor: pointer;
+    text-align: center;
+}
