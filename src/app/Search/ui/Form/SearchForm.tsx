@@ -1,6 +1,6 @@
 import { FormProvider } from 'react-hook-form';
 
-import { Controlled } from '@/shared/ui/';
+import { Controlled } from '@/shared/ui/Controlled';
 
 import { useSearchUsers } from '../../hooks/useSearchUsers';
 
