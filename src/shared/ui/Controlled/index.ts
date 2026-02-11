@@ -5,3 +5,5 @@ export const Controlled = {
     TextArea,
     Input,
 };
+export { Input };
+
