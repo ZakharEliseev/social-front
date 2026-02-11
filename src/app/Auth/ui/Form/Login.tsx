@@ -4,7 +4,7 @@ import { Button } from 'antd';
 import { FormProvider } from 'react-hook-form';
 import { Link } from 'react-router';
 
-import { Input } from '@/shared/ui/Controlled/Input';
+import { Controlled } from '@/shared/ui';
 import { LockOutlined } from '@ant-design/icons';
 
 import { useLoginForm } from '../../hooks/useLoginForm';
@@ -18,13 +18,13 @@ export const LoginForm: FC = () => {
         <FormProvider {...methods}>
             <form className={cls.formAuth} onSubmit={onSubmit}>
                 <p className={cls.errorMessage}>{methods.formState.errors.root?.message}</p>
-                <Input
+                <Controlled.Input
                     name="email"
                     placeholder="Введите email"
                     label="Электронная почта"
                     type="email"
                 />
-                <Input
+                <Controlled.Input
                     name="password"
                     placeholder="Введите пароль"
                     label="Пароль"
