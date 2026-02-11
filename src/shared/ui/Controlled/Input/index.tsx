@@ -11,9 +11,10 @@ export interface Props {
     label: string;
     type: 'text' | 'email' | 'password' | 'tel' | 'number';
     suffix?: React.ReactNode;
+    variant?: 'outlined' | 'borderless' | 'filled' | 'underlined' | undefined;
 }
 
-export const Input: FC<Props> = ({ name, label, suffix, type }) => {
+export const Input: FC<Props> = ({ name, label, suffix, type, placeholder, variant }) => {
     const { control } = useFormContext();
     const {
         field,
@@ -30,7 +31,14 @@ export const Input: FC<Props> = ({ name, label, suffix, type }) => {
             <label className={cls.label} htmlFor={name}>
                 {label}
             </label>
-            <InputElement className={cls.input} {...field} suffix={suffix} type={type} />
+            <InputElement
+                className={cls.input}
+                {...field}
+                suffix={suffix}
+                type={type}
+                placeholder={placeholder}
+                variant={variant}
+            />
             {error && <span className={cls.errorMessage}>{error?.message}</span>}
         </div>
     );
