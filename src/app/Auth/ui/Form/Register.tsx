@@ -4,7 +4,6 @@ import { Button } from 'antd';
 import { FormProvider } from 'react-hook-form';
 import { Link } from 'react-router';
 
-
 import { Controlled } from '@/shared/ui';
 import { LockOutlined } from '@ant-design/icons';
 
@@ -24,7 +23,12 @@ export const RegisterForm: FC = () => {
                     label="Имя пользователя"
                     type="text"
                 />
-                <Controlled.Input name="email" placeholder="Введите email" label="Email" type="email" />
+                <Controlled.Input
+                    name="email"
+                    placeholder="Введите email"
+                    label="Email"
+                    type="email"
+                />
                 <Controlled.Input
                     name="password"
                     placeholder="Введите пароль"

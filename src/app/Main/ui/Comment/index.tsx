@@ -9,7 +9,6 @@ interface Props {
     allComments: GetCommentResponse;
 }
 
-
 export const Comment = ({ isLoading, allComments }: Props) => {
     return (
         <div className={cls.comments}>

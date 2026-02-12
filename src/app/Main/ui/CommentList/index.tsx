@@ -33,11 +33,11 @@ export const CommentList = ({ postId, modalIsOpen, setModalIsOpen, setAllPosts }
 
     useEffect(() => {
         if (commentList) {
-             setAllComments((prev) => {
+            setAllComments((prev) => {
                 const uniqueCommentId = new Set(prev.map((post) => post.id));
                 const newPosts = commentList.filter((comment) => !uniqueCommentId.has(comment.id));
                 return [...prev, ...newPosts];
-             })
+            });
         }
     }, [commentList, page]);
 

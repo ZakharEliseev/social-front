@@ -5,22 +5,21 @@ import { FollowUser, GetUsersRequest, GetUsersResponseList } from '../models/con
 export const userApi = apiService.injectEndpoints({
     endpoints: (builder) => ({
         searchUsers: builder.query<GetUsersResponseList, GetUsersRequest>({
-            query: ({username}) => ({
+            query: ({ username }) => ({
                 url: '/users/',
                 method: 'GET',
                 params: {
-                  q: username
-                }
+                    q: username,
+                },
             }),
             providesTags: [{ type: 'Users', id: 'LIST' }],
         }),
         follow: builder.mutation<void, FollowUser>({
-            query: ({id, isFollow}) => ({
+            query: ({ id, isFollow }) => ({
                 url: `/users/${id}/follow`,
-                method: isFollow ? 'DELETE' : 'POST'
+                method: isFollow ? 'DELETE' : 'POST',
             }),
             invalidatesTags: [{ type: 'Users', id: 'LIST' }],
         }),
     }),
-})
-
+});

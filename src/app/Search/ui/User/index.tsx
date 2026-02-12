@@ -21,7 +21,9 @@ export const User = ({ user, setFoundUsers }: Props) => {
             prev.map((user) => ({
                 ...user,
                 isFollowing: !user.isFollowing,
-                followersCount: user.followersCount ? user.followersCount - 1 : user.followersCount + 1,
+                followersCount: user.followersCount
+                    ? user.followersCount - 1
+                    : user.followersCount + 1,
             })),
         );
     };
