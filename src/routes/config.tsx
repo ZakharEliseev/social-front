@@ -6,9 +6,9 @@ export const RoutePath = {
     login: () => '/login',
     search: () => '/search',
     registration: () => '/registration',
-    profile: () => `/users/profile/`,
+    myProfile: () => '/users/myProfile',
+    editProfile: () => `/users/myProfile/edit`,
     user: (id: string) => `/users/${id}`,
-    // editProfile: () => '/profile/edit',
     notFound: () => '*',
 };
 
@@ -23,13 +23,13 @@ export const privatePages: RouteConfig[] = [
         Component: lazy(() => import('@/app/Search')),
     },
     {
-        path: RoutePath.profile(),
-        Component: lazy(() => import('@/app/MyProfile')),
+        path: RoutePath.editProfile(),
+        Component: lazy(() => import('@/app/Profile/pages/EditProfile')),
     },
-    // {
-    //     path: RoutePath.editProfile(),
-    //     Component: lazy(() => import('@/app/Profile')),
-    // },
+    {
+        path: RoutePath.myProfile(),
+        Component: lazy(() => import('@/app/Profile/pages/MyProfile')),
+    },
     {
         path: RoutePath.feed(),
         Component: lazy(() => import('@/app/Main')),

@@ -27,7 +27,7 @@ export const Navbar = () => {
                 <NavbarItem location={'/search'} icon={<SearchOutlined />}>
                     Поиск
                 </NavbarItem>
-                <NavbarItem location={`/users/profile`} icon={<UserOutlined />}>
+                <NavbarItem location={`/users/myProfile`} icon={<UserOutlined />}>
                     {currentUser?.username}
                 </NavbarItem>
                 <button className={cls.logout} onClick={logout}>

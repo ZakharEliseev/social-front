@@ -40,3 +40,28 @@
     justify-content: center;
     align-items: center;
 }
+
+.goBack {
+    width: 100px;
+    height: 40px;
+    
+    margin: 20px auto 0;
+    
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    border-radius: 0.375rem;
+    cursor: pointer;
+}
+
+.goBack:hover {
+        background: rgb(202 204 207 / 60%);
+    }    
+
+.subHeader {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 20px 0;
+}
