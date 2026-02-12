@@ -1,0 +1,13 @@
+@use '~/styles/variables.scss' as *;
+@use '~/styles/mixins.scss' as *;
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 96px;
+    min-height: 96px;
+    border-radius: 50%;
+    background-color: $light-gray-color;
+    cursor: pointer;
+}
