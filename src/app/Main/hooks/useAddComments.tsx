@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { postApi } from '../api/posts';
 import { addCommentSchema } from '../models/constants';
 
-interface CommentFormValues {
+type CommentFormValues = {
     text: string;
 }
 
