@@ -10,18 +10,17 @@ import cls from './index.module.scss';
 
 const MainPage = () => {
     const [allPosts, setAllPosts] = useState<GetPostsResponse>([]);
-    const [page, setPage] = useState<number>(0);
+    const [page, setPage] = useState<number>(1);
 
+    const onSuccess = () => {
+        setAllPosts([]);
+        setPage(1);
+    };
     return (
         <>
             <Navbar />
             <div className={cls.content}>
-                <AddPostForm
-                    onSuccess={() => {
-                        setAllPosts([]);
-                        setPage(0);
-                    }}
-                />
+                <AddPostForm onSuccess={onSuccess} />
                 <PostsList
                     allPosts={allPosts}
                     page={page}

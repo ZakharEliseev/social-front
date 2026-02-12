@@ -1,3 +1,6 @@
+@use '~/styles/variables.scss' as *;
+@use '~/styles/mixins.scss' as *;
+
 .inputWrapper {
     display: flex;
     flex-direction: column;
@@ -12,6 +15,15 @@
 
 .input {
     height: 2.75rem;
+    width: 100%;
+
+    &:focus {
+        border-color: $gray-color;
+    }
+
+    &:hover {
+        border-color: $gray-color;
+    }
 }
 
 .errorMessage {

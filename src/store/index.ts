@@ -9,7 +9,7 @@ import userSlice from './userSlice';
 export const rtkQueryErrorLogger = () => (next: any) => (action: any) => {
     if (isRejectedWithValue(action)) {
         notification.error({
-            message: 'Ошибка запроса',
+            title: 'Ошибка запроса',
             description: action.payload?.data?.title || 'Что-то пошло не так',
         });
     }

@@ -1,6 +1,6 @@
 import { apiService } from '@/shared/services/HttpService';
 
-import { GetUsersRequest, GetUsersResponseList } from '../models/constants';
+import { FollowUser, GetUsersRequest, GetUsersResponseList } from '../models/constants';
 
 export const userApi = apiService.injectEndpoints({
     endpoints: (builder) => ({
@@ -14,5 +14,13 @@ export const userApi = apiService.injectEndpoints({
             }),
             providesTags: [{ type: 'Users', id: 'LIST' }],
         }),
+        follow: builder.mutation<void, FollowUser>({
+            query: ({id, isFollow}) => ({
+                url: `/users/${id}/follow`,
+                method: isFollow ? 'DELETE' : 'POST'
+            }),
+            invalidatesTags: [{ type: 'Users', id: 'LIST' }],
+        }),
     }),
-});
+})
+

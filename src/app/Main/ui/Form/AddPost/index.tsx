@@ -1,11 +1,12 @@
 import { Button } from 'antd';
 import { FormProvider } from 'react-hook-form';
+
 import { useAddPost } from '@/app/Main/hooks/useAddPost';
 import { Avatar } from '@/shared/ui';
 import { Controlled } from '@/shared/ui/';
+import { useAppSelector } from '@/store/hooks';
 
 import cls from './index.module.scss';
-import { useAppSelector } from '@/store/hooks';
 
 interface Props {
     onSuccess?: () => void;

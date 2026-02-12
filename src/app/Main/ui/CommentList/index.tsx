@@ -2,11 +2,10 @@ import { SetStateAction, useEffect, useState } from 'react';
 
 import ReactModal from 'react-modal';
 
-import { Avatar } from '@/shared/ui';
-
 import { postApi } from '../../api/posts';
 import { POST_COMMENT_COUNT, modalStyles } from '../../models/constants';
 import { GetCommentResponse, GetPostsResponse } from '../../models/types';
+import { Comment } from '../Comment/';
 import { AddComment } from '../Form/AddComment';
 
 import cls from './index.module.scss';
@@ -20,61 +19,55 @@ interface Props {
 
 export const CommentList = ({ postId, modalIsOpen, setModalIsOpen, setAllPosts }: Props) => {
     const [allComments, setAllComments] = useState<GetCommentResponse>([]);
-    const [page, setPage] = useState<number>(0);
+    const [page, setPage] = useState<number>(1);
 
     useEffect(() => {
         setAllComments([]);
-        setPage(0);
+        setPage(1);
     }, [postId]);
 
-    const { data: commentList, isLoading } = postApi.useGetAllCommentsQuery({
+    const { data: commentList } = postApi.useGetAllCommentsQuery({
         id: postId,
-        params: { offset: page * POST_COMMENT_COUNT, limit: POST_COMMENT_COUNT },
+        params: { page: page, limit: POST_COMMENT_COUNT },
     });
 
     useEffect(() => {
         if (commentList) {
-            setAllComments((prev) => [...prev, ...commentList]);
+             setAllComments((prev) => {
+                const uniqueCommentId = new Set(prev.map((post) => post.id));
+                const newPosts = commentList.filter((comment) => !uniqueCommentId.has(comment.id));
+                return [...prev, ...newPosts];
+             })
         }
     }, [commentList, page]);
 
-    const handleSuccess = () => {
+    const onSuccess = () => {
         setAllComments([]);
-        setPage(0);
+        setPage(1);
         setAllPosts((prev) =>
             prev.map((post) =>
                 post.id === postId ? { ...post, commentsCount: post.commentsCount + 1 } : post,
             ),
         );
-    }
+    };
 
     return (
-            <ReactModal
-                isOpen={modalIsOpen}
-                onRequestClose={() => setModalIsOpen(false)}
-                style={modalStyles}>
-                <div className={cls.comments}>
-                    {isLoading ? (
-                        <div>Загрузка комментариев</div>
-                    ) : (
-                        allComments?.map((comment) => (
-                            <div className={cls.content} key={comment.id}>
-                                <Avatar username={comment.author.username} />
-                                <div className={cls.commentContent}>
-                                    <p className={cls.username}>{comment.author.username}</p>
-                                    <p className={cls.userText}>{comment.text}</p>
-                                </div>
-                            </div>
-                        ))
-                    )}
-                </div>
-                <div>
-                    {commentList && commentList.length > allComments.length && <p className={cls.loadComments}>Загрузить еще комментариев</p>}
-                    <AddComment
-                        onSuccess={handleSuccess}
-                        postId={postId}
-                    />
-                </div>
-            </ReactModal>
+        <ReactModal
+            isOpen={modalIsOpen}
+            onRequestClose={() => setModalIsOpen(false)}
+            style={modalStyles}
+            appElement={document.getElementById('root')!}>
+            <Comment isLoading allComments={allComments} />
+            {commentList?.length !== 0 && commentList?.length! === POST_COMMENT_COUNT ? (
+                <p className={cls.loadComments} onClick={() => setPage((prev) => prev + 1)}>
+                    Загрузить еще комментариев
+                </p>
+            ) : (
+                <p className={cls.loadComments}>Все комментарии прочитаны</p>
+            )}
+            <div>
+                <AddComment onSuccess={onSuccess} postId={postId} />
+            </div>
+        </ReactModal>
     );
 };

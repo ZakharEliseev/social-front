@@ -19,6 +19,7 @@ export const SearchForm = ({ setFoundUsers, onSuccess }: Props) => {
                     name="text"
                     label=""
                     type="text"
+                    variant="outlined"
                     placeholder="Введите имя пользователя и нажмите Enter"
                 />
             </form>

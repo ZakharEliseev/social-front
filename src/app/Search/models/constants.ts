@@ -18,6 +18,18 @@ export interface GetUsersResponse {
     username: string;
     avatar: null;
     isFollowing: boolean;
+    email: string;
+    bio: string;
+    postsCount: number;
+    followersCount: number;
+    followingCount: number;
+    isOwnProfile: boolean;
+    createdAt: string;
 }
 
 export type GetUsersResponseList = GetUsersResponse[];
+
+export interface FollowUser {
+    id: number;
+    isFollow: boolean;
+}

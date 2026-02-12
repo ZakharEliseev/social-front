@@ -35,8 +35,8 @@ export const postApi = apiService.injectEndpoints({
                 url: '/feed/all',
                 method: 'GET',
                 params: {
-                    offset: params.offset ?? 0,
-                    limit: params.limit ?? 100,
+                    page: params.page ?? 1,
+                    limit: params.limit ?? 10,
                 },
             }),
             providesTags: [{ type: 'Posts', id: 'LIST' }],
@@ -57,8 +57,8 @@ export const postApi = apiService.injectEndpoints({
                 url: `/posts/${id}/comments`,
                 method: 'GET',
                 params: {
-                    offset: params.offset ?? 0,
-                    limit: params.limit ?? 100,
+                    page: params.page ?? 1,
+                    limit: params.limit ?? 10,
                 },
             }),
             providesTags: [{ type: 'Comments', id: 'LIST' }],

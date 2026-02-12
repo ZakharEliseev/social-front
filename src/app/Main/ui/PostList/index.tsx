@@ -18,7 +18,7 @@ interface Props {
 
 export const PostsList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
     const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
-        offset: page * POST_COMMENT_COUNT,
+        page: page,
         limit: POST_COMMENT_COUNT,
     });
 
@@ -60,7 +60,6 @@ export const PostsList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
                 className={cls.itemsContainer}
                     style={{
                         height: `${rowVirtualizer.getTotalSize()}px`,
-                        
                     }}>
                     {rowVirtualizer.getVirtualItems().map((virtualRow) => {
                         const post = allPosts?.[virtualRow.index];

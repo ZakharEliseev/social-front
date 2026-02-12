@@ -21,14 +21,14 @@ export interface AddNewPostRequest {
 }
 
 export interface GetPostsRequest {
-    offset?: number;
+    page?: number;
     limit?: number;
 }
 
 export interface GetCommentsRequest {
     id: number;
     params: {
-        offset?: number;
+        page?: number;
         limit?: number;
     };
 }
