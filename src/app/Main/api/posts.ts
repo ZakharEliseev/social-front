@@ -53,6 +53,17 @@ export const postApi = apiService.injectEndpoints({
             }),
             providesTags: [{ type: 'Posts', id: 'LIST' }],
         }),
+        getMyPosts: builder.query<GetPostsResponse, GetPostsRequest>({
+            query: (params) => ({
+                url: `/posts/`,
+                method: 'GET',
+                params: {
+                    page: params.page ?? 1,
+                    limit: params.limit ?? 10,
+                },
+            }),
+            providesTags: [{ type: 'Posts', id: 'LIST' }],
+        }),
         addNewComment: builder.mutation<AddNewCommentResponse, AddNewCommentRequest>({
             query: ({ id, text }) => ({
                 url: `/posts/${id}/comments`,

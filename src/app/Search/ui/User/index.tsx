@@ -1,17 +1,18 @@
 import { Button } from 'antd';
 import { NavLink } from 'react-router';
 
+import { ProfileResponse } from '@/app/Auth/models/types';
 import { Avatar } from '@/shared/ui/MiniAvatar';
 import { useAppSelector } from '@/store/hooks';
 import { ArrowRightOutlined } from '@ant-design/icons';
 
 import { userApi } from '../../api/users';
-import { GetUsersResponse, GetUsersResponseList } from '../../models/types';
+import { GetUsersResponseList } from '../../models/types';
 
 import cls from './index.module.scss';
 
 interface Props {
-    user: GetUsersResponse;
+    user: ProfileResponse;
     setFoundUsers?: React.Dispatch<React.SetStateAction<GetUsersResponseList>>;
 }
 
@@ -35,11 +36,13 @@ export const User = ({ user, setFoundUsers }: Props) => {
 
     return (
         <div key={user.id} className={cls.content}>
-            <div>
+            <NavLink to={`/users/${user.id}`} className={cls.link}>
                 <Avatar username={user.username} />
-            </div>
+            </NavLink>
             <div className={cls.userInfo}>
-                <a className={cls.username}>{user.username}</a>
+                <NavLink to={`/users/${user.id}`} className={cls.link}>
+                    <p className={cls.username}>{user.username}</p>
+                </NavLink>
                 <p className={cls.bio}>
                     {!user.bio ? 'Пользователь не заполнил информацию о себе' : user.bio}
                 </p>

@@ -1,10 +1,12 @@
 import { ProfileResponse } from "@/app/Auth/models/types";
 
-export interface GetUsersResponse extends ProfileResponse {};
+export type GetUsersResponseList = ProfileResponse[];
 
-export type GetUsersResponseList = GetUsersResponse[];
-
-export interface FollowUser {
+export interface FollowUserRequest {
     id: number;
     isFollow: boolean;
+}
+
+export interface GetProfileByIdRequest {
+    userId: number;
 }

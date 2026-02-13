@@ -14,9 +14,9 @@ const MainPage = () => {
     const [allPosts, setAllPosts] = useState<GetPostsResponse>([]);
     const [page, setPage] = useState<number>(1);
     const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
-            page: page,
-            limit: POST_COMMENT_COUNT,
-        });
+        page: page,
+        limit: POST_COMMENT_COUNT,
+    });
 
     const onSuccess = () => {
         setAllPosts([]);
@@ -27,6 +27,9 @@ const MainPage = () => {
             <Navbar />
             <div className={cls.content}>
                 <AddPostForm onSuccess={onSuccess} />
+            </div>
+            br
+            <div className={cls.content}>
                 <PostsList
                     posts={posts}
                     isLoading={isLoading}
