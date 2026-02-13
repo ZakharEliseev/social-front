@@ -1,0 +1,28 @@
+.authData {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper {
+  width: 48%;
+}
+
+.bioHeader {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.bioWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.bioText {
+  margin-top: 10px;
+}
+
+.btn {
+  display: block;
+  margin-left: auto;
+  margin-top: 10px;
+}

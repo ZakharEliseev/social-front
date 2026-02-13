@@ -1,21 +1,27 @@
 import { Button } from 'antd';
+import { NavLink } from 'react-router';
 
+import { ProfileResponse } from '@/app/Auth/models/types';
 import { Avatar } from '@/shared/ui/MiniAvatar';
+import { useAppSelector } from '@/store/hooks';
+import { ArrowRightOutlined } from '@ant-design/icons';
 
-import { userApi } from '../../api/users';
-import { GetUsersResponse, GetUsersResponseList } from '../../models/constants';
+import { userApi } from '../../../Profile/api/users';
+import { GetUsersResponseList } from '../../models/types';
 
 import cls from './index.module.scss';
 
 interface Props {
-    user: GetUsersResponse;
-    setFoundUsers: React.Dispatch<React.SetStateAction<GetUsersResponseList>>;
+    user: ProfileResponse;
+    setFoundUsers?: React.Dispatch<React.SetStateAction<GetUsersResponseList>>;
 }
 
 export const User = ({ user, setFoundUsers }: Props) => {
     const [follow] = userApi.useFollowMutation();
+    const currentUser = useAppSelector((state) => state.profile.profile);
 
     const followUser = (userId: number, isFollow: boolean) => {
+        if (!setFoundUsers) return;
         follow({ id: userId, isFollow });
         setFoundUsers((prev) =>
             prev.map((user) => ({
@@ -30,24 +36,36 @@ export const User = ({ user, setFoundUsers }: Props) => {
 
     return (
         <div key={user.id} className={cls.content}>
-            <div>
+            <NavLink to={`/users/${user.id}`} className={cls.link}>
                 <Avatar username={user.username} />
-            </div>
-            <div>
-                <a className={cls.username}>{user.username}</a>
+            </NavLink>
+            <div className={cls.userInfo}>
+                <NavLink to={`/users/${user.id}`} className={cls.link}>
+                    <p className={cls.username}>{user.username}</p>
+                </NavLink>
                 <p className={cls.bio}>
                     {!user.bio ? 'Пользователь не заполнил информацию о себе' : user.bio}
                 </p>
-                <p className={cls.followers}>Подписчиков {user.followersCount}</p>
+                <div className={cls.userCounts}>
+                    <p className={cls.followers}>Подписчиков {user.followersCount}</p>
+                    <p className={cls.followers}>Постов {user.postsCount}</p>
+                    <p className={cls.followers}>Подписок {user.followingCount}</p>
+                </div>
             </div>
-            <Button
-                type="primary"
-                htmlType="submit"
-                color="default"
-                variant={!user.isFollowing ? 'solid' : 'filled'}
-                onClick={() => followUser(user.id, user.isFollowing)}>
-                {user.isFollowing ? 'Отписаться' : 'Подписаться'}
-            </Button>
+            {currentUser?.id === user.id ? (
+                <NavLink to={'/users/myProfile/edit'} className={cls.goToEdit}>
+                    Редактировать профиль <ArrowRightOutlined />
+                </NavLink>
+            ) : (
+                <Button
+                    type="primary"
+                    htmlType="submit"
+                    color="default"
+                    variant={!user.isFollowing ? 'solid' : 'filled'}
+                    onClick={() => followUser(user.id, user.isFollowing)}>
+                    {user.isFollowing ? 'Отписаться' : 'Подписаться'}
+                </Button>
+            )}
         </div>
     );
 };

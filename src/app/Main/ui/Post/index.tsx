@@ -4,7 +4,6 @@ import { Divider } from 'antd';
 
 import { dateService } from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
-import { useAppSelector } from '@/store/hooks';
 import { DeleteOutlined } from '@ant-design/icons';
 
 import { postApi } from '../../api/posts';
@@ -21,7 +20,6 @@ interface Props {
 }
 
 export const Post = ({ post, setAllPosts, isLoading }: Props) => {
-    const currentUser = useAppSelector((state) => state.profile.profile);
     const [deletePost] = postApi.useDeletePostMutation();
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -39,11 +37,11 @@ export const Post = ({ post, setAllPosts, isLoading }: Props) => {
             <div className={cls.postList}>
                 <div className={cls.postItemHeader}>
                     <div className={cls.userInfo}>
-                        <Avatar username={currentUser?.username} />
+                        <Avatar username={post.author.username} />
                         <div className={cls.author}>
-                            <p className={cls.username}>{currentUser?.username}</p>
+                            <p className={cls.username}>{post.author.username}</p>
                             <p className={cls.createdAt}>
-                                {dateService.getRelative(currentUser?.createdAt)}
+                                {dateService.getRelative(post.createdAt)}
                             </p>
                         </div>
                     </div>

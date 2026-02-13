@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { authApi } from '../api/auth';
 import { registerSchema } from '../models/constants';
 
-export type RegisterFormValues = {
+type RegisterFormValues = {
     username: string;
     email: string;
     password: string;

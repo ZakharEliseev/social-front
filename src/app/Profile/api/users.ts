@@ -1,6 +1,9 @@
+import { ProfileResponse } from '@/app/Auth/models/types';
 import { apiService } from '@/shared/services/HttpService';
 
-import { FollowUser, GetUsersRequest, GetUsersResponseList } from '../models/constants';
+import { GetUsersRequest } from '../../Search/models/constants';
+import { FollowUserRequest, GetProfileByIdRequest, GetUsersResponseList } from '../../Search/models/types';
+
 
 export const userApi = apiService.injectEndpoints({
     endpoints: (builder) => ({
@@ -14,12 +17,20 @@ export const userApi = apiService.injectEndpoints({
             }),
             providesTags: [{ type: 'Users', id: 'LIST' }],
         }),
-        follow: builder.mutation<void, FollowUser>({
+        follow: builder.mutation<void, FollowUserRequest>({
             query: ({ id, isFollow }) => ({
                 url: `/users/${id}/follow`,
                 method: isFollow ? 'DELETE' : 'POST',
             }),
             invalidatesTags: [{ type: 'Users', id: 'LIST' }],
         }),
+        getUserProfileById: builder.query<ProfileResponse, GetProfileByIdRequest>({
+                    query: ({userId}) => ({
+                        url: `/users/${userId}`,
+                        method: 'GET',
+                    }),
+                }),
     }),
 });
+
+

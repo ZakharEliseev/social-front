@@ -9,6 +9,7 @@ import {
     DeletePostRequest,
     GetCommentResponse,
     GetCommentsRequest,
+    GetPostsByUserID,
     GetPostsRequest,
     GetPostsResponse,
 } from '../models/types';
@@ -33,6 +34,28 @@ export const postApi = apiService.injectEndpoints({
         getAllPosts: builder.query<GetPostsResponse, GetPostsRequest>({
             query: (params) => ({
                 url: '/feed/all',
+                method: 'GET',
+                params: {
+                    page: params.page ?? 1,
+                    limit: params.limit ?? 10,
+                },
+            }),
+            providesTags: [{ type: 'Posts', id: 'LIST' }],
+        }),
+        getPostsById: builder.query<GetPostsResponse, GetPostsByUserID>({
+            query: ({params, userId}) => ({
+                url: `/posts/user/${userId}`,
+                method: 'GET',
+                params: {
+                    page: params.page ?? 1,
+                    limit: params.limit ?? 10,
+                },
+            }),
+            providesTags: [{ type: 'Posts', id: 'LIST' }],
+        }),
+        getMyPosts: builder.query<GetPostsResponse, GetPostsRequest>({
+            query: (params) => ({
+                url: `/posts/`,
                 method: 'GET',
                 params: {
                     page: params.page ?? 1,

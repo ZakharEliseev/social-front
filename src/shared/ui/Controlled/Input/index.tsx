@@ -12,9 +12,18 @@ export interface Props {
     type: 'text' | 'email' | 'password' | 'tel' | 'number';
     suffix?: React.ReactNode;
     variant?: 'outlined' | 'borderless' | 'filled' | 'underlined' | undefined;
+    className?: string;
 }
 
-export const Input: FC<Props> = ({ name, label, suffix, type, placeholder, variant }) => {
+export const Input: FC<Props> = ({
+    name,
+    label,
+    suffix,
+    type,
+    placeholder,
+    variant,
+    className,
+}) => {
     const { control } = useFormContext();
     const {
         field,
@@ -32,7 +41,7 @@ export const Input: FC<Props> = ({ name, label, suffix, type, placeholder, varia
                 {label}
             </label>
             <InputElement
-                className={cls.input}
+                className={className ? `${cls.input} ${className}` : `${cls.input}`}
                 {...field}
                 suffix={suffix}
                 type={type}

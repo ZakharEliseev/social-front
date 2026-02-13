@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { addPostSchema } from '../models/constants';
 
-export type PostFormValues = {
+type PostFormValues = {
     text: string;
 };
 

@@ -12,3 +12,17 @@
     cursor: pointer;
     padding: 10px;
 }
+
+@mixin navItem {
+    height: 40px;
+    
+    margin: 20px auto 0;
+    
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    border-radius: 0.375rem;
+    cursor: pointer;
+    text-decoration: none;
+}

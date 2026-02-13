@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useVirtualizer } from '@tanstack/react-virtual';
 
-import { GetUsersResponseList } from '../../models/constants';
+import { GetUsersResponseList } from '../../models/types';
 import { User } from '../User';
 
 interface Props {

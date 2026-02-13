@@ -1,0 +1,58 @@
+@use '~/styles/variables.scss' as *;
+@use '~/styles/mixins.scss' as mixins;
+
+.header {
+    text-align: center;
+    margin: 20px 0px;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.content {
+    @include mixins.mainContent;
+    padding: $content-padding;
+    border: $border-color;
+    border-radius: $auth-card-border-radius;
+    background-color: $bg-white;
+}
+
+.btn {
+    width: 146px;
+    height: 40px;
+    padding: 8px 24px;
+    margin-bottom: 10px;
+}
+
+.imageParams {
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: $gray-color;
+}
+
+.avatarBlock {
+    display: flex;
+}
+
+.loadAvatar {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.goBack {
+    width: 100px;
+    @include mixins.navItem
+}
+
+.goBack:hover {
+        background: rgb(202 204 207 / 60%);
+    }    
+
+.subHeader {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 20px 0;
+}

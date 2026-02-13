@@ -57,3 +57,11 @@ export interface DeletePostRequest {
 export interface AddLikeRequest {
     id: number;
 }
+
+export interface GetPostsByUserID {
+    userId: number;
+    params: {
+        page?: number;
+        limit?: number;
+    };
+}
