@@ -18,7 +18,7 @@ export const editProfileSchema = yup.object({
         .trim(),
 });
 
-export const editPasswordSchema =  yup.object({
+export const editPasswordSchema = yup.object({
     currentPassword: yup
         .string()
         .min(6, 'Пароль должен состоять из минимум 6 уникальных символов')
@@ -31,4 +31,4 @@ export const editPasswordSchema =  yup.object({
         .string()
         .oneOf([yup.ref('password')], 'Пароли должны совпадать')
         .required('Повтор пороля обязателен'),
-})
+});

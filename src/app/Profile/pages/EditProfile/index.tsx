@@ -4,7 +4,6 @@ import { GoBackBtn, Navbar } from '@/shared/ui';
 import { BigAvatar } from '@/shared/ui/BigAvatar';
 import { useAppSelector } from '@/store/hooks';
 
-
 import { EditPassword } from '../../ui/Form/EditPassword';
 import { EditProfileForm } from '../../ui/Form/EditProfile';
 
@@ -16,7 +15,7 @@ export const ProfilePage = () => {
     return (
         <>
             <Navbar />
-            <GoBackBtn/>
+            <GoBackBtn />
             <h1 className={cls.header}>Редактировать профиль</h1>
             <div className={cls.content}>
                 <div className={cls.avatarBlock}>

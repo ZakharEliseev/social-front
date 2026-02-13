@@ -1,4 +1,4 @@
-import { ProfileResponse } from "@/app/Auth/models/types";
+import { ProfileResponse } from '@/app/Auth/models/types';
 
 export type GetUsersResponseList = ProfileResponse[];
 

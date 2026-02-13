@@ -12,4 +12,3 @@ export const searchUsersSchema = yup.object({
 export interface GetUsersRequest {
     username: string;
 }
-

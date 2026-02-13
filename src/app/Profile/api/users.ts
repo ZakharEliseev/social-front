@@ -2,8 +2,11 @@ import { ProfileResponse } from '@/app/Auth/models/types';
 import { apiService } from '@/shared/services/HttpService';
 
 import { GetUsersRequest } from '../../Search/models/constants';
-import { FollowUserRequest, GetProfileByIdRequest, GetUsersResponseList } from '../../Search/models/types';
-
+import {
+    FollowUserRequest,
+    GetProfileByIdRequest,
+    GetUsersResponseList,
+} from '../../Search/models/types';
 
 export const userApi = apiService.injectEndpoints({
     endpoints: (builder) => ({
@@ -25,12 +28,10 @@ export const userApi = apiService.injectEndpoints({
             invalidatesTags: [{ type: 'Users', id: 'LIST' }],
         }),
         getUserProfileById: builder.query<ProfileResponse, GetProfileByIdRequest>({
-                    query: ({userId}) => ({
-                        url: `/users/${userId}`,
-                        method: 'GET',
-                    }),
-                }),
+            query: ({ userId }) => ({
+                url: `/users/${userId}`,
+                method: 'GET',
+            }),
+        }),
     }),
 });
-
-

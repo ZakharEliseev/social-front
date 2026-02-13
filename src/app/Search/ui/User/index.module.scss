@@ -31,15 +31,15 @@
 }
 
 .goToEdit {
-  @include mixins.navItem;
-  width: 200px;
-  color: $text-color;
-  margin: 0;
+    @include mixins.navItem;
+    width: 200px;
+    color: $text-color;
+    margin: 0;
 }
 
 .goToEdit:hover {
-        background: rgb(202 204 207 / 60%);
-}   
+    background: rgb(202 204 207 / 60%);
+}
 
 .userInfo {
     text-align: center;

@@ -18,7 +18,7 @@ export const Navbar = () => {
     };
 
     if (!currentUser) return;
-    
+
     return (
         <div className={cls.navbar}>
             <Logo />

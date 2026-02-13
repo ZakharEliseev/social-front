@@ -43,7 +43,7 @@ export const postApi = apiService.injectEndpoints({
             providesTags: [{ type: 'Posts', id: 'LIST' }],
         }),
         getPostsById: builder.query<GetPostsResponse, GetPostsByUserID>({
-            query: ({params, userId}) => ({
+            query: ({ params, userId }) => ({
                 url: `/posts/user/${userId}`,
                 method: 'GET',
                 params: {

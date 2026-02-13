@@ -7,7 +7,7 @@ import { addCommentSchema } from '../models/constants';
 
 type CommentFormValues = {
     text: string;
-}
+};
 
 export const useAddComments = (postId: number, onSuccess?: () => void) => {
     const methods = useForm<CommentFormValues>({
