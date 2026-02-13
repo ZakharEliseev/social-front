@@ -2,26 +2,21 @@ import { useEffect, useRef } from 'react';
 
 import { useVirtualizer } from '@tanstack/react-virtual';
 
-import { postApi } from '../../api/posts';
-import { POST_COMMENT_COUNT } from '../../models/constants';
 import { GetPostsResponse } from '../../models/types';
 import { Post } from '../Post';
 
 import cls from './index.module.scss';
 
 interface Props {
+    posts?: GetPostsResponse;
+    isLoading: boolean;
     page: number;
     setPage: React.Dispatch<React.SetStateAction<number>>;
     allPosts: GetPostsResponse;
     setAllPosts: React.Dispatch<React.SetStateAction<GetPostsResponse>>;
 }
 
-export const PostsList = ({ page, setPage, allPosts, setAllPosts }: Props) => {
-    const { data: posts, isLoading } = postApi.useGetAllPostsQuery({
-        page: page,
-        limit: POST_COMMENT_COUNT,
-    });
-
+export const PostsList = ({ page, setPage, allPosts, setAllPosts, isLoading, posts }: Props) => {
     useEffect(() => {
         if (posts) {
             setAllPosts((prev) => {

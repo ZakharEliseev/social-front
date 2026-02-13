@@ -19,5 +19,12 @@
     border: $border-color;
     border-radius: $auth-card-border-radius;
     background-color: $bg-white;
-    margin-top: 20px;
+}
+
+.subHeader {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    font-weight: 400;
+    font-size: 1.25rem;
 }
