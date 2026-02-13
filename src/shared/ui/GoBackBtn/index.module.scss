@@ -1,0 +1,11 @@
+@use '~/styles/variables.scss' as *;
+@use '~/styles/mixins.scss' as mixins;
+
+.goBack {
+    width: 100px;
+    @include mixins.navItem;
+}
+
+.goBack:hover {
+    background: rgb(202 204 207 / 60%);
+}

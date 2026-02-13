@@ -8,7 +8,7 @@ import { GetPostsResponse } from '@/app/Main/models/types';
 import { PostsList } from '@/app/Main/ui/PostList';
 import { userApi } from '@/app/Profile/api/users';
 import { User } from '@/app/Search/ui/User';
-import { Navbar } from '@/shared/ui';
+import { GoBackBtn, Navbar } from '@/shared/ui';
 import { useAppSelector } from '@/store/hooks';
 
 import cls from './index.module.scss';
@@ -54,6 +54,7 @@ export const Profile = () => {
     return (
         <>
             <Navbar />
+            <GoBackBtn/>
             <div className={cls.userCard}>
                 <User user={user} />
             </div>

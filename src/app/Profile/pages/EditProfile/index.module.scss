@@ -41,15 +41,6 @@
     align-items: center;
 }
 
-.goBack {
-    width: 100px;
-    @include mixins.navItem
-}
-
-.goBack:hover {
-        background: rgb(202 204 207 / 60%);
-    }    
-
 .subHeader {
     text-align: center;
     font-weight: 500;

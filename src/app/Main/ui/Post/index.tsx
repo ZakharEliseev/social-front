@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Divider } from 'antd';
+import { NavLink } from 'react-router';
 
 import { dateService } from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
@@ -38,15 +39,23 @@ export const Post = ({ post, setAllPosts, isLoading }: Props) => {
             <div className={cls.postList}>
                 <div className={cls.postItemHeader}>
                     <div className={cls.userInfo}>
-                        <Avatar username={post.author.username} />
+                        <NavLink to={`/users/${post.author.id}`} className={cls.link}>
+                            <Avatar username={post.author.username} />
+                        </NavLink>
                         <div className={cls.author}>
-                            <p className={cls.username}>{post.author.username}</p>
+                            <NavLink to={`/users/${post.author.id}`} className={cls.link}>
+                                <p className={cls.username}>{post.author.username}</p>
+                            </NavLink>
                             <p className={cls.createdAt}>
                                 {dateService.getRelative(post.createdAt)}
                             </p>
                         </div>
                     </div>
-                    {currentUser?.id === +post.author.id ? <DeleteOutlined onClick={() => handleDelete(post.id)} /> : ''}
+                    {currentUser?.id === +post.author.id ? (
+                        <DeleteOutlined onClick={() => handleDelete(post.id)} />
+                    ) : (
+                        ''
+                    )}
                 </div>
                 <p className={cls.text}>{post.text}</p>
                 <Divider />
