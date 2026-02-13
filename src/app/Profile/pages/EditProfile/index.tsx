@@ -13,7 +13,7 @@ import cls from './index.module.scss';
 
 export const ProfilePage = () => {
     const currentUser = useAppSelector((state) => state.profile.profile);
-     const navigate = useNavigate();
+    const navigate = useNavigate();
 
     return (
         <>

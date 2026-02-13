@@ -1,6 +1,18 @@
 @use '~/styles/variables.scss' as *;
 @use '~/styles/mixins.scss' as mixins;
 
+.userCard {
+    @include mixins.mainContent;
+    padding: $content-padding;
+    border: $border-color;
+    border-radius: $auth-card-border-radius;
+    background-color: $bg-white;
+    margin-top: 20px;
+    div {
+        border: none;
+    }
+}
+
 .content {
     @include mixins.mainContent;
     padding: $content-padding;
