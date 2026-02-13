@@ -28,7 +28,6 @@ const MainPage = () => {
             <div className={cls.content}>
                 <AddPostForm onSuccess={onSuccess} />
             </div>
-            br
             <div className={cls.content}>
                 <PostsList
                     posts={posts}
