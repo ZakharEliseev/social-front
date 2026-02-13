@@ -48,7 +48,7 @@ export const Profile = () => {
         if (newPosts) {
             setAllPosts(newPosts);
         }
-    }, [user?.id, myPosts, posts, currentUser?.id]);
+    }, [user?.id]);
 
     if (!user) return <div>Загрузка профиля</div>;
 
