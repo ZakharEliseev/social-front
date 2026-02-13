@@ -14,7 +14,7 @@ import cls from './index.module.scss';
 
 export const Profile = () => {
     const [allPosts, setAllPosts] = useState<GetPostsResponse>([]);
-    const [page, setPage] = useState<number>(1);
+    const [page, setPage] = useState<number>(() => 1);
 
     const { id } = useParams<{ id: string }>();
     const numericId = Number(id);
@@ -27,6 +27,7 @@ export const Profile = () => {
         userId: numericId,
         params: { page, limit: POST_COMMENT_COUNT },
     });
+
 
     if (!user) return <div>Загрузка профиля</div>;
 

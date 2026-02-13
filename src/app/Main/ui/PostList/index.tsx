@@ -17,6 +17,7 @@ interface Props {
 }
 
 export const PostsList = ({ page, setPage, allPosts, setAllPosts, isLoading, posts }: Props) => {
+
     useEffect(() => {
         if (posts) {
             setAllPosts((prev) => {
