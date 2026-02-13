@@ -1,11 +1,9 @@
 import { useState } from 'react';
 
 import { Divider } from 'antd';
-import { NavLink } from 'react-router';
 
 import { dateService } from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
-import { useAppSelector } from '@/store/hooks';
 import { DeleteOutlined } from '@ant-design/icons';
 
 import { postApi } from '../../api/posts';
@@ -22,7 +20,6 @@ interface Props {
 }
 
 export const Post = ({ post, setAllPosts, isLoading }: Props) => {
-    const currentUser = useAppSelector((state) => state.profile.profile);
     const [deletePost] = postApi.useDeletePostMutation();
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -40,23 +37,15 @@ export const Post = ({ post, setAllPosts, isLoading }: Props) => {
             <div className={cls.postList}>
                 <div className={cls.postItemHeader}>
                     <div className={cls.userInfo}>
-                        <NavLink to={`/users/${post.author.id}`} className={cls.link}>
-                            <Avatar username={post.author.username} />
-                        </NavLink>
+                        <Avatar username={post.author.username} />
                         <div className={cls.author}>
-                            <NavLink to={`/users/${post.author.id}`} className={cls.link}>
-                                <p className={cls.username}>{post.author.username}</p>
-                            </NavLink>
+                            <p className={cls.username}>{post.author.username}</p>
                             <p className={cls.createdAt}>
                                 {dateService.getRelative(post.createdAt)}
                             </p>
                         </div>
                     </div>
-                    {currentUser?.id === Number(post?.author.id) ? (
-                        <DeleteOutlined onClick={() => handleDelete(post.id)} />
-                    ) : (
-                        ''
-                    )}
+                    <DeleteOutlined onClick={() => handleDelete(post.id)} />
                 </div>
                 <p className={cls.text}>{post.text}</p>
                 <Divider />
