@@ -72,11 +72,11 @@ export const PostsList = ({ page, setPage, allPosts, setAllPosts, isLoading, pos
                         );
                     })}
                 </div>
-                {
+                {posts?.length === 0 && posts?.length! <= 3 && (
                     <p onClick={goTop} className={cls.toTop}>
                         Все посты прочитаны. <br /> Подняться наверх.
                     </p>
-                }
+                )}
             </div>
         </>
     );

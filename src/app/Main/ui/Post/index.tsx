@@ -4,6 +4,7 @@ import { Divider } from 'antd';
 
 import { dateService } from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
+import { useAppSelector } from '@/store/hooks';
 import { DeleteOutlined } from '@ant-design/icons';
 
 import { postApi } from '../../api/posts';
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export const Post = ({ post, setAllPosts, isLoading }: Props) => {
+    const currentUser = useAppSelector((state) => state.profile.profile);
     const [deletePost] = postApi.useDeletePostMutation();
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -45,7 +47,11 @@ export const Post = ({ post, setAllPosts, isLoading }: Props) => {
                             </p>
                         </div>
                     </div>
-                    <DeleteOutlined onClick={() => handleDelete(post.id)} />
+                    {currentUser?.id === Number(post?.author.id) ? (
+                        <DeleteOutlined onClick={() => handleDelete(post.id)} />
+                    ) : (
+                        ''
+                    )}
                 </div>
                 <p className={cls.text}>{post.text}</p>
                 <Divider />
