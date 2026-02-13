@@ -21,8 +21,6 @@ export const Profile = () => {
 
     const { id } = useParams<{ id: string }>();
 
-    // if (!id) return <div>Загрузка профиля</div>;
-
     const { data: user } = userApi.useGetUserProfileByIdQuery({
         userId: Number(id),
     });
