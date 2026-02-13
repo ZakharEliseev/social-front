@@ -50,7 +50,13 @@ export const PostsList = ({ page, setPage, allPosts, setAllPosts, isLoading, pos
 
     return (
         <>
-            <div className={cls.scrollable} ref={parentRef}>
+            <div
+                className={cls.scrollable}
+                ref={parentRef}
+                style={{
+                    minHeight: `${rowVirtualizer.getVirtualItems()[0]?.size}px`,
+                    maxHeight: `${rowVirtualizer.getVirtualItems()[0]?.size * 2}px`,
+                }}>
                 <div
                     className={cls.itemsContainer}
                     style={{
@@ -72,7 +78,7 @@ export const PostsList = ({ page, setPage, allPosts, setAllPosts, isLoading, pos
                         );
                     })}
                 </div>
-                {posts?.length === 0 && posts?.length! <= 3 && (
+                {rowVirtualizer.getVirtualItems().length >= 2 && (
                     <p onClick={goTop} className={cls.toTop}>
                         Все посты прочитаны. <br /> Подняться наверх.
                     </p>

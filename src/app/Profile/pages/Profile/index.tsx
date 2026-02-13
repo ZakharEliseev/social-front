@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useParams } from 'react-router';
 
@@ -9,60 +9,39 @@ import { PostsList } from '@/app/Main/ui/PostList';
 import { userApi } from '@/app/Profile/api/users';
 import { User } from '@/app/Search/ui/User';
 import { GoBackBtn, Navbar } from '@/shared/ui';
-import { useAppSelector } from '@/store/hooks';
 
 import cls from './index.module.scss';
 
 export const Profile = () => {
-    const currentUser = useAppSelector((state) => state.profile.profile);
-
     const [allPosts, setAllPosts] = useState<GetPostsResponse>([]);
     const [page, setPage] = useState<number>(1);
 
     const { id } = useParams<{ id: string }>();
+    const numericId = Number(id);
 
     const { data: user } = userApi.useGetUserProfileByIdQuery({
-        userId: Number(id),
+        userId: numericId,
     });
 
-    const { data: posts, isLoading: loadUserPost } = postApi.useGetPostsByIdQuery(
-        {
-            userId: Number(id),
-            params: { page, limit: POST_COMMENT_COUNT },
-        },
-        { skip: currentUser?.id === Number(id) },
-    );
-
-    const { data: myPosts, isLoading: loadMyPost } = postApi.useGetMyPostsQuery(
-        {
-            page,
-            limit: POST_COMMENT_COUNT,
-        },
-        { skip: currentUser?.id !== Number(id) },
-    );
-
-    useEffect(() => {
-        const newPosts = currentUser?.id === user?.id ? myPosts : posts;
-
-        if (newPosts) {
-            setAllPosts(newPosts);
-        }
-    }, [user?.id]);
+    const { data: posts, isLoading } = postApi.useGetPostsByIdQuery({
+        userId: numericId,
+        params: { page, limit: POST_COMMENT_COUNT },
+    });
 
     if (!user) return <div>Загрузка профиля</div>;
 
     return (
         <>
             <Navbar />
-            <GoBackBtn/>
+            <GoBackBtn />
             <div className={cls.userCard}>
                 <User user={user} />
             </div>
             <h2 className={cls.subHeader}>Посты</h2>
             <div className={cls.content}>
                 <PostsList
-                    isLoading={currentUser?.id === user.id ? loadMyPost : loadUserPost}
-                    posts={currentUser?.id === user.id ? myPosts : posts}
+                    isLoading={isLoading}
+                    posts={posts}
                     allPosts={allPosts}
                     page={page}
                     setPage={setPage}
@@ -73,4 +52,8 @@ export const Profile = () => {
     );
 };
 
-export default Profile;
+const WrappedProfile = () => {
+    const { id } = useParams<{ id: string }>();
+    return <Profile key={id} />;
+};
+export default WrappedProfile;
