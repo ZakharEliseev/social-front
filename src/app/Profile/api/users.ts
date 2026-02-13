@@ -1,8 +1,8 @@
 import { ProfileResponse } from '@/app/Auth/models/types';
 import { apiService } from '@/shared/services/HttpService';
 
-import { GetUsersRequest } from '../models/constants';
-import { FollowUserRequest, GetProfileByIdRequest, GetUsersResponseList } from '../models/types';
+import { GetUsersRequest } from '../../Search/models/constants';
+import { FollowUserRequest, GetProfileByIdRequest, GetUsersResponseList } from '../../Search/models/types';
 
 
 export const userApi = apiService.injectEndpoints({

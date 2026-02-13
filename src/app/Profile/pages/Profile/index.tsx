@@ -6,7 +6,7 @@ import { postApi } from '@/app/Main/api/posts';
 import { POST_COMMENT_COUNT } from '@/app/Main/models/constants';
 import { GetPostsResponse } from '@/app/Main/models/types';
 import { PostsList } from '@/app/Main/ui/PostList';
-import { userApi } from '@/app/Search/api/users';
+import { userApi } from '@/app/Profile/api/users';
 import { User } from '@/app/Search/ui/User';
 import { Navbar } from '@/shared/ui';
 import { useAppSelector } from '@/store/hooks';
@@ -25,7 +25,6 @@ export const Profile = () => {
         userId: Number(id),
     });
 
-
     const { data: posts, isLoading: loadUserPost } = postApi.useGetPostsByIdQuery(
         {
             userId: Number(id),
@@ -41,7 +40,7 @@ export const Profile = () => {
         },
         { skip: currentUser?.id !== Number(id) },
     );
-    
+
     useEffect(() => {
         const newPosts = currentUser?.id === user?.id ? myPosts : posts;
 

@@ -6,7 +6,7 @@ import { Avatar } from '@/shared/ui/MiniAvatar';
 import { useAppSelector } from '@/store/hooks';
 import { ArrowRightOutlined } from '@ant-design/icons';
 
-import { userApi } from '../../api/users';
+import { userApi } from '../../../Profile/api/users';
 import { GetUsersResponseList } from '../../models/types';
 
 import cls from './index.module.scss';

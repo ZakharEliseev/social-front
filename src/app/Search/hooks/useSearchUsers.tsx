@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { userApi } from '../api/users';
+import { userApi } from '../../Profile/api/users';
 import { GetUsersResponseList, searchUsersSchema } from '../models/constants';
 
 interface SearchFormValues {
