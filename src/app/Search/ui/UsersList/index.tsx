@@ -34,7 +34,7 @@ export const UsersList = ({ foundUsers, setFoundUsers }: Props) => {
                 }}>
                 {rowVirtualizer.getVirtualItems().map((virtualRow) => {
                     const user = foundUsers?.[virtualRow.index];
-                    if (!user) return;
+                    if (!user) return <div>Загрузка пользователей</div>;
                     return (
                         <div
                             key={virtualRow.key}

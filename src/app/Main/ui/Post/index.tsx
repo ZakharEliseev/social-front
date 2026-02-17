@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Divider } from 'antd';
 import { NavLink } from 'react-router';
 
+import { userApi } from '@/app/Profile/api/users';
 import { dateService } from '@/shared/services/DateService';
 import { Avatar } from '@/shared/ui';
 import { useAppSelector } from '@/store/hooks';
@@ -27,10 +28,12 @@ export const Post = ({ post, setAllPosts, isLoading }: Props) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [currentPost, setCurrentPost] = useState<number | null>(null);
 
-    const handleDelete = (postId: number) => {
+    const handleDelete = async (postId: number) => {
+        await deletePost({ id: postId });
         setAllPosts((prev) => prev.filter((p) => p.id !== postId));
-        deletePost({ id: postId });
     };
+
+    const { data: user } = userApi.useGetUserProfileByIdQuery({ userId: Number(post.author.id) });
 
     if (isLoading) return <div>Загрузка постов</div>;
 
@@ -40,7 +43,7 @@ export const Post = ({ post, setAllPosts, isLoading }: Props) => {
                 <div className={cls.postItemHeader}>
                     <div className={cls.userInfo}>
                         <NavLink to={`/users/${post.author.id}`} className={cls.link}>
-                            <Avatar username={post.author.username} />
+                            <Avatar avatarPath={user?.avatar} username={post.author.username} />
                         </NavLink>
                         <div className={cls.author}>
                             <NavLink to={`/users/${post.author.id}`} className={cls.link}>

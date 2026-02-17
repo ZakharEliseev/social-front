@@ -4,7 +4,7 @@ import { Navbar } from '@/shared/ui';
 
 import { GetUsersResponseList } from './models/types';
 import { SearchForm } from './ui/Form/SearchForm';
-import { UsersList } from './ui/UsersVirtualizer';
+import { UsersList } from './ui/UsersList';
 
 import cls from './index.module.scss';
 

@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { userApi } from '../../Profile/api/users';
-import { GetUsersResponseList, searchUsersSchema } from '../models/constants';
+import { searchUsersSchema } from '../models/constants';
+import { GetUsersResponseList } from '../models/types';
 
 interface SearchFormValues {
     text: string;

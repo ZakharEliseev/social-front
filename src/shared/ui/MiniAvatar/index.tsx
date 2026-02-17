@@ -1,9 +1,16 @@
 import cls from './index.module.scss';
 
 interface Props {
-    username: string | undefined;
+    avatarPath?: string;
+    username?: string;
 }
 
-export const Avatar = ({ username }: Props) => {
-    return <div className={cls.avatar}>{username}</div>;
+export const Avatar = ({ avatarPath, username }: Props) => {
+    const avatarLink = `/api/v1/files/avatars/${avatarPath}`;
+
+    return avatarPath ? (
+        <img src={avatarLink} className={cls.avatar} />
+    ) : (
+        <div className={cls.avatar}>{username}</div>
+    );
 };

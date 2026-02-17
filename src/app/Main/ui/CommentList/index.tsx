@@ -5,7 +5,7 @@ import ReactModal from 'react-modal';
 import { postApi } from '../../api/posts';
 import { POST_COMMENT_COUNT, modalStyles } from '../../models/constants';
 import { GetCommentResponse, GetPostsResponse } from '../../models/types';
-import { Comment } from '../Comment/';
+import { Comment } from '../Comment';
 import { AddComment } from '../Form/AddComment';
 
 import cls from './index.module.scss';
@@ -57,7 +57,9 @@ export const CommentList = ({ postId, modalIsOpen, setModalIsOpen, setAllPosts }
             onRequestClose={() => setModalIsOpen(false)}
             style={modalStyles}
             appElement={document.getElementById('root')!}>
-            <Comment isLoading allComments={allComments} />
+            {allComments.map((comment) => (
+                <Comment comment={comment} />
+            ))}
             {commentList?.length !== 0 && commentList?.length! === POST_COMMENT_COUNT ? (
                 <p className={cls.loadComments} onClick={() => setPage((prev) => prev + 1)}>
                     Загрузить еще комментариев

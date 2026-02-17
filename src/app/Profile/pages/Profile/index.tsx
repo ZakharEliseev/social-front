@@ -19,11 +19,11 @@ export const Profile = () => {
     const { id } = useParams<{ id: string }>();
     const numericId = Number(id);
 
-    const { data: user } = userApi.useGetUserProfileByIdQuery({
+    const { data: user, isLoading: userIsLoading } = userApi.useGetUserProfileByIdQuery({
         userId: numericId,
     });
 
-    const { data: posts, isLoading } = postApi.useGetPostsByIdQuery({
+    const { data: posts, isLoading: postIsLoading } = postApi.useGetPostsByIdQuery({
         userId: numericId,
         params: { page, limit: POST_COMMENT_COUNT },
     });
@@ -35,12 +35,12 @@ export const Profile = () => {
             <Navbar />
             <GoBackBtn />
             <div className={cls.userCard}>
-                <User user={user} />
+                <User user={user} isLoading={userIsLoading} />
             </div>
             <h2 className={cls.subHeader}>Посты</h2>
             <div className={cls.content}>
                 <PostsList
-                    isLoading={isLoading}
+                    isLoading={postIsLoading}
                     posts={posts}
                     allPosts={allPosts}
                     page={page}

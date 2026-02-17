@@ -31,10 +31,10 @@
 
 .avatarBlock {
     display: flex;
+    justify-content: space-between;
 }
 
 .loadAvatar {
-    width: 320px;
     display: flex;
     flex-direction: column;
     justify-content: center;

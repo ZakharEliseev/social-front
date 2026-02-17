@@ -1,4 +1,4 @@
-import { Button, Divider } from 'antd';
+import { Divider } from 'antd';
 
 import { GoBackBtn, Navbar } from '@/shared/ui';
 import { BigAvatar } from '@/shared/ui/BigAvatar';
@@ -6,6 +6,7 @@ import { useAppSelector } from '@/store/hooks';
 
 import { EditPassword } from '../../ui/Form/EditPassword';
 import { EditProfileForm } from '../../ui/Form/EditProfile';
+import { UploadAvatar } from '../../ui/Form/UploadAvatar';
 
 import cls from './index.module.scss';
 
@@ -19,16 +20,9 @@ export const ProfilePage = () => {
             <h1 className={cls.header}>Редактировать профиль</h1>
             <div className={cls.content}>
                 <div className={cls.avatarBlock}>
-                    <BigAvatar username={currentUser?.username} />
+                    <BigAvatar avatarPath={currentUser?.avatar} username={currentUser?.username} />
                     <div className={cls.loadAvatar}>
-                        <Button
-                            className={cls.btn}
-                            type="primary"
-                            htmlType="submit"
-                            color="default"
-                            variant="solid">
-                            Изменить фото
-                        </Button>
+                        <UploadAvatar avatar={currentUser?.avatar} />
                         <p className={cls.imageParams}>
                             JPG, PNG или GIF. Максимальный размер 2MB.
                         </p>

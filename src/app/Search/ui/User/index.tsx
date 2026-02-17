@@ -14,30 +14,36 @@ import cls from './index.module.scss';
 interface Props {
     user: ProfileResponse;
     setFoundUsers?: React.Dispatch<React.SetStateAction<GetUsersResponseList>>;
+    isLoading?: boolean;
 }
 
-export const User = ({ user, setFoundUsers }: Props) => {
+export const User = ({ user, setFoundUsers, isLoading }: Props) => {
     const [follow] = userApi.useFollowMutation();
     const currentUser = useAppSelector((state) => state.profile.profile);
 
-    const followUser = (userId: number, isFollow: boolean) => {
-        if (!setFoundUsers) return;
-        follow({ id: userId, isFollow });
-        setFoundUsers((prev) =>
-            prev.map((user) => ({
-                ...user,
-                isFollowing: !user.isFollowing,
-                followersCount: user.followersCount
-                    ? user.followersCount - 1
-                    : user.followersCount + 1,
-            })),
+    const followUser = async (userId: number, isFollow: boolean) => {
+        await follow({ id: userId, isFollow }).unwrap();
+        setFoundUsers?.((prev) =>
+            prev.map((user) =>
+                user.id === userId
+                    ? {
+                          ...user,
+                          isFollowing: !isFollow,
+                          followersCount: isFollow
+                              ? user.followersCount - 1
+                              : user.followersCount + 1,
+                      }
+                    : user,
+            ),
         );
     };
+
+    if (isLoading) return <div>Загрузка профиля</div>;
 
     return (
         <div key={user.id} className={cls.content}>
             <NavLink to={`/users/${user.id}`} className={cls.link}>
-                <Avatar username={user.username} />
+                <Avatar avatarPath={user.avatar} username={user.username} />
             </NavLink>
             <div className={cls.userInfo}>
                 <NavLink to={`/users/${user.id}`} className={cls.link}>

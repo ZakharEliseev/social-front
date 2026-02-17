@@ -10,3 +10,13 @@ export interface FollowUserRequest {
 export interface GetProfileByIdRequest {
     userId: number;
 }
+
+export interface UpdateProfileRequest {
+    email: string;
+    bio: string;
+}
+
+export interface UpdatePasswordRequest {
+    currentPassword: string;
+    newPassword: string;
+}

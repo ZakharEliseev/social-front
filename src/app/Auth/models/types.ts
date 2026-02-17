@@ -26,7 +26,7 @@ export interface ProfileResponse {
     username: string;
     email: string;
     bio: string | null;
-    avatar: string | null;
+    avatar: string | undefined;
     postsCount: number;
     followersCount: number;
     followingCount: number;

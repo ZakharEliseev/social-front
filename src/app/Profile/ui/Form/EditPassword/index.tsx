@@ -7,17 +7,17 @@ import { Controlled } from '@/shared/ui/';
 import cls from './index.module.scss';
 
 export const EditPassword = () => {
-    const { methods } = useEditPassword();
+    const { methods, onSubmit } = useEditPassword();
 
     return (
         <FormProvider {...methods}>
-            <form>
+            <form onSubmit={onSubmit}>
                 <div className={cls.authData}>
                     <div className={cls.wrapper}>
                         <Controlled.Input
                             name="currentPassword"
-                            placeholder="Введите новый пароль"
-                            label="Новый пароль"
+                            placeholder="Введите текущий пароль"
+                            label="Текущий пароль"
                             type="password"
                         />
                     </div>

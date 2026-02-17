@@ -9,6 +9,7 @@
     border-radius: 0.375rem;
     color: $text-color;
     gap: 0.5rem;
+    text-decoration: none;
 
     &:not(.active):hover {
         background: rgb(202 204 207 / 60%);

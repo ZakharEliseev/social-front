@@ -17,7 +17,8 @@ interface Props {
 export const PostIcons = ({ post, setAllPosts, setModalIsOpen, setCurrentPost }: Props) => {
     const [toggleLike] = postApi.useToggleLikeMutation();
 
-    const handleLike = () => {
+    const handleLike = async () => {
+        await toggleLike({ id: post.id });
         setAllPosts((prev) =>
             prev.map((p) =>
                 p.id === post.id
@@ -29,7 +30,6 @@ export const PostIcons = ({ post, setAllPosts, setModalIsOpen, setCurrentPost }:
                     : p,
             ),
         );
-        toggleLike({ id: post.id });
     };
 
     const openModal = () => {
