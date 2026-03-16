@@ -25,7 +25,6 @@ export const useSearchUsers = ({ setFoundUsers, onSuccess }: Props) => {
     const [trigger, { data: users }] = userApi.useLazySearchUsersQuery();
 
     const onSubmit = methods.handleSubmit(async (formData: SearchFormValues) => {
-        event?.preventDefault();
         const response = await trigger({ username: formData.text }).unwrap();
         onSuccess?.();
         setFoundUsers((prev) => [...prev, ...response]);

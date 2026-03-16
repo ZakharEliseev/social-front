@@ -3,7 +3,7 @@ import { FormProvider } from 'react-hook-form';
 import { Controlled } from '@/shared/ui/Controlled';
 
 import { useSearchUsers } from '../../hooks/useSearchUsers';
-import { GetUsersResponseList } from '../../models/constants';
+import { GetUsersResponseList } from '../../models/types';
 
 interface Props {
     setFoundUsers: React.Dispatch<React.SetStateAction<GetUsersResponseList>>;

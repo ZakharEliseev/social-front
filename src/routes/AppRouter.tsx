@@ -27,7 +27,10 @@ export const NavigationGuard = ({ isPublic = false }: { isPublic?: boolean }) =>
 
 export const AppRouter = () => {
     const dispatch = useDispatch();
-    const { data, isFetching, isSuccess, isError } = authApi.useGetUserProfileQuery();
+    const token = localStorage.getItem('token');
+    const { data, isFetching, isSuccess, isError } = authApi.useGetUserProfileQuery(undefined, {
+        skip: !token,
+    });  
 
     useEffect(() => {
         if (isSuccess) {
