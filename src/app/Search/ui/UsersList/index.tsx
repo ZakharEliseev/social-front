@@ -9,6 +9,7 @@ interface Props {
     foundUsers: GetUsersResponseList;
     setFoundUsers: React.Dispatch<React.SetStateAction<GetUsersResponseList>>;
 }
+
 export const UsersList = ({ foundUsers, setFoundUsers }: Props) => {
     const parentRef = React.useRef(null);
     const rowVirtualizer = useVirtualizer({

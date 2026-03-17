@@ -18,7 +18,7 @@ const SearchPage = () => {
                 <h3 className={cls.header}>Поиск пользователей</h3>
                 <SearchForm setFoundUsers={setFoundUsers} onSuccess={() => setFoundUsers([])} />
                 <UsersList foundUsers={foundUsers} setFoundUsers={setFoundUsers} />
-            </div>
+            </div>L
         </>
     );
 };
